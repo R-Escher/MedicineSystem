@@ -6,7 +6,9 @@ class Medico extends Base {
 	private $crm;
 	private $especialidade;
 
-	function __construct(){
+	public function __construct(){
+	}
+	public function __destruct(){
 	}
 
   public static function comArgumentos($nome_entrada, $endereco_entrada, $telefone_entrada, $email_entrada, $senha_entrada, $crm_entrada, $especialidade_entrada) {
@@ -20,7 +22,7 @@ class Medico extends Base {
 			$instance->setSenha(md5($senha_entrada));
       $instance->setCRM($crm_entrada);
       $instance->setEspecialidade($especialidade_entrada);
-			$instance->saveXML();
+			$instance->alterarXML();
 
 			return $instance;
 
@@ -42,23 +44,53 @@ class Medico extends Base {
 		return $this->especialidade;
 	}
 
-	public function saveXML(){
+	public function alterarXML(){
+
+		$salvar_medico = $this;
+		# CASO O MEDICO JÁ EXISTA, DELETAR PARA ALTERAR
+		$this->deletarMedico();
+
 
 
 		libxml_use_internal_errors(true);
 		$xml_medicos = simplexml_load_file("dados/medicos.xml");
 
 		$medico = $xml_medicos->addChild("medico");
-		$medico->addChild("crm", $this->getCRM());
-		$medico->addChild("nome", $this->getNome());
-		$medico->addChild("endereco", $this->getEndereco());
-		$medico->addChild("telefone", $this->getTelefone());
-		$medico->addChild("email", $this->getEmail());
-		$medico->addChild("senha", $this->getSenha());
-		$medico->addChild("especialidade", $this->getEspecialidade());
+		$medico->addChild("crm", $salvar_medico->getCRM());
+		$medico->addChild("nome", $salvar_medico->getNome());
+		$medico->addChild("endereco", $salvar_medico->getEndereco());
+		$medico->addChild("telefone", $salvar_medico->getTelefone());
+		$medico->addChild("email", $salvar_medico->getEmail());
+		$medico->addChild("senha", $salvar_medico->getSenha());
+		$medico->addChild("especialidade", $salvar_medico->getEspecialidade());
 
-		$export = simplexml_import_dom($xml_medicos);
-		$export->saveXML("dados/medicos.xml");
+		$dom = new DOMDocument("1.0");
+		$dom->preserveWhiteSpace = false;
+		$dom->formatOutput = true;
+		$dom->loadXML($xml_medicos->asXML());
+
+		$file = fopen("dados/medicos.xml", "w");
+		fwrite($file, $dom->saveXML());
+		fclose($file);
+	}
+
+	public function deletarMedico(){
+
+		$validar_exclusao = false;
+		libxml_use_internal_errors(true);
+		$xml_medicos = simplexml_load_file("dados/medicos.xml");
+		$formatado = dom_import_simplexml($xml_medicos);
+		foreach ($xml_medicos->children() as $medico) {
+			if ($medico->crm == (string) $this->getCRM()) {
+				$dom=dom_import_simplexml($medico);
+				$formatado->removeChild($dom);
+				$export = simplexml_import_dom($formatado);
+				$export->saveXML("dados/medicos.xml");
+				$this->__destruct();
+				$validar_exclusao = true;
+			}
+		}
+		return $validar_exclusao;
 	}
 
 	public function listaMedicos() {

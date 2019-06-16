@@ -7,6 +7,11 @@ class Paciente extends Base {
 	private $idade;
 	private $genero;
 
+	public function __construct(){
+	}
+	public function __destruct(){
+	}
+
   public static function comArgumentos($nome_entrada, $endereco_entrada, $telefone_entrada, $email_entrada, $senha_entrada, $cpf_entrada, $idade_entrada, $genero_entrada) {
 
 			$instance = new Self();
@@ -19,6 +24,7 @@ class Paciente extends Base {
 			$instance->setCPF($cpf_entrada);
       $instance->setIdade($idade_entrada);
 			$instance->setGenero($genero_entrada);
+			$instance->alterarXML();
 
 			return $instance;
   }
@@ -45,6 +51,54 @@ class Paciente extends Base {
 
 	public function getGenero() {
 		return $this->genero;
+	}
+
+	public function alterarXML(){
+
+		$salvar_paciente = $this;
+		# CASO O PACIENTE JÁ EXISTA, DELETAR PARA ALTERAR
+		$this->deletarPaciente();
+
+		libxml_use_internal_errors(true);
+		$xml_pacientes = simplexml_load_file("dados/pacientes.xml");
+
+		$paciente = $xml_pacientes->addChild("paciente");
+		$paciente->addChild("cpf", $salvar_paciente->getCPF());
+		$paciente->addChild("nome", $salvar_paciente->getNome());
+		$paciente->addChild("endereco", $salvar_paciente->getEndereco());
+		$paciente->addChild("telefone", $salvar_paciente->getTelefone());
+		$paciente->addChild("email", $salvar_paciente->getEmail());
+		$paciente->addChild("senha", $salvar_paciente->getSenha());
+		$paciente->addChild("idade", $salvar_paciente->getIdade());
+		$paciente->addChild("genero", $salvar_paciente->getGenero());
+
+		$dom = new DOMDocument("1.0");
+		$dom->preserveWhiteSpace = false;
+		$dom->formatOutput = true;
+		$dom->loadXML($xml_pacientes->asXML());
+
+		$file = fopen("dados/pacientes.xml", "w");
+		fwrite($file, $dom->saveXML());
+		fclose($file);
+	}
+
+	public function deletarPaciente(){
+
+		$validar_exclusao = false;
+		libxml_use_internal_errors(true);
+		$xml_pacientes = simplexml_load_file("dados/pacientes.xml");
+		$formatado = dom_import_simplexml($xml_pacientes);
+		foreach ($xml_pacientes->children() as $paciente) {
+			if ($laboratorio->cpf == (string) $this->getCPF()) {
+				$dom=dom_import_simplexml($paciente);
+				$formatado->removeChild($dom);
+				$export = simplexml_import_dom($formatado);
+				$export->saveXML("dados/pacientes.xml");
+				$this->__destruct();
+				$validar_exclusao = true;
+			}
+		}
+		return $validar_exclusao;
 	}
 
 	public static function listaPacientes() {

@@ -47,7 +47,6 @@ abstract class Base {
 		return $this->senha;
 	}
 
-	abstract protected function saveXML();
-	abstract protected function comArgumentos();
+	abstract protected function alterarXML();
 }
 ?>

@@ -6,9 +6,15 @@ class Laboratorio extends Base {
 	private $cnpj;
 	private $tipos_exames;
 
-  function __construct($nome_entrada, $endereco_entrada, $telefone_entrada, $email_entrada, $senha_entrada, $cnpj_entrada, $tipos_exames_entrada) {
+	public function __construct(){
+	}
 
-			$instance-> new Self();
+	public function __destruct(){
+	}
+
+  public static function comArgumentos($nome_entrada, $endereco_entrada, $telefone_entrada, $email_entrada, $senha_entrada, $cnpj_entrada, $tipos_exames_entrada) {
+
+			$instance = new Self();
 
 			$instance->setNome($nome_entrada);
 			$instance->setEndereco($endereco_entrada);
@@ -17,6 +23,7 @@ class Laboratorio extends Base {
 			$instance->setSenha(md5($senha_entrada));
 			$instance->setCNPJ($cnpj_entrada);
       $instance->setTipos_exames($tipos_exames_entrada);
+			$instance->alterarXML();
 
 			return $instance;
   }
@@ -35,6 +42,53 @@ class Laboratorio extends Base {
 
 	public function getTipos_exames() {
 		return $this->tipos_exames;
+	}
+
+	public function alterarXML(){
+
+		$salvar_laboratorio = $this;
+		# CASO O LABORATORIO JÁ EXISTA, DELETAR PARA ALTERAR
+		$this->deletarLaboratorio();
+
+		libxml_use_internal_errors(true);
+		$xml_laboratorios = simplexml_load_file("dados/laboratorios.xml");
+
+		$laboratorio = $xml_laboratorios->addChild("laboratorio");
+		$laboratorio->addChild("cnpj", $salvar_laboratorio->getCNPJ());
+		$laboratorio->addChild("nome", $salvar_laboratorio->getNome());
+		$laboratorio->addChild("endereco", $salvar_laboratorio->getEndereco());
+		$laboratorio->addChild("telefone", $salvar_laboratorio->getTelefone());
+		$laboratorio->addChild("email", $salvar_laboratorio->getEmail());
+		$laboratorio->addChild("senha", $salvar_laboratorio->getSenha());
+		$laboratorio->addChild("tipos_exame", implode(';',$salvar_laboratorio->getTipos_exames()));
+
+		$dom = new DOMDocument("1.0");
+		$dom->preserveWhiteSpace = false;
+		$dom->formatOutput = true;
+		$dom->loadXML($xml_laboratorios->asXML());
+
+		$file = fopen("dados/laboratorios.xml", "w");
+		fwrite($file, $dom->saveXML());
+		fclose($file);
+	}
+
+	public function deletarLaboratorio(){
+
+		$validar_exclusao = false;
+		libxml_use_internal_errors(true);
+		$xml_laboratorios = simplexml_load_file("dados/laboratorios.xml");
+		$formatado = dom_import_simplexml($xml_laboratorios);
+		foreach ($xml_laboratorios->children() as $laboratorio) {
+			if ($laboratorio->cnpj == (string) $this->getCNPJ()) {
+				$dom=dom_import_simplexml($laboratorio);
+				$formatado->removeChild($dom);
+				$export = simplexml_import_dom($formatado);
+				$export->saveXML("dados/laboratorios.xml");
+				$this->__destruct();
+				$validar_exclusao = true;
+			}
+		}
+		return $validar_exclusao;
 	}
 
 	public static function listaLaboratorios() {
@@ -58,7 +112,7 @@ class Laboratorio extends Base {
 				$laboratorio->setEmail($l->email);
 				$laboratorio->setSenha($l->senha);
 				$laboratorio->setCNPJ($l->cnpj);
-				$tipos_exames = explode (";", $l->tipos_exames);
+				$tipos_exames = explode(';', $l->tipos_exame);
 				$laboratorio->setTipos_exames($tipos_exames);
 				$laboratorios_array[] = $laboratorio;
 			}
@@ -88,7 +142,7 @@ class Laboratorio extends Base {
 					$laboratorio->setEmail($l->email);
 					$laboratorio->setSenha($l->senha);
 					$laboratorio->setCNPJ($l->cnpj);
-					$tipos_exames = explode (";", $l->tipos_exames);
+					$tipos_exames = explode(';', $l->tipos_exame);
 					$laboratorio->setTipos_exames($tipos_exames);
 				}
 			}
