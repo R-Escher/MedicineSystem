@@ -6,6 +6,7 @@
         <endereco>santa cruz</endereco>
         <telefone>8634-3221</telefone>
         <email>rafael...</email>
+        <senha>ee64bf6ca753c4fb217bfaa082274151</senha>
         <especialidade>dormir</especialidade>
     </medico>
     <medico>
@@ -14,6 +15,7 @@
         <endereco>italia</endereco>
         <telefone>9872-3123</telefone>
         <email>jaler...</email>
+        <senha>ee64bf6ca753c4fb217bfaa082274153</senha>
         <especialidade>virar monstro</especialidade>
     </medico>
 </medicos>

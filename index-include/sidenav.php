@@ -1,17 +1,8 @@
 <!doctype html>
 <html lang="pt-BR">
-    <head>
-        <title>Medicine System</title>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE-edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <!-- Custom styles for this template -->
-        <link href="css/simple-sidebar.css" rel="stylesheet">         
-    </head>
+  <?php include_once 'head.php'; ?>
     <body>
-        
+
         <div class="d-flex" id="wrapper">
 
             <!-- Sidebar -->
@@ -25,17 +16,17 @@
                 </div>
             </div>
             <!-- /#sidebar-wrapper -->
-        
+
             <!-- Page Content -->
             <div id="page-content-wrapper">
-        
+
                 <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
                     <button class="btn btn-primary" id="menu-toggle">Toggle Menu</button>
-            
+
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
-            
+
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
                         <li class="nav-item active">
@@ -58,5 +49,3 @@
                         </ul>
                     </div>
                 </nav>
-            
-                  
