@@ -1,16 +1,28 @@
 <?php
-#include_once 'base.php';
+include_once 'base.php';
 
 class Medico extends Base {
 
 	private $crm;
 	private $especialidade;
 
-  function __construct($nome_entrada, $endereco_entrada, $telefone_entrada, $email_entrada, $senha_entrada, $crm_entrada, $especialidade_entrada) {
-      parent::__construct($nome_entrada, $endereco_entrada, $telefone_entrada, $email_entrada, $senha_entrada);
-      $this->crm = $crm_entrada;
-      $this->especialidade = $especialidade_entrada;
-			$this->saveXML();
+	function __construct(){
+	}
+
+  public static function comArgumentos($nome_entrada, $endereco_entrada, $telefone_entrada, $email_entrada, $senha_entrada, $crm_entrada, $especialidade_entrada) {
+
+			$instance = new Self();
+
+			$instance->setNome($nome_entrada);
+			$instance->setEndereco($endereco_entrada);
+			$instance->setTelefone($telefone_entrada);
+			$instance->setEmail($email_entrada);
+			$instance->setSenha(md5($senha_entrada));
+      $instance->setCRM($crm_entrada);
+      $instance->setEspecialidade($especialidade_entrada);
+			$instance->saveXML();
+
+			return $instance;
 
   }
 
@@ -32,21 +44,21 @@ class Medico extends Base {
 
 	public function saveXML(){
 
-		
 
+		libxml_use_internal_errors(true);
 		$xml_medicos = simplexml_load_file("dados/medicos.xml");
 
 		$medico = $xml_medicos->addChild("medico");
-		$medico->addChild("crm", this->getCRM());
-		$medico->addChild("nome", this->getNome());
-		$medico->addChild("endereco", this->getEndereco());
-		$medico->addChild("telefone", this->getTelefone());
-		$medico->addChild("email", this->getEmail());
-		$medico->addChild("senha", this->getSenha());
-		$medico->addChild("especialidade", this->getEspecialidade());
+		$medico->addChild("crm", $this->getCRM());
+		$medico->addChild("nome", $this->getNome());
+		$medico->addChild("endereco", $this->getEndereco());
+		$medico->addChild("telefone", $this->getTelefone());
+		$medico->addChild("email", $this->getEmail());
+		$medico->addChild("senha", $this->getSenha());
+		$medico->addChild("especialidade", $this->getEspecialidade());
 
 		$export = simplexml_import_dom($xml_medicos);
-		$export->saveXML("dados/medicos.xml")
+		$export->saveXML("dados/medicos.xml");
 	}
 
 	public function listaMedicos() {
@@ -79,7 +91,7 @@ class Medico extends Base {
 		}
 	}
 
-	public function buscaMedico($crm_entrada) {
+	public static function buscaMedico($crm_entrada) {
 		libxml_use_internal_errors(true);
 		$xml_medicos = simplexml_load_file("dados/medicos.xml");
 
@@ -93,7 +105,7 @@ class Medico extends Base {
 			$medico = new Medico();
 
 			foreach ($xml_medicos->children() as $m) {
-				if ($m->crm === $crm_entrada) {
+				if ($m->crm == $crm_entrada) {
 					$medico->setNome($m->nome);
 					$medico->setEndereco($m->endereco);
 					$medico->setTelefone($m->telefone);
