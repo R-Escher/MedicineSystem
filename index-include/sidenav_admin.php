@@ -9,10 +9,10 @@
             <div class="bg-dark" id="sidebar-wrapper">
                 <div class="sidebar-heading" style="background-color: #1a1d20; color: #eaebeb;">Medicine System</div>
                 <div class="list-group list-group-flush" >
-                <a href="#" class="list-group-item list-group-item-action bg-dark" id="paciente-toggle" style="color: #c2c3c5">Paciente</a>
-                <a href="#" class="list-group-item list-group-item-action bg-dark" id="medico-toggle" style="color: #c2c3c5">Médico</a>
-                <a href="#" class="list-group-item list-group-item-action bg-dark" id="laboratorio-toggle" style="color: #c2c3c5">Laboratório</a>
-                <a href="#" class="list-group-item list-group-item-action bg-dark" id="admin-toggle" style="color: #c2c3c5">Administração</a>
+                <a href="#" class="list-group-item list-group-item-action bg-dark" id="pacientescadastrados-toggle" style="color: #c2c3c5">Pacientes Cadastrados</a>
+                <a href="#" class="list-group-item list-group-item-action bg-dark" id="medicoscadastrados-toggle" style="color: #c2c3c5">Médicos Cadastrados</a>
+                <a href="#" class="list-group-item list-group-item-action bg-dark" id="laboratorioscadastrados-toggle" style="color: #c2c3c5">Laboratórios Cadastrados</a>
+                <a href="#" class="list-group-item list-group-item-action bg-dark" id="sair-toggle" style="color: #c2c3c5">Sair</a>
                 </div>
             </div>
             <!-- /#sidebar-wrapper -->
