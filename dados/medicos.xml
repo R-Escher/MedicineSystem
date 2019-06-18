@@ -8,6 +8,7 @@
         <email>rafael...</email>
         <senha>ee64bf6ca753c4fb217bfaa082274151</senha>
         <especialidade>dormir</especialidade>
+        <genero>Masculino</genero>
     </medico>
     <medico>
         <crm>4123-9</crm>
@@ -17,5 +18,6 @@
         <email>jaler...</email>
         <senha>ee64bf6ca753c4fb217bfaa082274153</senha>
         <especialidade>virar monstro</especialidade>
+        <genero>Masculino</genero>
     </medico>
 </medicos>
