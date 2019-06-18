@@ -124,6 +124,7 @@ class Medico extends Base {
 	}
 
 	public static function buscaMedico($crm_entrada) {
+		$crm_entrada = strval($crm_entrada);
 		libxml_use_internal_errors(true);
 		$xml_medicos = simplexml_load_file("dados/medicos.xml");
 
