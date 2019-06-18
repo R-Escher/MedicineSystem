@@ -12,16 +12,12 @@ $("#meuperfil-toggle").click(function(f) {
 });
 
 // MEU PERFIL
-$("#inputPassword").keypress(function(f){
+/*$("#inputPassword").keypress(function(f){
     if($("#inputPassword").val() != '' ){
         $("#inputConfirmaPassword").removeAttr('disabled');
-        $("#inputPassword").attr('required','required');
         $("#inputConfirmaPassword").attr('required','required');
     }
-    if($("#inputPassword").val() == '' ){
-        $("#inputConfirmaPassword").attr('disabled','disabled');
-    }
-});
+});*/
 
 $('#medico_meuperfil_submit').click(function() {
  
@@ -30,7 +26,7 @@ $('#medico_meuperfil_submit').click(function() {
     $.ajax({
         type: 'POST',
         dataType: 'json',
-        url: 'medico_meuperfil.php',
+        url: 'ajax/medico_meuperfil.php',
         async: true,
         data: dados,
         success: function(response) {
