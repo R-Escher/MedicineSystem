@@ -1,13 +1,61 @@
 <?php include 'index-include/sidenav_medico.php'; ?>
 <!-- Tags em aberto: <html>, <body>, <div class="d-flex" id="wrapper">, <div id="page-content-wrapper"> -->
-
+<?php
+    # apagar depois
+    $crm = "4123-9"; 
+?>
 
 <div class="container-fluid" style="padding: 30px 20px;">
 
 <div id="consultas">
     <!-- botao de adicionar e input de busca -->
     <div class="row" >
-        <div class="col-sm"><button class="btn btn-dark"><i class="fas fa-user-plus"></i></button></div>
+        <div class="col-sm"><button class="btn btn-dark" data-toggle="modal" data-target=".bd-example-modal-md"><i class="fas fa-user-plus"></i></button></div>
+        <!-- Modal de adicionar consulta -->
+        <div class="modal fade bd-example-modal-md" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-md">
+                <div class="modal-content p-3">
+                    <form>
+                        <div class="form-row">
+                            <div class="form-group col-md">
+                            <label for="inputCpf">CPF do Paciente</label>
+                            <input type="number" class="form-control" id="inputCpf" placeholder="">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md">
+                            <label for="inputDate">Data da Consulta</label>
+                            <input type="date" class="form-control" id="inputDate" placeholder="">
+                            </div>
+                        </div>  
+                        <div class="form-row">
+                            <div class="form-group col-md">
+                            <label for="inputReceita">Receita</label>
+                            <input type="text" class="form-control" id="inputReceita" placeholder="">
+                            </div>
+                        </div> 
+                        <div class="form-row">
+                            <div class="form-group col-md">
+                            <label for="inputRequisicao">Requisição de Exames</label>
+                            <input type="text" class="form-control" id="inputRequisicao" placeholder="">
+                            </div>
+                        </div> 
+                        <div class="form-row">
+                            <div class="form-group col-md">
+                            <label for="inputObervacao">Observação</label>
+                            <input type="text" class="form-control" id="inputObervacao" placeholder="">
+                            </div>
+                        </div>                                                                                                                                             
+
+                        <div class="col-12 text-center"><button type="submit" class="btn btn-dark">Salvar</button></div>
+                    </form>                
+                
+                
+                
+                </div>
+            </div>
+        </div>
+
         <div class="row col-sm" style="padding: 0;">
             <input type="email" class="form-control col-10" name="" id="">
             <button class="btn btn-dark col-1.5"><i class="fas fa-search"></i></button>
@@ -31,13 +79,8 @@
         <tbody>
         <?php 
 
-            # apagar depois
-            $crm = "4123-9";
             # função que vai retornar rows em formato html contendo as CONSULTAS realizadas pelo medico atual (depende do crm)
             $universal->mostrarConsultas($crm, "medico");
-            
-
-
 
         ?>
 
@@ -45,54 +88,59 @@
         </table>
     </div>
 </div>    
+
 <div id="meuperfil">
+
+    <!-- Usa funcao buscaMedico para disponibilizar os dados do medico nos campos input -->
+    <?php $medico = $universal->medico->buscaMedico($crm);?>
+
     <form>
         <div class="form-row">
             <div class="form-group col-md-6">
             <label for="inputName">Nome</label>
-            <input type="text" class="form-control" id="inputName" placeholder="">
+            <input type="text" class="form-control" id="inputName" value="<?php echo $medico->getNome()?>" required>
             </div>
             <div class="form-group col-md-6">
             <label for="inputAddress">Endereço</label>
-            <input type="text" class="form-control" id="inputAddress" placeholder="">
+            <input type="text" class="form-control" id="inputAddress" value="<?php echo $medico->getEndereco()?>" required>
             </div>
         </div>
         <div class="form-row">
             <div class="form-group col-md-6">
             <label for="inputTel">Telefone</label>
-            <input type="tel" class="form-control" id="inputTel" placeholder="">
+            <input type="tel" class="form-control" id="inputTel" value="<?php echo $medico->getTelefone()?>" required>
             </div>
             <div class="form-group col-md-6">
             <label for="inputEmail">E-mail</label>
-            <input type="email" class="form-control" id="inputEmail" placeholder="">
+            <input type="email" class="form-control" id="inputEmail" value="<?php echo $medico->getEmail()?>" required>
             </div>
         </div>     
         <div class="form-row">
             <div class="form-group col-md-6">
-            <label for="inputBirth">Data de Nascimento</label>
-            <input type="date" class="form-control" id="inputBirth" placeholder="">
-            </div>
-            <div class="form-group col-md-6">
             <label for="inputGender">Gênero</label>
             <select id="inputGender" class="form-control">
-                <option>Masculino</option>
-                <option>Feminino</option>
-                <option>Outro</option>
+                <option name="inputGender" <?php if($medico->getGenero()=='Feminino'){ echo 'selected'; } ?> >Feminino</option>
+                <option name="inputGender" <?php if($medico->getGenero()=='Masculino'){ echo 'selected'; } ?> > Masculino</option>
+                <option name="inputGender" <?php if($medico->getGenero()=='Outro'){ echo 'selected'; } ?> >Outro</option>
             </select>
             </div>
-        </div> 
-        <div class="form-row">
             <div class="form-group col-md-6">
             <label for="inputCrm">CRM</label>
-            <input type="text" class="form-control" id="inputCrm" placeholder="" disabled>
+            <input type="text" class="form-control" id="inputCrm" value="<?php echo $crm ?>" disabled>
+            </div>            
+        </div> 
+        <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="inputPassword">Nova senha</label>
+            <input type="password" class="form-control" id="inputPassword" value="">
             </div>
             <div class="form-group col-md-6">
-            <label for="inputPassword">Senha</label>
-            <input type="password" class="form-control" id="inputPassword" placeholder="">
+            <label for="inputConfirma_Password">Confirmar nova senha</label>
+            <input type="password" class="form-control" id="inputConfirmaPassword" value="" disabled>
             </div>
         </div>                     
 
-        <button type="submit" class="btn btn-dark">Salvar</button>
+        <div class="col-12 text-center"><button type="submit" class="btn btn-dark col-4">Alterar Dados</button></div>
     </form>
 </div>
 
