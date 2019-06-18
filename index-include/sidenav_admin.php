@@ -28,7 +28,8 @@
                         <span class="navbar-toggler-icon"></span>
                     </button>-->
 
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <div class="collapse navbar-collapse pl-3" id="navbarSupportedContent">
+                        <img src="archive/medicineSystem.png"title="Medicine System"/>
                         <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
                         <li class="nav-item active">
                             <a class="nav-link text-light" href="#">Home <span class="sr-only">(current)</span></a>
