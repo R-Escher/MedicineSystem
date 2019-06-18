@@ -31,18 +31,27 @@ class universal{
         }elseif ($pessoa == "paciente"){
 
             foreach ($xml_consultas->children() as $c) {
-                if ($c->cpf == $chavePrimaria) {
-                
+                $medico = $this->medico->buscaMedico($c->medico);
+                if ($c->paciente == $chavePrimaria) {
+                    $consulta = 
+                    '<tr>
+                        <td>'.$c->data.'</td>
+                        <th>'.$medico->getNome().'</th>
+                        <td>'.$medico->getTelefone().'</td>
+                        <td>'.$c->requisicao.'</td>
+                        <td>'.$c->receita.'</td>
+                    </tr>
+                        
+                    ';
+                    echo $consulta;
                 }
             }
         }elseif ($pessoa == "medico"){
 
-            
             foreach ($xml_consultas->children() as $c) {
                 $paciente = $this->paciente->buscapaciente($c->paciente);
                 if ($c->medico == $chavePrimaria) {
                     
-                    #echo $c->paciente;
                     $consulta = 
                     '<tr>
                         <th>'.$paciente->getNome().'</th>
