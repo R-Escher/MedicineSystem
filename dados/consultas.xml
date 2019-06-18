@@ -2,18 +2,11 @@
 <consultas>
     <consulta>
         <idConsulta>0001</idConsulta>
-        <data>14/06/2019</data>
-        <medico>4565-1</medico>
-        <paciente>3567</paciente>
-        <receita>Dipirona 350mg</receita>
-        <observacoes>Esse cara é mt loko</observacoes>
-    </consulta>
-    <consulta>
-        <idConsulta>0002</idConsulta>
         <data>15/06/2019</data>
         <medico>4123-9</medico>
-        <paciente>3589</paciente>
+        <paciente>036.225.895-12</paciente>
         <receita>Novalgina 250mg</receita>
         <observacoes>Mais loko que o batman</observacoes>
+        <requisicao>Ressonância Magnética</requisicao>
     </consulta>
 </consultas>
