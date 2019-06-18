@@ -71,9 +71,42 @@ class universal{
         }
     }
 
+    public function procurarConsultas($nome, $crm){
+        # Função de pesquisar consulta dado um nome do paciente. Utilizada na search box do medico.php
+        # NOME e CRM para procurar consulta que contém os dois.
 
+        libxml_use_internal_errors(true);
+        $xml_consultas = simplexml_load_file("dados/consultas.xml");    
+        if ($xml_consultas === false) {
+            echo "Erro no XML Consultas: ";
+            foreach (libxml_get_errors() as $error) {
+                echo "<br>", $error->message;
+            }
+        }elseif ($pessoa == "medico"){
 
+            foreach ($xml_consultas->children() as $c) {
+                $paciente = $this->paciente->buscapaciente($c->paciente);
+                if (($c->medico == $crm) && ($c->paciente == $nome)) {
+                    
+                    $consulta = 
+                    '<tr>
+                        <th>'.$paciente->getNome().'</th>
+                        <td>'.$c->data.'</td>
+                        <td>'.$paciente->getTelefone().'</td>
+                        <td>'.$paciente->getEmail().'</td>
+                        <td>'.$c->receita.'</td>
+                        <td>'.$c->requisicao.'</td>
+                        <td>'.$c->observacoes.'</td>
+                    </tr>
+                        
+                    ';
+                    echo $consulta;
+                }
+            }
+            
+        }
 
+    }
 
 
 
