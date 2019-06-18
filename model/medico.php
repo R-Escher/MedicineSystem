@@ -5,13 +5,14 @@ class Medico extends Base {
 
 	private $crm;
 	private $especialidade;
+	private $genero;
 
 	public function __construct(){
 	}
 	public function __destruct(){
 	}
 
-  public static function comArgumentos($nome_entrada, $endereco_entrada, $telefone_entrada, $email_entrada, $senha_entrada, $crm_entrada, $especialidade_entrada) {
+  public static function comArgumentos($nome_entrada, $endereco_entrada, $telefone_entrada, $email_entrada, $senha_entrada, $crm_entrada, $especialidade_entrada,$genero_entrada) {
 
 			$instance = new Self();
 
@@ -20,8 +21,9 @@ class Medico extends Base {
 			$instance->setTelefone($telefone_entrada);
 			$instance->setEmail($email_entrada);
 			$instance->setSenha(md5($senha_entrada));
-      $instance->setCRM($crm_entrada);
-      $instance->setEspecialidade($especialidade_entrada);
+      		$instance->setCRM($crm_entrada);
+	  		$instance->setEspecialidade($especialidade_entrada);
+	  		$instance->setGenero($genero_entrada);
 			$instance->alterarXML();
 
 			return $instance;
@@ -44,6 +46,14 @@ class Medico extends Base {
 		return $this->especialidade;
 	}
 
+	public function setGenero($genero){
+		$this->genero = $genero;
+	}
+
+	public function getGenero(){
+		return $this->genero;
+	}
+
 	public function alterarXML(){
 
 		$salvar_medico = $this;
@@ -63,6 +73,7 @@ class Medico extends Base {
 		$medico->addChild("email", $salvar_medico->getEmail());
 		$medico->addChild("senha", $salvar_medico->getSenha());
 		$medico->addChild("especialidade", $salvar_medico->getEspecialidade());
+		$medico->addChild("genero", $salvar_medico->getGenero());
 
 		$dom = new DOMDocument("1.0");
 		$dom->preserveWhiteSpace = false;
@@ -116,6 +127,7 @@ class Medico extends Base {
 				$medico->setSenha($m->senha);
 				$medico->setCRM($m->crm);
 				$medico->setEspecialidade($m->especialidade);
+				$medico->setGenero($m->genero);
 				$medicos_array[] = $medico;
 			}
 
@@ -146,6 +158,7 @@ class Medico extends Base {
 					$medico->setSenha($m->senha);
 					$medico->setCRM($m->crm);
 					$medico->setEspecialidade($m->especialidade);
+					$medico->setGenero($m->genero);
 				}
 			}
 
