@@ -13,6 +13,12 @@
       <link href="css/fontawesome-5.9.0/css/all.css" rel="stylesheet">
       <!-- load login box fonts -->
       <link href="css/login.css" rel="stylesheet">
-
+      <!-- load models -->
+      <?php include 'model/admin.php' ?>
+      <?php include 'model/laboratorio.php' ?>
+      <?php include 'model/medico.php' ?>
+      <?php include 'model/paciente.php' ?>
+      <!-- load univesal - arquivo contendo funções diversas para trabalhar com XML -->
+      <?php include 'config/universal.php' ?>
   </head>
 </html>

@@ -28,7 +28,18 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
+        <?php 
+
+            # apagar depois
+            $crm = "4123-9";
+            # função que vai retornar rows em formato html contendo as CONSULTAS realizadas pelo medico atual (depende do crm)
+            $universal->mostrarConsultas($crm, "medico");
+            
+
+
+
+        ?>
+            <!--<tr>
                 <th>1</th>
                 <td>Markasdasd asdadasdasdasdaaaaaaaa aaaaaaaaaaaaaaaaaaaaaa</td>
                 <td>Otto</td>
@@ -36,7 +47,7 @@
                 <td>arkasdasdasdadasd asdasda aaaaaaaaaaaaa aaaaaaaaaaaaaaaa</td>
                 <td>asdasdasd</td>
                 <td>llllllllllllllllllll</td>
-            </tr>
+            </tr>-->
         </tbody>
         </table>
     </div>
