@@ -94,53 +94,54 @@
     <!-- Usa funcao buscaMedico para disponibilizar os dados do medico nos campos input -->
     <?php $medico = $universal->medico->buscaMedico($crm);?>
 
-    <form>
+    <form id="form_meuperfil" action="" method="post">
+    
         <div class="form-row">
             <div class="form-group col-md-6">
             <label for="inputName">Nome</label>
-            <input type="text" class="form-control" id="inputName" value="<?php echo $medico->getNome()?>" required>
+            <input type="text" class="form-control" name="inputName" id="inputName" value="<?php echo $medico->getNome()?>" required>
             </div>
             <div class="form-group col-md-6">
             <label for="inputAddress">Endereço</label>
-            <input type="text" class="form-control" id="inputAddress" value="<?php echo $medico->getEndereco()?>" required>
+            <input type="text" class="form-control" name="inputAddress" id="inputAddress" value="<?php echo $medico->getEndereco()?>" required>
             </div>
         </div>
         <div class="form-row">
             <div class="form-group col-md-6">
             <label for="inputTel">Telefone</label>
-            <input type="tel" class="form-control" id="inputTel" value="<?php echo $medico->getTelefone()?>" required>
+            <input type="tel" class="form-control" name="inputTel" id="inputTel" value="<?php echo $medico->getTelefone()?>" required>
             </div>
             <div class="form-group col-md-6">
             <label for="inputEmail">E-mail</label>
-            <input type="email" class="form-control" id="inputEmail" value="<?php echo $medico->getEmail()?>" required>
+            <input type="email" class="form-control" name="inputEmail" id="inputEmail" value="<?php echo $medico->getEmail()?>" required>
             </div>
         </div>     
         <div class="form-row">
             <div class="form-group col-md-6">
             <label for="inputGender">Gênero</label>
-            <select id="inputGender" class="form-control">
-                <option name="inputGender" <?php if($medico->getGenero()=='Feminino'){ echo 'selected'; } ?> >Feminino</option>
-                <option name="inputGender" <?php if($medico->getGenero()=='Masculino'){ echo 'selected'; } ?> > Masculino</option>
-                <option name="inputGender" <?php if($medico->getGenero()=='Outro'){ echo 'selected'; } ?> >Outro</option>
+            <select name="inputGender" id="inputGender" class="form-control">
+                <option name="inputGender" value="Feminino" <?php if($medico->getGenero()=='Feminino'){ echo 'selected'; } ?> >Feminino</option>
+                <option name="inputGender" value="Masculino" <?php if($medico->getGenero()=='Masculino'){ echo 'selected'; } ?> > Masculino</option>
+                <option name="inputGender" value="Outro" <?php if($medico->getGenero()=='Outro'){ echo 'selected'; } ?> >Outro</option>
             </select>
             </div>
             <div class="form-group col-md-6">
             <label for="inputCrm">CRM</label>
-            <input type="text" class="form-control" id="inputCrm" value="<?php echo $crm ?>" disabled>
+            <input type="text" class="form-control" name="inputCrm" id="inputCrm" value="<?php echo $crm ?>" disabled>
             </div>            
         </div> 
         <div class="form-row">
         <div class="form-group col-md-6">
-            <label for="inputPassword">Nova senha</label>
-            <input type="password" class="form-control" id="inputPassword" value="">
-            </div>
+            <label for="inputEspecialidade">Especialidade</label>
+            <input type="text" class="form-control" name="inputEspecialidade" id="inputEspecialidade" value="" required>
+            </div>        
             <div class="form-group col-md-6">
-            <label for="inputConfirma_Password">Confirmar nova senha</label>
-            <input type="password" class="form-control" id="inputConfirmaPassword" value="" disabled>
+            <label for="inputPassword">Senha</label>
+            <input type="password" class="form-control" name="inputPassword" id="inputPassword" value="" required>
             </div>
         </div>                     
 
-        <div class="col-12 text-center"><button type="submit" class="btn btn-dark col-4">Alterar Dados</button></div>
+        <div class="col-12 text-center"><button type="submit" id="medico_meuperfil_submit" class="btn btn-dark col-4">Alterar Dados</button></div>
     </form>
 </div>
 
