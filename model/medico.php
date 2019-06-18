@@ -12,21 +12,21 @@ class Medico extends Base {
 	public function __destruct(){
 	}
 
-  public static function comArgumentos($nome_entrada, $endereco_entrada, $telefone_entrada, $email_entrada, $senha_entrada, $crm_entrada, $especialidade_entrada,$genero_entrada) {
+  public static function comArgumentos($nome_entrada, $endereco_entrada, $telefone_entrada, $email_entrada, $senha_entrada, $crm_entrada, $especialidade_entrada, $genero_entrada) {
 
-			$instance = new Self();
+		$instance = new Self();
 
-			$instance->setNome($nome_entrada);
-			$instance->setEndereco($endereco_entrada);
-			$instance->setTelefone($telefone_entrada);
-			$instance->setEmail($email_entrada);
-			$instance->setSenha(md5($senha_entrada));
-      		$instance->setCRM($crm_entrada);
-	  		$instance->setEspecialidade($especialidade_entrada);
-	  		$instance->setGenero($genero_entrada);
-			$instance->alterarXML();
+		$instance->setNome($nome_entrada);
+		$instance->setEndereco($endereco_entrada);
+		$instance->setTelefone($telefone_entrada);
+		$instance->setEmail($email_entrada);
+		$instance->setSenha(md5($senha_entrada));
+		$instance->setCRM($crm_entrada);
+		$instance->setEspecialidade($especialidade_entrada);
+		$instance->setGenero($genero_entrada);
+		$instance->alterarXML();
 
-			return $instance;
+		return $instance;
 
   }
 
