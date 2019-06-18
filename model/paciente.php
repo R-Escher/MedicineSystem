@@ -1,5 +1,5 @@
 <?php
-#include_once 'base.php';
+include_once 'base.php';
 
 class Paciente extends Base {
 
