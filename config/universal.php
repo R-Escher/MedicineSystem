@@ -4,9 +4,9 @@ $universal = new universal;
 
 class universal{
 
-    protected $paciente;
-    protected $medico;
-    protected $laboratorio;
+    public $paciente;
+    public $medico;
+    public $laboratorio;
     //protected $admin;
 
     public function __construct(){
