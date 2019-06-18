@@ -1,17 +1,21 @@
 <?php 
+    include "../config/universal.php";
+
+    $universal = new universal;
+
     include "conexao.php";
     $nome = $_POST['inputName'];
-    $email = $_POST['inputAddress'];
-    $senha = $_POST['inputTel'];
-    $senha = $_POST['inputEmail'];
-    $senha = $_POST['inputGender'];
-    $senha = $_POST['inputCrm'];
-    #$senha = $_POST['inputPassword'];
-    #$senha = $_POST['inputConfirmaPassword'];
+    $endereco = $_POST['inputAddress'];
+    $telefone = $_POST['inputTel'];
+    $email = $_POST['inputEmail'];
+    $genero = $_POST['inputGender'];
+    $crm = $_POST['inputCrm'];
+    $senha = $_POST['inputPassword'];
+    $especialidade = $_POST['especialidade'];
 
-
-    $sql = "INSERT INTO usuario (NOME, EMAIL, SENHA) VALUES ('$nome', '$email', '$senha')";
-    mysql_query($sql) or die(error());
+    $universal->medico->comArgumentos($nome, $endereco, $telefone, $email, $senha, $crm, $especialidade, $genero);
+    $universal->medico->alterarXML();
     $response = array("success" => true);
-    echo json_encode($response);
+    echo json_encode($response);        
+
 ?>
