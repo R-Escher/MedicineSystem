@@ -10,7 +10,7 @@
       <link href="css/simple-sidebar.css" rel="stylesheet">
       <link href="css/style.css" rel="stylesheet">
       <!--load all FontAwesome styles -->
-      <link href="css/fontawesome-5.9.0/css/all.css" rel="stylesheet">
+      <script src="https://kit.fontawesome.com/fb376c7fd0.js"></script>
       <!-- load login box fonts -->
       <link href="css/login.css" rel="stylesheet">
       <!-- load models -->
