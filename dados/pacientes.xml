@@ -10,4 +10,14 @@
         <idade>23</idade>
         <genero>Masculino</genero>
     </paciente>
+    <paciente>
+        <cpf>456.132.743-44</cpf>
+        <nome>André Rodrigues</nome>
+        <endereco>Rua Marechal Rondon</endereco>
+        <telefone>(55) 3521-4435</telefone>
+        <email>r_andre@gmail.com</email>
+        <senha>1234</senha>
+        <idade>22</idade>
+        <genero>Masculino</genero>
+    </paciente>    
 </pacientes>

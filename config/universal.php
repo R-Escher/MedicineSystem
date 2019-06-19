@@ -77,7 +77,7 @@ class universal{
         # NOME e CRM para procurar consulta que contém os dois.
 
         libxml_use_internal_errors(true);
-        $xml_consultas = simplexml_load_file("dados/consultas.xml");    
+        $xml_consultas = simplexml_load_file("../dados/consultas.xml");    
         if ($xml_consultas === false) {
             echo "Erro no XML Consultas: ";
             foreach (libxml_get_errors() as $error) {
@@ -109,11 +109,43 @@ class universal{
 
     }
 
+    public function cadastraConsulta($crm, $cpf, $data, $receita, $requisicaoExame, $observacao){
 
+        libxml_use_internal_errors(true);
+        $xml_consultas = simplexml_load_file("../dados/consultas.xml");    
+        if ($xml_consultas === false) {
+            echo "Erro no XML Consultas: ";
+            foreach (libxml_get_errors() as $error) {
+                echo "<br>", $error->message;
+            }
+        }else{
+            # Descobrir último (maior) ID utilizado.
+            $maiorID = 0;
+            foreach ($xml_consultas->children() as $c){
+                if ((int)($c->idConsulta) > $maiorID){
+                    $maiorID =(int)($c->idConsulta);
+                }
+            }
 
+            $consulta = $xml_consultas->addChild("consulta");
+            $consulta->addChild("idConsulta", $maiorID+1);
+            $consulta->addChild("data", $data);
+            $consulta->addChild("medico", $crm);
+            $consulta->addChild("paciente", $cpf);
+            $consulta->addChild("receita", $receita);
+            $consulta->addChild("observacoes", $observacao);
+            $consulta->addChild("requisicao", $requisicaoExame);
 
-
-
+            $dom = new DOMDocument("1.0");
+            $dom->preserveWhiteSpace = false;
+            $dom->formatOutput = true;
+            $dom->loadXML($xml_consultas->asXML());          
+            
+            $file = fopen("../dados/consultas.xml", "w");
+            fwrite($file, $dom->saveXML());
+            fclose($file);              
+        }        
+    }
 
 
 }

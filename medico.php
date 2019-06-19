@@ -16,39 +16,42 @@
         <div class="modal fade bd-example-modal-md" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-md">
                 <div class="modal-content p-3">
-                    <form>
+                    <form id="form_adicionarConsulta" method="post" action="ajax/medico_adicionarConsulta.php">
+                        <!-- input para enviar crm do médico a cadastrar a consulta -->
+                        <input type="text" class="form-control d-none" name="inputCrm" id="inputCrm" value="<?php echo $crm ?>">
+
                         <div class="form-row">
                             <div class="form-group col-md">
                             <label for="inputCpf">CPF do Paciente</label>
-                            <input type="number" class="form-control" id="inputCpf" placeholder="">
+                            <input type="text" class="form-control" name="inputCpf" id="inputCpf" placeholder="" required>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md">
                             <label for="inputDate">Data da Consulta</label>
-                            <input type="date" class="form-control" id="inputDate" placeholder="">
+                            <input type="date" class="form-control" name="inputDate" id="inputDate" placeholder="" required>
                             </div>
                         </div>  
                         <div class="form-row">
                             <div class="form-group col-md">
                             <label for="inputReceita">Receita</label>
-                            <input type="text" class="form-control" id="inputReceita" placeholder="">
+                            <input type="text" class="form-control" name="inputReceita" id="inputReceita" placeholder="">
                             </div>
                         </div> 
                         <div class="form-row">
                             <div class="form-group col-md">
                             <label for="inputRequisicao">Requisição de Exames</label>
-                            <input type="text" class="form-control" id="inputRequisicao" placeholder="">
+                            <input type="text" class="form-control" name="inputRequisicao" id="inputRequisicao" placeholder="">
                             </div>
                         </div> 
                         <div class="form-row">
                             <div class="form-group col-md">
                             <label for="inputObervacao">Observação</label>
-                            <input type="text" class="form-control" id="inputObervacao" placeholder="">
+                            <input type="text" class="form-control" name="inputObervacao" id="inputObervacao" placeholder="">
                             </div>
                         </div>                                                                                                                                             
 
-                        <div class="col-12 text-center"><button type="submit" class="btn btn-dark">Salvar</button></div>
+                        <div class="col-12 text-center"><button type="submit" name="medico_adicionarConsulta" class="btn btn-dark">Salvar</button></div>
                     </form>                
                 
                 

@@ -3,7 +3,7 @@
     include "../config/universal.php";
     include "../model/medico.php";
 
-    $universal = new universal;
+    //$universal = new universal;
 
     $nome = $_POST['inputName'];
     $endereco = $_POST['inputAddress'];
