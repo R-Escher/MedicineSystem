@@ -19,23 +19,6 @@ $("#meuperfil-toggle").click(function(f) {
     }
 });*/
 
-$('#medico_meuperfil_submit').click(function() {
- 
-    var dados = $('#form_meuperfil').serialize();
-
-    $.ajax({
-        type: 'POST',
-        dataType: 'json',
-        url: 'ajax/medico_meuperfil.php',
-        async: true,
-        data: dados,
-        success: function(response) {
-            location.reload();
-        }
-    });
-
-    return false;
-});
  
 
     

@@ -3,7 +3,6 @@
 
     $universal = new universal;
 
-    include "conexao.php";
     $nome = $_POST['inputName'];
     $endereco = $_POST['inputAddress'];
     $telefone = $_POST['inputTel'];
