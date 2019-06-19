@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <medicos>
-    <medico>
-        <crm>4565-1</crm>
-        <nome>Rafael</nome>
-        <endereco>santa cruz</endereco>
-        <telefone>8634-3221</telefone>
-        <email>rafael...</email>
-        <senha>ee64bf6ca753c4fb217bfaa082274151</senha>
-        <especialidade>dormir</especialidade>
-        <genero>Masculino</genero>
-    </medico>
-    <medico>
-        <crm>4123-9</crm>
-        <nome>Jaler</nome>
-        <endereco>italia</endereco>
-        <telefone>9872-3123</telefone>
-        <email>jaler...</email>
-        <senha>ee64bf6ca753c4fb217bfaa082274153</senha>
-        <especialidade>virar monstro</especialidade>
-        <genero>Masculino</genero>
-    </medico>
+  <medico>
+    <crm>4565-1</crm>
+    <nome>Rafael</nome>
+    <endereco>santa cruz</endereco>
+    <telefone>8634-3221</telefone>
+    <email>rafael...</email>
+    <senha>ee64bf6ca753c4fb217bfaa082274151</senha>
+    <especialidade>dormir</especialidade>
+    <genero>Masculino</genero>
+  </medico>
+  <medico>
+    <crm>4123-9</crm>
+    <nome>Jaler Zago</nome>
+    <endereco>Avenida Itália</endereco>
+    <telefone>9872-3123</telefone>
+    <email>jaler@gmail.com</email>
+    <senha>2acc4a64af8868755cb6fe2c6729064d</senha>
+    <especialidade>virar monstro</especialidade>
+    <genero>Masculino</genero>
+  </medico>
 </medicos>

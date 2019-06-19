@@ -1,5 +1,7 @@
 <?php 
+    session_start();
     include "../config/universal.php";
+    include "../model/medico.php";
 
     $universal = new universal;
 
@@ -10,11 +12,11 @@
     $genero = $_POST['inputGender'];
     $crm = $_POST['inputCrm'];
     $senha = $_POST['inputPassword'];
-    $especialidade = $_POST['especialidade'];
+    $especialidade = $_POST['inputEspecialidade'];
 
-    $universal->medico->comArgumentos($nome, $endereco, $telefone, $email, $senha, $crm, $especialidade, $genero);
-    $universal->medico->alterarXML();
-    $response = array("success" => true);
-    echo json_encode($response);        
-
+    $medico = new Medico;
+    $alteraMedico = $medico->comArgumentos($nome, $endereco, $telefone, $email, $senha, $crm, $especialidade, $genero);
+    $alteraMedico->alterarXML();    
+    
+    echo "<script>window.location.href='../medico.php';</script>";
 ?>

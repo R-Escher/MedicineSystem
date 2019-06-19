@@ -1,5 +1,6 @@
 <?php 
 
+
 $universal = new universal;
 
 class universal{
@@ -11,9 +12,9 @@ class universal{
 
     public function __construct(){
 
-        $this->paciente = new Paciente;
-        $this->medico = new Medico;
-        $this->laboratorio = new Laboratorio;
+        //$this->paciente = new Paciente;
+        //$this->medico = new Medico;
+        //$this->laboratorio = new Laboratorio;
 
     }
 
@@ -29,9 +30,9 @@ class universal{
                 echo "<br>", $error->message;
             }
         }elseif ($pessoa == "paciente"){
-
+            $medico = new Medico;
             foreach ($xml_consultas->children() as $c) {
-                $medico = $this->medico->buscaMedico($c->medico);
+                $medico = $medico->buscaMedico($c->medico);
                 if ($c->paciente == $chavePrimaria) {
                     $consulta = 
                     '<tr>
@@ -47,9 +48,9 @@ class universal{
                 }
             }
         }elseif ($pessoa == "medico"){
-
+            $paciente = new Paciente;
             foreach ($xml_consultas->children() as $c) {
-                $paciente = $this->paciente->buscapaciente($c->paciente);
+                $paciente = $paciente->buscapaciente($c->paciente);
                 if ($c->medico == $chavePrimaria) {
                     
                     $consulta = 
@@ -83,9 +84,9 @@ class universal{
                 echo "<br>", $error->message;
             }
         }elseif ($pessoa == "medico"){
-
+            $paciente = new Paciente;
             foreach ($xml_consultas->children() as $c) {
-                $paciente = $this->paciente->buscapaciente($c->paciente);
+                $paciente = $paciente->buscapaciente($c->paciente);
                 if (($c->medico == $crm) && ($c->paciente == $nome)) {
                     
                     $consulta = 

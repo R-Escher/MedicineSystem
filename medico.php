@@ -1,6 +1,7 @@
 <?php include 'index-include/sidenav_medico.php'; ?>
 <!-- Tags em aberto: <html>, <body>, <div class="d-flex" id="wrapper">, <div id="page-content-wrapper"> -->
 <?php
+    $medico = new Medico;
     # apagar depois
     $crm = "4123-9"; 
 ?>
@@ -92,9 +93,9 @@
 <div id="meuperfil">
 
     <!-- Usa funcao buscaMedico para disponibilizar os dados do medico nos campos input -->
-    <?php $medico = $universal->medico->buscaMedico($crm);?>
+    <?php $medico = $medico->buscaMedico($crm);?>
 
-    <form id="form_meuperfil" action="" method="post">
+    <form id="form_meuperfil" method="post" action="ajax/medico_meuperfil.php">
     
         <div class="form-row">
             <div class="form-group col-md-6">
@@ -126,14 +127,15 @@
             </select>
             </div>
             <div class="form-group col-md-6">
-            <label for="inputCrm">CRM</label>
-            <input type="text" class="form-control" name="inputCrm" id="inputCrm" value="<?php echo $crm ?>" disabled>
+            <label for="showCrm">CRM</label>
+            <input type="text" class="form-control" name="showCrm" id="showCrm" value="<?php echo $crm ?>" disabled>
+            <!-- este é para enviar o crm do medico, necessário para edição do mesmo--><input type="text" class="form-control d-none" name="inputCrm" id="inputCrm" value="<?php echo $crm ?>">
             </div>            
         </div> 
         <div class="form-row">
         <div class="form-group col-md-6">
             <label for="inputEspecialidade">Especialidade</label>
-            <input type="text" class="form-control" name="inputEspecialidade" id="inputEspecialidade" value="" required>
+            <input type="text" class="form-control" name="inputEspecialidade" id="inputEspecialidade" value="<?php echo $medico->getEspecialidade(); ?>" required>
             </div>        
             <div class="form-group col-md-6">
             <label for="inputPassword">Senha</label>
@@ -142,7 +144,7 @@
         </div>                     
 
         <div class="col-12 text-center">
-        <input type="button" value="Alterar Dados" id="medico_meuperfil_submit" class="btn btn-dark col-4"><!--<button type="submit" id="medico_meuperfil_submit" class="btn btn-dark col-4">Alterar Dados</button>-->
+    <input type="submit" value="Alterar Dados" name="medico_meuperfil"  class="btn btn-dark col-4"><!--<button type="submit" id="medico_meuperfil_submit" class="btn btn-dark col-4">Alterar Dados</button>-->
         </div>
     </form>
 </div>
@@ -167,25 +169,5 @@
   <!-- chama arquivo de funções js -->
   <script src="js/medico.js"></script>      
   <script src="js/sidebar.js"></script>  
-  <script type="text/javascript" language="javascript">
-$(document).ready(function() {
 
-    $('#medico_meuperfil_submit').click(function() {
-        var dados = $('#form_meuperfil').serialize();
-
-        $.ajax({
-            type: 'POST',
-            dataType: 'json',
-            url: 'ajax/medico_meuperfil.php',
-            async: true,
-            data: dados,
-            success: function(response) {
-                
-            }
-        });
-
-        return false;   
-    });
-});
-</script>
         </body>

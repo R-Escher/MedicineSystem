@@ -63,7 +63,7 @@ class Medico extends Base {
 
 
 		libxml_use_internal_errors(true);
-		$xml_medicos = simplexml_load_file("dados/medicos.xml");
+		$xml_medicos = simplexml_load_file("../dados/medicos.xml");
 
 		$medico = $xml_medicos->addChild("medico");
 		$medico->addChild("crm", $salvar_medico->getCRM());
@@ -80,7 +80,7 @@ class Medico extends Base {
 		$dom->formatOutput = true;
 		$dom->loadXML($xml_medicos->asXML());
 
-		$file = fopen("dados/medicos.xml", "w");
+		$file = fopen("../dados/medicos.xml", "w");
 		fwrite($file, $dom->saveXML());
 		fclose($file);
 	}
@@ -89,14 +89,14 @@ class Medico extends Base {
 
 		$validar_exclusao = false;
 		libxml_use_internal_errors(true);
-		$xml_medicos = simplexml_load_file("dados/medicos.xml");
+		$xml_medicos = simplexml_load_file("../dados/medicos.xml");
 		$formatado = dom_import_simplexml($xml_medicos);
 		foreach ($xml_medicos->children() as $medico) {
 			if ($medico->crm == (string) $this->getCRM()) {
 				$dom=dom_import_simplexml($medico);
 				$formatado->removeChild($dom);
 				$export = simplexml_import_dom($formatado);
-				$export->saveXML("dados/medicos.xml");
+				$export->saveXML("../dados/medicos.xml");
 				$this->__destruct();
 				$validar_exclusao = true;
 			}
@@ -107,7 +107,7 @@ class Medico extends Base {
 	public function listaMedicos() {
 
 		libxml_use_internal_errors(true);
-		$xml_medicos = simplexml_load_file("dados/medicos.xml");
+		$xml_medicos = simplexml_load_file("../dados/medicos.xml");
 
 		if ($xml_medicos === false) {
 			echo "Erro no XML Médicos: ";
@@ -141,7 +141,7 @@ class Medico extends Base {
 		$xml_medicos = simplexml_load_file("dados/medicos.xml");
 
 		if ($xml_medicos === false) {
-			echo "Erro no XML Médicos: ";
+			echo "Erro no XML Médicos2: ";
 			foreach (libxml_get_errors() as $error) {
 				echo "<br>", $error->message;
 			}

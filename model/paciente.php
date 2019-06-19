@@ -132,6 +132,9 @@ class Paciente extends Base {
 	}
 
 	public static function buscapaciente($cpf_entrada) {
+		# transforma para string pois recebe tipo object
+		$cpf_entrada = strval($cpf_entrada);
+
 		libxml_use_internal_errors(true);
 		$xml_pacientes = simplexml_load_file("dados/pacientes.xml");
 
@@ -145,8 +148,9 @@ class Paciente extends Base {
 			$paciente = new Paciente();
 
 			foreach ($xml_pacientes->children() as $p) {
+
 				if ($p->cpf == $cpf_entrada) {
-					$paciente->setNome($p->nome);
+					$paciente->setNome($p->nome); 
 					$paciente->setEndereco($p->endereco);
 					$paciente->setTelefone($p->telefone);
 					$paciente->setEmail($p->email);
