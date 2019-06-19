@@ -165,7 +165,7 @@
 </div> <!-- / class="d-flex" id="wrapper" -->
 
   <!-- Javascript/Jquery functions for Bootstrap internal use -->
-  <?php include 'js/scripts_include.php'; ?> 
+  <?php include 'js/scripts_include.html'; ?> 
   <!-- chama arquivo de funções js -->
   <script src="js/medico.js"></script>      
   <script src="js/sidebar.js"></script>  
