@@ -124,7 +124,7 @@ class universal{
             foreach ($xml_consultas->children() as $c){
                 if ((int)($c->idConsulta) > $maiorID){
                     $maiorID =(int)($c->idConsulta);
-                }
+                } 
             }
 
             $consulta = $xml_consultas->addChild("consulta");
