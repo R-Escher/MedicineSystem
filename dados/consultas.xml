@@ -36,4 +36,13 @@
     <observacoes>Virose</observacoes>
     <requisicao/>
   </consulta>
+  <consulta>
+    <idConsulta>5</idConsulta>
+    <data>2019-06-20</data>
+    <medico/>
+    <paciente>456.132.743-44</paciente>
+    <receita/>
+    <observacoes/>
+    <requisicao/>
+  </consulta>
 </consultas>

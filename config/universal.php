@@ -200,5 +200,44 @@ class universal{
             
         }
     }    
+
+    public function cadastraExame($data, $cnpj, $cpf, $exames, $resultado){
+
+        libxml_use_internal_errors(true);
+        $xml_exames = simplexml_load_file("../dados/exames.xml");    
+        if ($xml_exames === false) {
+            echo "Erro no XML Exames: ";
+            foreach (libxml_get_errors() as $error) {
+                echo "<br>", $error->message;
+            }
+        }else{
+            # Descobrir último (maior) ID utilizado.
+            $maiorID = 0;
+            foreach ($xml_exames->children() as $c){
+                if ((int)($c->idExame) > $maiorID){
+                    $maiorID =(int)($c->idExame);
+                } 
+            }
+
+            $exame = $xml_exames->addChild("exame");
+            $exame->addChild("idConsulta", $maiorID+1);
+            $exame->addChild("data", $data);
+            $exame->addChild("laboratorio", $cnpj);
+            $exame->addChild("paciente", $cpf);
+            $exame->addChild("tipos_exame", $exames);
+            $exame->addChild("resultado", $resultado);
+
+            $dom = new DOMDocument("1.0");
+            $dom->preserveWhiteSpace = false;
+            $dom->formatOutput = true;
+            $dom->loadXML($xml_exames->asXML());          
+            
+            $file = fopen("../dados/exames.xml", "w");
+            fwrite($file, $dom->saveXML());
+            fclose($file);              
+        }        
+    }
+
+
 }
 ?>

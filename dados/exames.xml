@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <exames>
-    <exame>
-        <idExame>0001</idExame>
-        <data>18/06/2019</data>
-        <laboratorio>3057439-9</laboratorio>
-        <paciente>036.225.895-12</paciente>
-        <tipos_exame>Radiografia</tipos_exame>
-        <resultado>Câncer cerebral</resultado>
-    </exame>
+  <exame>
+    <idExame>0001</idExame>
+    <data>18/06/2019</data>
+    <laboratorio>3057439-9</laboratorio>
+    <paciente>036.225.895-12</paciente>
+    <tipos_exame>Radiografia</tipos_exame>
+    <resultado>Câncer cerebral</resultado>
+  </exame>
+  <exame>
+    <idConsulta>2</idConsulta>
+    <data>2019-06-20</data>
+    <laboratorio>3057439-9</laboratorio>
+    <paciente>456.132.743-44</paciente>
+    <tipos_exame>Hemograma</tipos_exame>
+    <resultado>Hiperglicemia</resultado>
+  </exame>
 </exames>
