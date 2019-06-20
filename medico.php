@@ -29,7 +29,7 @@
                         <div class="form-row">
                             <div class="form-group col-md">
                             <label for="inputDate">Data da Consulta</label>
-                            <input type="date" class="form-control" name="inputDate" id="inputDate" placeholder="" required>
+                            <input type="date" min="2000-01-01" max="<?php date_default_timezone_set('America/Sao_Paulo'); echo date('Y-m-d'); ?>" class="form-control" name="inputDate" id="inputDate" placeholder="" required>
                             </div>
                         </div>  
                         <div class="form-row">

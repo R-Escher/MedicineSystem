@@ -27,4 +27,13 @@
     <observacoes/>
     <requisicao>Radiograma</requisicao>
   </consulta>
+  <consulta>
+    <idConsulta>4</idConsulta>
+    <data>2019-06-21</data>
+    <medico>4123-9</medico>
+    <paciente>036.225.895-12</paciente>
+    <receita>Novalgina 250mg</receita>
+    <observacoes>Virose</observacoes>
+    <requisicao/>
+  </consulta>
 </consultas>
