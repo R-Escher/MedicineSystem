@@ -7,7 +7,7 @@
 
             <!-- Sidebar -->
             <div class="bg-dark" id="sidebar-wrapper">
-                <div class="sidebar-heading" style="background-color: #1a1d20; color: #eaebeb;">Medicine System</div>
+                <div class="sidebar-heading" style="background-color: #1a1d20; color: #eaebeb;">Administração</div>
                 <div class="list-group list-group-flush" >
                 <a href="#" class="list-group-item list-group-item-action bg-dark" id="pacientescadastrados-toggle" style="color: #c2c3c5">Pacientes Cadastrados</a>
                 <a href="#" class="list-group-item list-group-item-action bg-dark" id="medicoscadastrados-toggle" style="color: #c2c3c5">Médicos Cadastrados</a>

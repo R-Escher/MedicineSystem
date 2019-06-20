@@ -7,7 +7,7 @@
 
             <!-- Sidebar -->
             <div class="bg-dark" id="sidebar-wrapper">
-                <div class="sidebar-heading" style="background-color: #1a1d20; color: #eaebeb;">Medicine System</div>
+                <div class="sidebar-heading" style="background-color: #1a1d20; color: #eaebeb;">Página Inicial</div>
                 <div class="list-group list-group-flush" >
                 <a href="#" class="list-group-item list-group-item-action bg-dark" id="paciente-toggle" style="color: #c2c3c5">Paciente</a>
                 <a href="#" class="list-group-item list-group-item-action bg-dark" id="medico-toggle" style="color: #c2c3c5">Médico</a>
