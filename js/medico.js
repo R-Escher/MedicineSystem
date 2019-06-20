@@ -4,13 +4,11 @@ $("#consultas-toggle").click(function(f) {
     $("#meuperfil").hide();
     $("#wrapper").toggleClass("toggled");
 });
-
 $("#meuperfil-toggle").click(function(f) {
     $("#consultas").hide();
     $("#meuperfil").show();
     $("#wrapper").toggleClass("toggled");
 });
-
 // MEU PERFIL onkeypress="validaCPF(this.value)"
 $("#inputCpf").change(function(){
 
@@ -35,20 +33,6 @@ $("#inputCpf").change(function(){
     });    
 
 });
-    function validaCPF(f){
-
-        return false;    
-
-    }
-
-
-/*$("#inputPassword").keypress(function(f){
-    if($("#inputPassword").val() != '' ){
-        $("#inputConfirmaPassword").removeAttr('disabled');
-        $("#inputConfirmaPassword").attr('required','required');
-    }
-});*/
-
  
 
     

@@ -60,7 +60,7 @@ class Paciente extends Base {
 		$this->deletarPaciente();
 
 		libxml_use_internal_errors(true);
-		$xml_pacientes = simplexml_load_file("dados/pacientes.xml");
+		$xml_pacientes = simplexml_load_file("../dados/pacientes.xml");
 
 		$paciente = $xml_pacientes->addChild("paciente");
 		$paciente->addChild("cpf", $salvar_paciente->getCPF());
@@ -77,7 +77,7 @@ class Paciente extends Base {
 		$dom->formatOutput = true;
 		$dom->loadXML($xml_pacientes->asXML());
 
-		$file = fopen("dados/pacientes.xml", "w");
+		$file = fopen("../dados/pacientes.xml", "w");
 		fwrite($file, $dom->saveXML());
 		fclose($file);
 	}
@@ -86,14 +86,14 @@ class Paciente extends Base {
 
 		$validar_exclusao = false;
 		libxml_use_internal_errors(true);
-		$xml_pacientes = simplexml_load_file("dados/pacientes.xml");
+		$xml_pacientes = simplexml_load_file("../dados/pacientes.xml");
 		$formatado = dom_import_simplexml($xml_pacientes);
 		foreach ($xml_pacientes->children() as $paciente) {
-			if ($laboratorio->cpf == (string) $this->getCPF()) {
+			if ($paciente->cpf == (string) $this->getCPF()) {
 				$dom=dom_import_simplexml($paciente);
 				$formatado->removeChild($dom);
 				$export = simplexml_import_dom($formatado);
-				$export->saveXML("dados/pacientes.xml");
+				$export->saveXML("../dados/pacientes.xml");
 				$this->__destruct();
 				$validar_exclusao = true;
 			}
@@ -103,7 +103,7 @@ class Paciente extends Base {
 
 	public static function listaPacientes() {
 		libxml_use_internal_errors(true);
-		$xml_pacientes = simplexml_load_file("dados/pacientes.xml");
+		$xml_pacientes = simplexml_load_file("../dados/pacientes.xml");
 
 		if ($xml_pacientes === false) {
 			echo "Erro no XML Pacientes: ";
