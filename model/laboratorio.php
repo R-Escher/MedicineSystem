@@ -51,7 +51,7 @@ class Laboratorio extends Base {
 		$this->deletarLaboratorio();
 
 		libxml_use_internal_errors(true);
-		$xml_laboratorios = simplexml_load_file("dados/laboratorios.xml");
+		$xml_laboratorios = simplexml_load_file("../dados/laboratorios.xml");
 
 		$laboratorio = $xml_laboratorios->addChild("laboratorio");
 		$laboratorio->addChild("cnpj", $salvar_laboratorio->getCNPJ());
@@ -67,7 +67,7 @@ class Laboratorio extends Base {
 		$dom->formatOutput = true;
 		$dom->loadXML($xml_laboratorios->asXML());
 
-		$file = fopen("dados/laboratorios.xml", "w");
+		$file = fopen("../dados/laboratorios.xml", "w");
 		fwrite($file, $dom->saveXML());
 		fclose($file);
 	}
@@ -76,14 +76,14 @@ class Laboratorio extends Base {
 
 		$validar_exclusao = false;
 		libxml_use_internal_errors(true);
-		$xml_laboratorios = simplexml_load_file("dados/laboratorios.xml");
+		$xml_laboratorios = simplexml_load_file("../dados/laboratorios.xml");
 		$formatado = dom_import_simplexml($xml_laboratorios);
 		foreach ($xml_laboratorios->children() as $laboratorio) {
 			if ($laboratorio->cnpj == (string) $this->getCNPJ()) {
 				$dom=dom_import_simplexml($laboratorio);
 				$formatado->removeChild($dom);
 				$export = simplexml_import_dom($formatado);
-				$export->saveXML("dados/laboratorios.xml");
+				$export->saveXML("../dados/laboratorios.xml");
 				$this->__destruct();
 				$validar_exclusao = true;
 			}
@@ -93,7 +93,7 @@ class Laboratorio extends Base {
 
 	public static function listaLaboratorios() {
 		libxml_use_internal_errors(true);
-		$xml_laboratorios = simplexml_load_file("dados/laboratorios.xml");
+		$xml_laboratorios = simplexml_load_file("../dados/laboratorios.xml");
 
 		if ($xml_laboratorios === false) {
 			echo "Erro no XML laboratorios: ";
@@ -122,6 +122,7 @@ class Laboratorio extends Base {
 	}
 
 	public static function buscaLaboratorio($cnpj_entrada) {
+		$cnpj_entrada = strval($cnpj_entrada);
 		libxml_use_internal_errors(true);
 		$xml_laboratorios = simplexml_load_file("dados/laboratorios.xml");
 
@@ -135,7 +136,7 @@ class Laboratorio extends Base {
 			$laboratorio = new laboratorio();
 
 			foreach ($xml_laboratorios->children() as $l) {
-				if ($p->cnpj == $cnpj_entrada) {
+				if ($l->cnpj == $cnpj_entrada) {
 					$laboratorio->setNome($l->nome);
 					$laboratorio->setEndereco($l->endereco);
 					$laboratorio->setTelefone($l->telefone);

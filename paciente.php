@@ -34,7 +34,27 @@
 </div>
 
 <div id="exames">
-
+    <!-- tabela -->
+    <div>
+        <table class="table table-hover table-bordered table-striped table-dark text-center">
+        <thead>
+            <tr>
+            <th scope="col">DATA</th>
+            <th scope="col">LABORATÓRIO</th>
+            <th scope="col">TELEFONE</th>
+            <th scope="col">EXAMES</th>
+            <th scope="col">RESULTADO</th>
+            </tr>
+        </thead>
+        <tbody>
+        <?php 
+            # função que vai retornar rows em formato html contendo as CONSULTAS realizadas pelo medico atual (depende do cpf)
+            $universal->mostrarExames($cpf, "paciente");
+        ?>
+        
+        </tbody>
+        </table>
+    </div>
 </div>
 
 <div id="meuperfil">
@@ -74,7 +94,7 @@
             </div>          
             <div class="form-group col-md-6">
                 <label for="inputGender">Gênero</label>
-                <select name="inputGender" id="inputGender" class="form-control">
+                <select name="inputGender" id="inputGender" class="form-control" required>
                     <option name="inputGender" value="Feminino" <?php if($paciente->getGenero()=='Feminino'){ echo 'selected'; } ?> >Feminino</option>
                     <option name="inputGender" value="Masculino" <?php if($paciente->getGenero()=='Masculino'){ echo 'selected'; } ?> > Masculino</option>
                     <option name="inputGender" value="Outro" <?php if($paciente->getGenero()=='Outro'){ echo 'selected'; } ?> >Outro</option>

@@ -30,7 +30,7 @@ class universal{
                 echo "<br>", $error->message;
             }
         }elseif ($pessoa == "paciente"){
-            $medico = new Medico;
+            $medico = new Medico; # para pegar nome do medico usando seu CRM
             foreach ($xml_consultas->children() as $c) {
                 $medico = $medico->buscaMedico($c->medico);
                 if ($c->paciente == $chavePrimaria) {
@@ -148,5 +148,58 @@ class universal{
     }
 
 
+    public function mostrarExames($chavePrimaria, $pessoa){
+        # ChavePrimária vai o CPF ou CNPJ, dependendo de quem pede a função.
+        # Pessoa determina se é para buscar exame baseado no LAB ou PACIENTE (CNPJ/CPF)
+        #
+        libxml_use_internal_errors(true);
+        $xml_exames = simplexml_load_file("dados/exames.xml");    
+        if ($xml_exames === false) {
+            echo "Erro no XML Exames: ";
+            foreach (libxml_get_errors() as $error) {
+                echo "<br>", $error->message;
+            }
+        }elseif ($pessoa == "paciente"){
+            $lab = new Laboratorio; # para buscar nome do lab baseado em seu CNPJ
+            foreach ($xml_exames->children() as $c) {
+                $lab = $lab->buscaLaboratorio($c->laboratorio);
+                if ($c->paciente == $chavePrimaria) {
+                    $exame = 
+                    '<tr>
+                        <td>'.$c->data.'</td>
+                        <th>'.$lab->getNome().'</th>
+                        <td>'.$lab->getTelefone().'</td>
+                        <td>'.$c->tipos_exame.'</td>
+                        <td>'.$c->resultado.'</td>
+                    </tr>
+                        
+                    ';
+                    echo $exame;
+                }
+            }
+        }elseif ($pessoa == "laboratorio"){
+            $paciente = new Paciente; # para pegar nome do paciente baseado em seu CPF
+            foreach ($xml_exames->children() as $c) {
+                $paciente = $paciente->buscapaciente($c->paciente);
+                if ($c->laboratorio == $chavePrimaria) {
+                    
+                    $consulta = 
+                    '<tr>
+                        <th>'.$paciente->getNome().'</th>
+                        <td>'.$c->data.'</td>
+                        <td>'.$paciente->getTelefone().'</td>
+                        <td>'.$paciente->getEmail().'</td>
+                        <td>'.$c->receita.'</td>
+                        <td>'.$c->requisicao.'</td>
+                        <td>'.$c->observacoes.'</td>
+                    </tr>
+                        
+                    ';
+                    echo $consulta;
+                }
+            } 
+            
+        }
+    }    
 }
 ?>

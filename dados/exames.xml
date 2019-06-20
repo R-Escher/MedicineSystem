@@ -7,5 +7,5 @@
         <paciente>036.225.895-12</paciente>
         <tipos_exame>Radiografia</tipos_exame>
         <resultado>Câncer cerebral</resultado>
-    <exame>
+    </exame>
 </exames>
