@@ -8,7 +8,7 @@
         $endereco = $_POST['inputAddress'];
         $telefone = $_POST['inputTel'];
         $email = $_POST['inputEmail'];
-        $crm = $_POST['inputCnpj'];
+        $cnpj = $_POST['inputCnpj'];
         $senha = $_POST['inputPassword'];
         $exames = $_POST['inputExames'];
 

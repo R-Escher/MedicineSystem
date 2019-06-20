@@ -189,9 +189,8 @@ class universal{
                         <td>'.$c->data.'</td>
                         <td>'.$paciente->getTelefone().'</td>
                         <td>'.$paciente->getEmail().'</td>
-                        <td>'.$c->receita.'</td>
-                        <td>'.$c->requisicao.'</td>
-                        <td>'.$c->observacoes.'</td>
+                        <td>'.$c->tipos_exame.'</td>
+                        <td>'.$c->resultado.'</td>
                     </tr>
                         
                     ';

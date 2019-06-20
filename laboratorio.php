@@ -70,9 +70,8 @@
             <th scope="col">DATA</th>
             <th scope="col">TELEFONE</th>
             <th scope="col">E-MAIL</th>
-            <th scope="col">RECEITA</th>
-            <th scope="col">REQUISIÇÃO DE EXAME</th>
-            <th scope="col">OBSERVAÇÃO</th>
+            <th scope="col">EXAMES</th>
+            <th scope="col">RESULTADO</th>
             </tr>
         </thead>
         <tbody>
@@ -93,7 +92,7 @@
     <!-- Usa funcao buscaLab para disponibilizar os dados do lab nos campos input -->
     <?php $lab = $lab->buscaLaboratorio($cnpj);?>
 
-    <form id="form_meuperfil" method="post" action="ajax/lab_meuperfil.php">
+    <form id="form_meuperfil" method="post" action="ajax/laboratorio_meuperfil.php">
     
         <!-- este é para enviar o cnpj do lab, necessário para edição do mesmo-->
         <input type="text" class="form-control d-none" name="inputCnpj" id="inputCnpj" value="<?php echo $cnpj ?>"> 

@@ -22,7 +22,7 @@ class Laboratorio extends Base {
 			$instance->setEmail($email_entrada);
 			$instance->setSenha(md5($senha_entrada));
 			$instance->setCNPJ($cnpj_entrada);
-      $instance->setTipos_exames($tipos_exames_entrada);
+      		$instance->setTipos_exames($tipos_exames_entrada);
 			$instance->alterarXML();
 
 			return $instance;
@@ -60,7 +60,8 @@ class Laboratorio extends Base {
 		$laboratorio->addChild("telefone", $salvar_laboratorio->getTelefone());
 		$laboratorio->addChild("email", $salvar_laboratorio->getEmail());
 		$laboratorio->addChild("senha", $salvar_laboratorio->getSenha());
-		$laboratorio->addChild("tipos_exame", implode(';',$salvar_laboratorio->getTipos_exames()));
+		//$laboratorio->addChild("tipos_exame", implode(';',$salvar_laboratorio->getTipos_exames()));
+		$laboratorio->addChild("tipos_exame", $salvar_laboratorio->getTipos_exames());
 
 		$dom = new DOMDocument("1.0");
 		$dom->preserveWhiteSpace = false;
@@ -112,8 +113,9 @@ class Laboratorio extends Base {
 				$laboratorio->setEmail($l->email);
 				$laboratorio->setSenha($l->senha);
 				$laboratorio->setCNPJ($l->cnpj);
-				$tipos_exames = explode(';', $l->tipos_exame);
-				$laboratorio->setTipos_exames($tipos_exames);
+				//$tipos_exames = explode(';', $l->tipos_exame);
+				//$laboratorio->setTipos_exames($tipos_exames);
+				$laboratorio->setTipos_exames($l->tipos_exame);
 				$laboratorios_array[] = $laboratorio;
 			}
 
@@ -143,8 +145,9 @@ class Laboratorio extends Base {
 					$laboratorio->setEmail($l->email);
 					$laboratorio->setSenha($l->senha);
 					$laboratorio->setCNPJ($l->cnpj);
-					$tipos_exames = explode(';', $l->tipos_exame);
-					$laboratorio->setTipos_exames($tipos_exames);
+					//$tipos_exames = explode(';', $l->tipos_exame);
+					//$laboratorio->setTipos_exames($tipos_exames);
+					$laboratorio->setTipos_exames($l->tipos_exame);
 				}
 			}
 

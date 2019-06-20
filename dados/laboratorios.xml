@@ -1,21 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <laboratorios>
-    <laboratorio>
-        <cnpj>9841348-5</cnpj>
-        <nome>Oswaldo Cruz</nome>
-        <endereco>Santa Cruz</endereco>
-        <telefone>3532-3291</telefone>
-        <email>oswaldocruz...</email>
-        <senha>ee64bf6ca753c4fb217bfaa282274151</senha>
-        <tipos_exame>Radiografia;Mamografia</tipos_exame>
-    </laboratorio>
-    <laboratorio>
-        <cnpj>3057439-9</cnpj>
-        <nome>Dois Pinheiros</nome>
-        <endereco>Av. dos Tarumãs</endereco>
-        <telefone>3531-4339</telefone>
-        <email>labdoispinheiros...</email>
-        <senha>ee64bf6ca753c4fb217bfaa082274181</senha>
-        <tipos_exame>Ressonância Magnética;Tomografia</tipos_exame>
-    </laboratorio>
+  <laboratorio>
+    <cnpj>9841348-5</cnpj>
+    <nome>Oswaldo Cruz</nome>
+    <endereco>Santa Cruz</endereco>
+    <telefone>3532-3291</telefone>
+    <email>oswaldocruz...</email>
+    <senha>ee64bf6ca753c4fb217bfaa282274151</senha>
+    <tipos_exame>Radiografia;Mamografia</tipos_exame>
+  </laboratorio>
+  <laboratorio>
+    <cnpj>3057439-9</cnpj>
+    <nome>Dois Pinheiros</nome>
+    <endereco>Av. dos Tarumãs</endereco>
+    <telefone>3531-4339</telefone>
+    <email>labdoispinheiros@gmail.com</email>
+    <senha>81dc9bdb52d04dc20036dbd8313ed055</senha>
+    <tipos_exame>Ressonância Magnética&#13;
+Tomografia</tipos_exame>
+  </laboratorio>
 </laboratorios>
