@@ -9,7 +9,7 @@ $("#meuperfil-toggle").click(function(f) {
     $("#meuperfil").show();
     $("#wrapper").toggleClass("toggled");
 });
-// MEU PERFIL onkeypress="validaCPF(this.value)"
+// MEU PERFIL
 $("#inputCpf").change(function(){
 
     var teste = 'cpf=' + String($("#inputCpf").val());
@@ -28,7 +28,7 @@ $("#inputCpf").change(function(){
             }
         },
         error: function () {
-            $('#inputObervacao').html('Bummer: there was an error!');
+            $('#validarCPF').html('Bummer: there was an error!');
         },
     });    
 
