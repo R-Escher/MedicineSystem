@@ -138,12 +138,22 @@ class Paciente extends Base {
 		libxml_use_internal_errors(true);
 		$xml_pacientes = simplexml_load_file("dados/pacientes.xml");
 
+		# Ocorre um problema que o destino do arquivo depende
+		# de onde está quem chama a função. Ela é chamada tanto
+		# por medico.php quanto por ajax/verificaCPF.php
 		if ($xml_pacientes === false) {
-			echo "Erro no XML Pacientes: ";
+			#echo "Erro no XML Pacientes: ";
 			foreach (libxml_get_errors() as $error) {
-				echo "<br>", $error->message;
+				#echo "<br>", $error->message;
 			}
-		} else {
+			$xml_pacientes = simplexml_load_file("../dados/pacientes.xml");
+		}
+		if ($xml_pacientes === false) {
+			#echo "Erro no XML Pacientes: ";
+			foreach (libxml_get_errors() as $error) {
+				#echo "<br>", $error->message;
+			}
+		}else {
 
 			$paciente = new Paciente();
 

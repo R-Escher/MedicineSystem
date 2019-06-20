@@ -23,7 +23,8 @@
                         <div class="form-row">
                             <div class="form-group col-md">
                             <label for="inputCpf">CPF do Paciente</label>
-                            <input type="text" class="form-control" name="inputCpf" id="inputCpf" placeholder="" required>
+                            <input type="text" class="form-control" name="inputCpf" id="inputCpf" placeholder="" value="" required>
+                            <label id="validarCPF" style="display: none; color: red;">CPF não cadastrado!</label>
                             </div>
                         </div>
                         <div class="form-row">
@@ -51,7 +52,7 @@
                             </div>
                         </div>                                                                                                                                             
 
-                        <div class="col-12 text-center"><button type="submit" name="medico_adicionarConsulta" class="btn btn-dark">Salvar</button></div>
+                        <div class="col-12 text-center"><button type="submit" id="medico_adicionarConsulta" name="medico_adicionarConsulta" class="btn btn-dark" disabled>Salvar</button></div>
                     </form>                
                 
                 
