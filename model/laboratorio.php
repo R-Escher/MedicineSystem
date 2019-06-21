@@ -129,11 +129,18 @@ class Laboratorio extends Base {
 		$xml_laboratorios = simplexml_load_file("dados/laboratorios.xml");
 
 		if ($xml_laboratorios === false) {
-			echo "Erro no XML laboratorios: ";
+			//echo "Erro no XML laboratorios: ";
 			foreach (libxml_get_errors() as $error) {
-				echo "<br>", $error->message;
+				//echo "<br>", $error->message;
 			}
-		} else {
+			$xml_laboratorios = simplexml_load_file("../dados/laboratorios.xml");
+		}
+		if ($xml_laboratorios === false) {
+			//echo "Erro no XML laboratorios: ";
+			foreach (libxml_get_errors() as $error) {
+				//echo "<br>", $error->message;
+			}	
+		}else{
 
 			$laboratorio = new laboratorio();
 

@@ -83,7 +83,7 @@
         </div>
 
         <div class="row col-sm" style="padding: 0;">
-            <input type="text" class=" col-10" name="inputPesquisa" id="inputPesquisa">
+            <input type="text" class=" col-10" name="inputPesquisaPaciente" id="inputPesquisaPaciente">
             <button id="admin_procurarPaciente" name="admin_procurarPaciente" class=" btn btn-dark col-1.5"><i class="fas fa-search"></i></button>
         </div>
     </div>
@@ -117,9 +117,9 @@
 <div id="medicos">
     <!-- botao de adicionar e input de busca -->
     <div class="row" >
-        <div class="col-sm"><button class="btn btn-dark" data-toggle="modal" data-target=".bd-example-modal-md"><i class="fas fa-user-plus"></i></button></div>
+        <div class="col-sm"><button class="btn btn-dark" data-toggle="modal" data-target="#modalMedico"><i class="fas fa-user-plus"></i></button></div>
         <!-- Modal de adicionar medico -->
-        <div class="modal fade bd-example-modal-md" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal fade bd-example-modal-md" id="modalMedico" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-md">
                 <div class="modal-content p-3">
 
@@ -189,7 +189,7 @@
         </div>
 
         <div class="row col-sm" style="padding: 0;">
-            <input type="text" class=" col-10" name="inputPesquisa" id="inputPesquisa">
+            <input type="text" class=" col-10" name="inputPesquisaMedico" id="inputPesquisaMedico">
             <button id="admin_procurarMedico" name="admin_procurarMedico" class=" btn btn-dark col-1.5"><i class="fas fa-search"></i></button>
         </div>
     </div>
@@ -222,9 +222,9 @@
 <div id="laboratorios">
     <!-- botao de adicionar e input de busca -->
     <div class="row" >
-        <div class="col-sm"><button class="btn btn-dark" data-toggle="modal" data-target=".bd-example-modal-md"><i class="fas fa-user-plus"></i></button></div>
+        <div class="col-sm"><button class="btn btn-dark" data-toggle="modal" data-target="#modalLab"><i class="fas fa-user-plus"></i></button></div>
         <!-- Modal de adicionar medico -->
-        <div class="modal fade bd-example-modal-md" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal fade bd-example-modal-md" id="modalLab" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-md">
                 <div class="modal-content p-3">
 
@@ -259,7 +259,7 @@
                             <div class="form-group col-md">
                             <label for="inputCnpjLaboratorio">CNPJ do Laboratório</label>
                             <input type="text" class="form-control" name="inputCnpjLaboratorio" id="inputCnpjLaboratorio" placeholder="" value="" required>
-                            <label id="validarCNPJ" style="display: none; color: red;">CRM já cadastrado!</label>
+                            <label id="validarCNPJ" style="display: none; color: red;">CNPJ já cadastrado!</label>
                             </div>
                         </div>
                         <div class="form-row">
@@ -284,7 +284,7 @@
         </div>
 
         <div class="row col-sm" style="padding: 0;">
-            <input type="text" class=" col-10" name="inputPesquisa" id="inputPesquisa">
+            <input type="text" class=" col-10" name="inputPesquisaLaboratorio" id="inputPesquisaLaboratorio">
             <button id="admin_procurarLaboratorio" name="admin_procurarLaboratorio" class=" btn btn-dark col-1.5"><i class="fas fa-search"></i></button>
         </div>
     </div>

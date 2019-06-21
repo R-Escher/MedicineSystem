@@ -75,10 +75,10 @@ $("#inputCnpjLaboratorio").change(function(){
         success: function (response) {
             if (response == false){
                 $('#admin_adicionarLaboratorio').attr("disabled", false);
-                $("#validarCPF").hide();                
+                $("#validarCNPJ").hide();                
             }else if(response == true){
                 $('#admin_adicionarLaboratorio').attr("disabled", true);
-                $("#validarCPF").show();
+                $("#validarCNPJ").show();
             }
         },
         error: function () {
@@ -90,7 +90,7 @@ $("#inputCnpjLaboratorio").change(function(){
 // PESQUISA PACIENTE
 $("#admin_procurarPaciente").click(function(f) {
 
-    var teste = 'nomePaciente=' + String($("#inputPesquisa").val());
+    var teste = 'nomePaciente=' + String($("#inputPesquisaPaciente").val());
     $.ajax({
         type: "POST",
         url: 'ajax/admin_procuraPacienteMedicoLaboratorio.php',
@@ -102,7 +102,7 @@ $("#admin_procurarPaciente").click(function(f) {
                 $("#mostraPacientes").html($consultas);
             }else{
                 alert("Não foram encontradas nomes contendo esses caracteres!");
-                $("#inputPesquisa").val('');
+                $("#inputPesquisaPaciente").val('');
             }
         },
         error: function () {
@@ -115,7 +115,7 @@ $("#admin_procurarPaciente").click(function(f) {
 // PESQUISA MÉDICO
 $("#admin_procurarMedico").click(function(f) {
 
-    var teste = 'nomeMedico=' + String($("#inputPesquisa").val());
+    var teste = 'nomeMedico=' + String($("#inputPesquisaMedico").val());
     $.ajax({
         type: "POST",
         url: 'ajax/admin_procuraPacienteMedicoLaboratorio.php',
@@ -127,7 +127,7 @@ $("#admin_procurarMedico").click(function(f) {
                 $("#mostraMedicos").html($consultas);
             }else{
                 alert("Não foram encontradas nomes contendo esses caracteres!");
-                $("#inputPesquisa").val('');
+                $("#inputPesquisaMedico").val('');
             }
         },
         error: function () {
@@ -140,7 +140,7 @@ $("#admin_procurarMedico").click(function(f) {
 // PESQUISA LABORATÓRIO
 $("#admin_procurarLaboratorio").click(function(f) {
 
-    var teste = 'nomeLaboratorio=' + String($("#inputPesquisa").val());
+    var teste = 'nomeLaboratorio=' + String($("#inputPesquisaLaboratorio").val());
     $.ajax({
         type: "POST",
         url: 'ajax/admin_procuraPacienteMedicoLaboratorio.php',
@@ -152,7 +152,7 @@ $("#admin_procurarLaboratorio").click(function(f) {
                 $("#mostraLaboratorios").html($consultas);
             }else{
                 alert("Não foram encontradas nomes contendo esses caracteres!");
-                $("#inputPesquisa").val('');
+                $("#inputPesquisaLaboratorio").val('');
             }
         },
         error: function () {

@@ -141,12 +141,20 @@ class Medico extends Base {
 		$xml_medicos = simplexml_load_file("dados/medicos.xml");
 
 		if ($xml_medicos === false) {
-			echo "Erro no XML Médicos2: ";
+			//echo "Erro no XML Médicos2: ";
 			foreach (libxml_get_errors() as $error) {
-				echo "<br>", $error->message;
+				//echo "<br>", $error->message;
+			}
+			$xml_medicos = simplexml_load_file("../dados/medicos.xml");
+		}
+
+		if ($xml_medicos === false) {
+			//echo "Erro no XML Médicos2: ";
+			foreach (libxml_get_errors() as $error) {
+				//echo "<br>", $error->message;
 			}
 		} else {
-
+			
 			$medico = new Medico();
 
 			foreach ($xml_medicos->children() as $m) {
