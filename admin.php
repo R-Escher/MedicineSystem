@@ -62,7 +62,7 @@
                             <div class="form-group col-md">
                             <label for="inputCpfPaciente">CPF do Paciente</label>
                             <input type="text" class="form-control" name="inputCpfPaciente" id="inputCpfPaciente" placeholder="" value="" required>
-                            <label id="validarCPF" style="display: none; color: red;">CPF já cadastrado!</label>
+                            <label id="validarCPF" style="display: none; color: red;">CPF inválido ou já cadastrado!</label>
                             </div>
                         </div>
                         <div class="form-row">
@@ -164,7 +164,7 @@
                             <div class="form-group col-md">
                             <label for="inputCrmMedico">CRM do Médico</label>
                             <input type="text" class="form-control" name="inputCrmMedico" id="inputCrmMedico" placeholder="" value="" required>
-                            <label id="validarCRM" style="display: none; color: red;">CRM já cadastrado!</label>
+                            <label id="validarCRM" style="display: none; color: red;">CRM inválido ou já cadastrado!</label>
                             </div>
                         </div>
                         <div class="form-row">
@@ -259,7 +259,7 @@
                             <div class="form-group col-md">
                             <label for="inputCnpjLaboratorio">CNPJ do Laboratório</label>
                             <input type="text" class="form-control" name="inputCnpjLaboratorio" id="inputCnpjLaboratorio" placeholder="" value="" required>
-                            <label id="validarCNPJ" style="display: none; color: red;">CNPJ já cadastrado!</label>
+                            <label id="validarCNPJ" style="display: none; color: red;">CNPJ inválido ou já cadastrado!</label>
                             </div>
                         </div>
                         <div class="form-row">

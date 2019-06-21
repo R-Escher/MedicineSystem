@@ -1,6 +1,11 @@
 <!doctype html>
 <html lang="pt-BR">
   <?php include_once 'head.php'; ?>
+  <?php 
+    $lab = new Laboratorio;
+    # apagar depois
+    $cnpj = "30574399111111"; 
+  ?>
     <body>
 
         <div class="d-flex" id="wrapper">
@@ -30,23 +35,29 @@
                     <div class="collapse navbar-collapse pl-3" id="navbarSupportedContent">
                         <img src="archive/medicineSystem.png"title="Medicine System"/>
                         <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-                        <li class="nav-item active">
-                            <a class="nav-link text-light" href="#">Home <span class="sr-only">(current)</span></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-light" href="#">Link</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Dropdown
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                            </div>
-                        </li>
-                        </ul>
+                            
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" style="color: #c2c3c5; font-size: 18px;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <?php 
+                                    $lab = $lab->buscaLaboratorio($cnpj, "laboratorio");
+                                    echo "Laboratório ".$lab->getNome();
+                                ?>                            
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <?php $numeroExames = $universal->contaExames($cnpj, "laboratorio"); ?>
+                                    <label class="dropdown-item">Total de Exames: 
+                                        <?php echo $numeroExames[0]; ?>
+                                    </label>
+                                    <div class="dropdown-divider"></div>                            
+                                    <label class="dropdown-item">Exames este mês: 
+                                        <?php echo $numeroExames[1]; ?>
+                                    </label>
+                                    <div class="dropdown-divider"></div>
+                                    <label class="dropdown-item">Exames hoje: 
+                                        <?php echo $numeroExames[2]; ?>
+                                    </label>
+                                </div>
+                            </li>
+                        </ul>  
                     </div>
                 </nav>

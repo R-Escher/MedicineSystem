@@ -18,7 +18,7 @@ $("#laboratorioscadastrados-toggle").click(function(f) {
 // ADICIONA PACIENTE
 $("#inputCpfPaciente").change(function(){
 
-    var teste = 'cpf=' + String($("#inputCpfPaciente").val());
+    var teste = 'cpf=' + String($("#inputCpfPaciente").val())+'&pessoa=admin';
     $.ajax({
         type: "POST",
         url: 'ajax/verificaCPF.php',

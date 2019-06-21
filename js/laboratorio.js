@@ -35,10 +35,10 @@ $("#lab_procurarExame").click(function(f) {
 
 });
 
-// MEU PERFIL onkeypress="validaCPF(this.value)"
+
 $("#inputCpf").change(function(){
 
-    var teste = 'cpf=' + String($("#inputCpf").val());
+    var teste = 'cpf=' + String($("#inputCpf").val())+'&pessoa=laboratorio';
     $.ajax({
         type: "POST",
         url: 'ajax/verificaCPF.php',

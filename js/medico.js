@@ -35,10 +35,10 @@ $("#medico_procurarConsulta").click(function(f) {
 
 });
 
-// MEU PERFIL
+
 $("#inputCpf").change(function(){
 
-    var teste = 'cpf=' + String($("#inputCpf").val());
+    var teste = 'cpf=' + String($("#inputCpf").val())+'&pessoa='+'medico';
     $.ajax({
         type: "POST",
         url: 'ajax/verificaCPF.php',

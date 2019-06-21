@@ -1,10 +1,6 @@
 <?php include 'index-include/sidenav_medico.php'; ?>
 <!-- Tags em aberto: <html>, <body>, <div class="d-flex" id="wrapper">, <div id="page-content-wrapper"> -->
-<?php
-    $medico = new Medico;
-    # apagar depois
-    $crm = "4123-9"; 
-?>
+
 
 <div class="container-fluid" style="padding: 30px 20px;">
 
@@ -24,7 +20,7 @@
                             <div class="form-group col-md">
                             <label for="inputCpf">CPF do Paciente</label>
                             <input type="text" class="form-control" name="inputCpf" id="inputCpf" placeholder="" value="" required>
-                            <label id="validarCPF" style="display: none; color: red;">CPF não cadastrado!</label>
+                            <label id="validarCPF" style="display: none; color: red;">CPF inválido ou não cadastrado!</label>
                             </div>
                         </div>
                         <div class="form-row">

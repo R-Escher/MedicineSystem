@@ -1,10 +1,5 @@
 <?php include 'index-include/sidenav_laboratorio.php'; ?>
 <!-- Tags em aberto: <html>, <body>, <div class="d-flex" id="wrapper">, <div id="page-content-wrapper"> -->
-<?php
-    $lab = new Laboratorio;
-    # apagar depois
-    $cnpj = "3057439-9"; 
-?>
 
 <div class="container-fluid" style="padding: 30px 20px;">
 
@@ -24,7 +19,7 @@
                             <div class="form-group col-md">
                             <label for="inputCpf">CPF do Paciente</label>
                             <input type="text" class="form-control" name="inputCpf" id="inputCpf" placeholder="" value="" required>
-                            <label id="validarCPF" style="display: none; color: red;">CPF não cadastrado!</label>
+                            <label id="validarCPF" style="display: none; color: red;">CPF inválido ou não cadastrado!</label>
                             </div>
                         </div>
                         <div class="form-row">
@@ -57,7 +52,7 @@
 
         <div class="row col-sm" style="padding: 0;">
             <input type="text" class="form-control col-10"  name="inputPesquisa" id="inputPesquisa">
-            <button id="lab_procurarExame" name="lab_procurarExame" class="btn btn-dark col-1.5"><i class="fas fa-search"></i></button>
+            <button id="lab_procurarExame" name="lab_procurarExame" class="btn btn-dark col-1"><i class="fas fa-search"></i></button>
         </div>
     </div>
 
@@ -160,4 +155,5 @@
   <script src="js/laboratorio.js"></script>      
   <script src="js/sidebar.js"></script>  
 
-        </body>
+</body>
+</html>

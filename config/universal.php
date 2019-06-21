@@ -148,6 +148,147 @@ class universal{
         }        
     }
 
+    public function contaConsultas($chave, $pessoa){
+        date_default_timezone_set('America/Sao_Paulo'); 
+        $date = date('Y-m-d');
+        $mes = date('m');
+        
+        $consultasTotal = 0;
+        $consultasMes = 0;
+        $consultasHoje = 0;
+
+        libxml_use_internal_errors(true);
+        $xml_consultas = simplexml_load_file("dados/consultas.xml");
+        if ($xml_consultas === false) {
+            echo "Erro no XML Consultas: ";
+            foreach (libxml_get_errors() as $error) {
+                echo "<br>", $error->message;
+            }
+        }else{
+            
+            if($pessoa=="medico"){
+
+                foreach ($xml_consultas->children() as $c) {
+                    #consultasHOJE
+                    if (($c->medico == $chave) && ($c->data == $date)) {
+                        $consultasHoje += 1;
+                    }
+                    
+                    #consultasMES
+                    $dataConsulta = date_create($c->data);
+                    $dataConsulta = date_format($dataConsulta, "m");
+
+                    if (($c->medico == $chave) && ($mes == $dataConsulta)){
+                        $consultasMes += 1;
+                    }
+
+                    #consultasTOTAL
+                    if ($c->medico == $chave){
+                        $consultasTotal += 1;
+                    }
+
+                }
+            }elseif($pessoa=="paciente"){
+                foreach ($xml_consultas->children() as $c) {
+                    #consultasHOJE
+                    if (($c->paciente == $chave) && ($c->data == $date)) {
+                        $consultasHoje += 1;
+                    }
+                    
+                    #consultasMES
+                    $dataConsulta = date_create($c->data);
+                    $dataConsulta = date_format($dataConsulta, "m");
+
+                    if (($c->paciente == $chave) && ($mes == $dataConsulta)){
+                        $consultasMes += 1;
+                    }
+
+                    #consultasTOTAL
+                    if ($c->paciente == $chave){
+                        $consultasTotal += 1;
+                    }
+
+                }                
+            }
+            
+        }        
+        
+        
+        $consultas = array($consultasTotal, $consultasMes, $consultasHoje);
+        return $consultas;
+    }
+
+    public function contaExames($chave, $pessoa){
+        date_default_timezone_set('America/Sao_Paulo'); 
+        $date = date('Y-m-d');
+        $mes = date('m');
+        
+        $examesTotal = 0;
+        $examesMes = 0;
+        $examesHoje = 0;
+
+        libxml_use_internal_errors(true);
+        $xml_exames = simplexml_load_file("dados/exames.xml");
+        if ($xml_exames === false) {
+            echo "Erro no XML Exames: ";
+            foreach (libxml_get_errors() as $error) {
+                echo "<br>", $error->message;
+            }
+        }else{
+            if($pessoa=="laboratorio"){
+
+                foreach ($xml_exames->children() as $c) {
+                    #examesHOJE
+                    if (($c->laboratorio == $chave) && ($c->data == $date)) {
+                        $examesHoje += 1;
+                    }
+                    
+                    #examesMES
+                    $dataExame = date_create($c->data);
+                    $dataExame = date_format($dataExame, "m");
+
+                    if (($c->laboratorio == $chave) && ($mes == $dataExame)){
+                        $examesMes += 1;
+                    }
+
+                    #examesTOTAL
+                    if ($c->laboratorio == $chave){
+                        $examesTotal += 1;
+                    }
+
+                }
+            }elseif($pessoa=="paciente"){
+
+                foreach ($xml_exames->children() as $c) {
+                    #examesHOJE
+                    if (($c->paciente == $chave) && ($c->data == $date)) {
+                        $examesHoje += 1;
+                    }
+                    
+                    #examesMES
+                    $dataExame = date_create($c->data);
+                    $dataExame = date_format($dataExame, "m");
+
+                    if (($c->paciente == $chave) && ($mes == $dataExame)){
+                        $examesMes += 1;
+                    }
+
+                    #examesTOTAL
+                    if ($c->paciente == $chave){
+                        $examesTotal += 1;
+                    }
+
+                }                
+
+            }
+            
+        }        
+        
+        
+        $exames = array($examesTotal, $examesMes, $examesHoje);
+        return $exames;
+    }    
+
     public function mostrarExames($chavePrimaria, $pessoa){
         # ChavePrimária vai o CPF ou CNPJ, dependendo de quem pede a função.
         # Pessoa determina se é para buscar exame baseado no LAB ou PACIENTE (CNPJ/CPF)

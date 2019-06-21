@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pacientes>
   <paciente>
-    <cpf>456.132.743-44</cpf>
+    <cpf>45613274344</cpf>
     <nome>André Rodrigues</nome>
     <endereco>Rua Marechal Rondon</endereco>
     <telefone>(55) 3521-4435</telefone>
@@ -11,7 +11,7 @@
     <genero>Masculino</genero>
   </paciente>
   <paciente>
-    <cpf>036.225.895-12</cpf>
+    <cpf>03622589512</cpf>
     <nome>Mario Antonio</nome>
     <endereco>Rua General Osório</endereco>
     <telefone>(53) 3532-9876</telefone>

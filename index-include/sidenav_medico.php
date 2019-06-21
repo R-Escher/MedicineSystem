@@ -1,6 +1,11 @@
 <!doctype html>
 <html lang="pt-BR">
   <?php include_once 'head.php'; ?>
+  <?php
+    $medico = new Medico;
+    # apagar depois
+    $crm = "123456"; 
+  ?>  
     <body>
 
         <div class="d-flex" id="wrapper">
@@ -23,30 +28,36 @@
                 <nav class="navbar navbar-expand-lg navbar-light border-bottom" style="background-color: #1a1d20; color: #eaebeb; padding: 7.2px 16px; ">
                     <button class="btn btn-dark" id="menu-toggle" style="padding: 3px 9px; "><i class="fas fa-bars fa-2x"></i></button>
 
-                     <!--<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>-->
-
                     <div class="collapse navbar-collapse pl-3" id="navbarSupportedContent">
-                        <img src="archive/medicineSystem.png"title="Medicine System"/>
-                        <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-                        <li class="nav-item active">
-                            <a class="nav-link text-light" href="#">Home <span class="sr-only">(current)</span></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-light" href="#">Link</a>
-                        </li>
+                    <img src="archive/medicineSystem.png"title="Medicine System"/>
+                    <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+    
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Dropdown
+                            <a class="nav-link dropdown-toggle" style="color: #c2c3c5; font-size: 18px;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <?php 
+                                $medico = $medico->buscaMedico($crm, "medico");
+                                echo "Dr. ".$medico->getNome();
+                            ?>
+                            </label>                            
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
+                            <?php $numeroConsultas = $universal->contaConsultas($crm, "medico"); ?>
+                            <label class="dropdown-item">Total de Consultas: 
+                                <?php echo $numeroConsultas[0]; ?>
+                            </label>
+                            <div class="dropdown-divider"></div>                            
+                            <label class="dropdown-item">Consultas este mês: 
+                                <?php echo $numeroConsultas[1]; ?>
+                            </label>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Something else here</a>
+                            <label class="dropdown-item">Consultas hoje: 
+                                <?php echo $numeroConsultas[2]; ?>
+                            </label>
                             </div>
                         </li>
-                        </ul>
+                        
+
+
+                    </ul>                        
                     </div>
                 </nav>

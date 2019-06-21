@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <laboratorios>
   <laboratorio>
-    <cnpj>9841348-5</cnpj>
+    <cnpj>98413485111111</cnpj>
     <nome>Oswaldo Cruz</nome>
     <endereco>Santa Cruz</endereco>
     <telefone>3532-3291</telefone>
@@ -10,7 +10,7 @@
     <tipos_exame>Radiografia;Mamografia</tipos_exame>
   </laboratorio>
   <laboratorio>
-    <cnpj>3057439-9</cnpj>
+    <cnpj>30574399111111</cnpj>
     <nome>Dois Pinheiros</nome>
     <endereco>Av. dos Tarumãs</endereco>
     <telefone>3531-4339</telefone>

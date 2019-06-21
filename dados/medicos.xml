@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <medicos>
   <medico>
-    <crm>4565-1</crm>
+    <crm>123456</crm>
     <nome>Rafael</nome>
     <endereco>santa cruz</endereco>
     <telefone>8634-3221</telefone>
@@ -11,7 +11,7 @@
     <genero>Masculino</genero>
   </medico>
   <medico>
-    <crm>4123-9</crm>
+    <crm>123457</crm>
     <nome>Jaler Zago</nome>
     <endereco>Avenida Itália</endereco>
     <telefone>53 9872-3123</telefone>

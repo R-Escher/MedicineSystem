@@ -1,12 +1,6 @@
 <?php include 'index-include/sidenav_paciente.php'; ?>
 <!-- Tags em aberto: <html>, <body>, <div class="d-flex" id="wrapper">, <div id="page-content-wrapper"> -->
 
-<?php 
-            $paciente = new Paciente;
-            # apagar depois
-            $cpf = "036.225.895-12";
-?>
-
 <div class="container-fluid" style="padding: 30px 20px;">
 
 <div id="consultas">
