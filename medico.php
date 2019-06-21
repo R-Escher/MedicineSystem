@@ -62,8 +62,8 @@
         </div>
 
         <div class="row col-sm" style="padding: 0;">
-            <input type="email" class="form-control col-10" name="" id="">
-            <button class="btn btn-dark col-1.5"><i class="fas fa-search"></i></button>
+            <input type="text" class=" col-10" name="inputPesquisa" id="inputPesquisa">
+            <button id="medico_procurarConsulta" name="medico_procurarConsulta" class=" btn btn-dark col-1.5"><i class="fas fa-search"></i></button>
         </div>
     </div>
 
@@ -81,12 +81,10 @@
             <th scope="col">OBSERVAÇÃO</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody id="mostraConsultas">
         <?php 
-
             # função que vai retornar rows em formato html contendo as CONSULTAS realizadas pelo medico atual (depende do crm)
             $universal->mostrarConsultas($crm, "medico");
-
         ?>
 
         </tbody>

@@ -9,6 +9,29 @@ $("#meuperfil-toggle").click(function(f) {
     $("#meuperfil").show();
     $("#wrapper").toggleClass("toggled");
 });
+
+// PESQUISA CONSULTA
+$("#medico_procurarConsulta").click(function(f) {
+
+    var teste = 'nome=' + String($("#inputPesquisa").val()) + '&crm=' + String($("#inputCrm").val());
+    $.ajax({
+        type: "POST",
+        url: 'ajax/procuraConsulta.php',
+        async: true,
+        data: teste,
+        success: function (response) {
+            $consultas = response;
+            if ($consultas != false){
+                $("#mostraConsultas").html($consultas);
+            }
+        },
+        error: function () {
+            $('#validarCPF').html('Bummer: there was an error!');
+        },
+    });
+
+});
+
 // MEU PERFIL
 $("#inputCpf").change(function(){
 

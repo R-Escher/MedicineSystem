@@ -73,8 +73,8 @@ class universal{
     }
 
     public function procurarConsultas($nome, $crm){
-        # Função de pesquisar consulta dado um nome do paciente. Utilizada na search box do medico.php
-        # NOME e CRM para procurar consulta que contém os dois.
+        # Função de pesquisar consulta dado um nome do paciente. Utilizada na search box do medico.php e no admin.php
+        # NOME e CRM para procurar consulta que contém os dois, ou só nome caso seja o admin.
 
         libxml_use_internal_errors(true);
         $xml_consultas = simplexml_load_file("../dados/consultas.xml");    
@@ -83,11 +83,12 @@ class universal{
             foreach (libxml_get_errors() as $error) {
                 echo "<br>", $error->message;
             }
-        }elseif ($pessoa == "medico"){
-            $paciente = new Paciente;
+        }else{
+
+            $paciente = new Paciente; # para buscar NOME baseado no cpf
             foreach ($xml_consultas->children() as $c) {
                 $paciente = $paciente->buscapaciente($c->paciente);
-                if (($c->medico == $crm) && ($c->paciente == $nome)) {
+                if (($c->medico == $crm) && (stripos($paciente->getNome(), $nome) !== false)) {
                     
                     $consulta = 
                     '<tr>
@@ -146,7 +147,6 @@ class universal{
             fclose($file);              
         }        
     }
-
 
     public function mostrarExames($chavePrimaria, $pessoa){
         # ChavePrimária vai o CPF ou CNPJ, dependendo de quem pede a função.
