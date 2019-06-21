@@ -183,7 +183,7 @@ class universal{
                 $paciente = $paciente->buscapaciente($c->paciente);
                 if ($c->laboratorio == $chavePrimaria) {
                     
-                    $consulta = 
+                    $exame = 
                     '<tr>
                         <th>'.$paciente->getNome().'</th>
                         <td>'.$c->data.'</td>
@@ -194,12 +194,49 @@ class universal{
                     </tr>
                         
                     ';
-                    echo $consulta;
+                    echo $exame;
                 }
             } 
             
         }
     }    
+
+    public function procurarExames($nome, $cnpj){
+        # Função de pesquisar consulta dado um nome do paciente. Utilizada na search box do medico.php e no admin.php
+        # NOME e CNPJ para procurar consulta que contém os dois, ou só nome caso seja o admin.
+
+        libxml_use_internal_errors(true);
+        $xml_exames = simplexml_load_file("../dados/exames.xml");    
+        if ($xml_exames === false) {
+            echo "Erro no XML Exames: ";
+            foreach (libxml_get_errors() as $error) {
+                echo "<br>", $error->message;
+            }
+        }else{
+
+            $paciente = new Paciente; # para buscar NOME baseado no cpf
+            foreach ($xml_exames->children() as $c) {
+                $paciente = $paciente->buscapaciente($c->paciente);
+                if (($c->laboratorio == $cnpj) && (stripos($paciente->getNome(), $nome) !== false)) {
+                    $exame = 
+                    '<tr>
+                        <th>'.$paciente->getNome().'</th>
+                        <td>'.$c->data.'</td>
+                        <td>'.$paciente->getTelefone().'</td>
+                        <td>'.$paciente->getEmail().'</td>
+                        <td>'.$c->tipos_exame.'</td>
+                        <td>'.$c->resultado.'</td>
+                    </tr>
+                        
+                    ';
+                    echo $exame;
+                }
+            }
+            
+        }
+
+    }
+
 
     public function cadastraExame($data, $cnpj, $cpf, $exames, $resultado){
 

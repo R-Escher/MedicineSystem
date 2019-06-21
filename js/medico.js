@@ -16,7 +16,7 @@ $("#medico_procurarConsulta").click(function(f) {
     var teste = 'nome=' + String($("#inputPesquisa").val()) + '&crm=' + String($("#inputCrm").val());
     $.ajax({
         type: "POST",
-        url: 'ajax/procuraConsulta.php',
+        url: 'ajax/procuraConsulta_Exame.php',
         async: true,
         data: teste,
         success: function (response) {
@@ -26,7 +26,7 @@ $("#medico_procurarConsulta").click(function(f) {
             }
         },
         error: function () {
-            $('#validarCPF').html('Bummer: there was an error!');
+            
         },
     });
 

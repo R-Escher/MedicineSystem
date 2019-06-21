@@ -9,6 +9,29 @@ $("#meuperfil-toggle").click(function(f) {
     $("#meuperfil").show();
     $("#wrapper").toggleClass("toggled");
 });
+
+// PESQUISA EXAMES
+$("#lab_procurarExame").click(function(f) {
+
+    var teste = 'nome=' + String($("#inputPesquisa").val()) + '&cnpj=' + String($("#inputCnpj").val());
+    $.ajax({
+        type: "POST",
+        url: 'ajax/procuraConsulta_Exame.php',
+        async: true,
+        data: teste,
+        success: function (response) {
+            $exames = response;
+            if ($exames != false){
+                $("#mostraExames").html($exames);
+            }
+        },
+        error: function () {
+        
+        },
+    });
+
+});
+
 // MEU PERFIL onkeypress="validaCPF(this.value)"
 $("#inputCpf").change(function(){
 

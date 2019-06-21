@@ -56,8 +56,8 @@
         </div>
 
         <div class="row col-sm" style="padding: 0;">
-            <input type="email" class="form-control col-10" name="" id="">
-            <button class="btn btn-dark col-1.5"><i class="fas fa-search"></i></button>
+            <input type="text" class="form-control col-10"  name="inputPesquisa" id="inputPesquisa">
+            <button id="lab_procurarExame" name="lab_procurarExame" class="btn btn-dark col-1.5"><i class="fas fa-search"></i></button>
         </div>
     </div>
 
@@ -74,7 +74,7 @@
             <th scope="col">RESULTADO</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody id="mostraExames">
         <?php 
 
             # função que vai retornar rows em formato html contendo os EXAMES realizadas pelo lab atual (depende do cnpj)
