@@ -23,6 +23,9 @@ $("#medico_procurarConsulta").click(function(f) {
             $consultas = response;
             if ($consultas != false){
                 $("#mostraConsultas").html($consultas);
+            }else{
+                alert("Não foram encontradas nomes contendo esses caracteres!");
+                $("#inputPesquisa").val('');
             }
         },
         error: function () {

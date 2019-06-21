@@ -237,7 +237,6 @@ class universal{
 
     }
 
-
     public function cadastraExame($data, $cnpj, $cpf, $exames, $resultado){
 
         libxml_use_internal_errors(true);
@@ -275,6 +274,189 @@ class universal{
         }        
     }
 
+    //
+    // FUNÇÕES EXCLUSIVAS DO ADMIN.PHP
+    //
+    public function mostrarPacientes(){
+
+        libxml_use_internal_errors(true);
+        $xml_pacientes = simplexml_load_file("dados/pacientes.xml");    
+        if ($xml_pacientes === false) {
+            echo "Erro no XML Pacientes: ";
+            foreach (libxml_get_errors() as $error) {
+                echo "<br>", $error->message;
+            }
+        }else{
+            //$paciente = new Paciente; # para buscar nome do lab baseado em seu CNPJ
+            foreach ($xml_pacientes->children() as $c) {
+                //$paciente = $paciente->buscapaciente($c->paciente);
+                $paciente = 
+                '<tr>
+                    <td>'.$c->nome.'</td>
+                    <th>'.$c->endereco.'</th>
+                    <td>'.$c->telefone.'</td>
+                    <td>'.$c->email.'</td>
+                    <td>'.$c->genero.'</td>
+                    <td>'.$c->idade.'</td>
+                    <td>'.$c->cpf.'</td>
+                </tr>
+                ';
+                echo $paciente;
+            }
+        }
+    }    
+
+    public function mostrarMedicos(){
+
+        libxml_use_internal_errors(true);
+        $xml_medicos = simplexml_load_file("dados/medicos.xml");    
+        if ($xml_medicos === false) {
+            echo "Erro no XML medicos: ";
+            foreach (libxml_get_errors() as $error) {
+                echo "<br>", $error->message;
+            }
+        }else{
+            //$paciente = new Paciente; # para buscar nome do lab baseado em seu CNPJ
+            foreach ($xml_medicos->children() as $c) {
+                //$paciente = $paciente->buscapaciente($c->paciente);
+                $medico = 
+                '<tr>
+                    <td>'.$c->nome.'</td>
+                    <th>'.$c->endereco.'</th>
+                    <td>'.$c->telefone.'</td>
+                    <td>'.$c->email.'</td>
+                    <td>'.$c->genero.'</td>
+                    <td>'.$c->especialidade.'</td>
+                    <td>'.$c->crm.'</td>
+                </tr>
+                ';
+                echo $medico;
+            }
+        }
+    }
+
+    public function mostrarLaboratorios(){
+
+        libxml_use_internal_errors(true);
+        $xml_lab = simplexml_load_file("dados/laboratorios.xml");    
+        if ($xml_lab === false) {
+            echo "Erro no XML laboratorios: ";
+            foreach (libxml_get_errors() as $error) {
+                echo "<br>", $error->message;
+            }
+        }else{
+            //$paciente = new Paciente; # para buscar nome do lab baseado em seu CNPJ
+            foreach ($xml_lab->children() as $c) {
+                //$paciente = $paciente->buscapaciente($c->paciente);
+                $lab = 
+                '<tr>
+                    <td>'.$c->nome.'</td>
+                    <th>'.$c->endereco.'</th>
+                    <td>'.$c->telefone.'</td>
+                    <td>'.$c->email.'</td>
+                    <td>'.$c->tipos_exame.'</td>
+                    <td>'.$c->cnpj.'</td>
+                </tr>
+                ';
+                echo $lab;
+            }
+        }
+    }
+
+    public function procurarPacientes($nome){
+
+        libxml_use_internal_errors(true);
+        $xml_pacientes = simplexml_load_file("../dados/pacientes.xml");    
+        if ($xml_pacientes === false) {
+            echo "Erro no XML Pacientes: ";
+            foreach (libxml_get_errors() as $error) {
+                echo "<br>", $error->message;
+            }
+        }else{
+
+            foreach ($xml_pacientes->children() as $c) {
+                if (stripos($c->nome, $nome) !== false) {
+                    $paciente = 
+                    '<tr>
+                        <td>'.$c->nome.'</td>
+                        <th>'.$c->endereco.'</th>
+                        <td>'.$c->telefone.'</td>
+                        <td>'.$c->email.'</td>
+                        <td>'.$c->genero.'</td>
+                        <td>'.$c->idade.'</td>
+                        <td>'.$c->cpf.'</td>
+                    </tr>
+                    ';
+                    echo $paciente;
+                }
+            }
+            
+        }
+
+    }
+
+    public function procurarMedicos($nome){
+
+        libxml_use_internal_errors(true);
+        $xml_medicos = simplexml_load_file("../dados/medicos.xml");    
+        if ($xml_medicos === false) {
+            echo "Erro no XML medicos: ";
+            foreach (libxml_get_errors() as $error) {
+                echo "<br>", $error->message;
+            }
+        }else{
+
+            foreach ($xml_medicos->children() as $c) {
+                if (stripos($c->nome, $nome) !== false) {
+                    $medico = 
+                    '<tr>
+                        <td>'.$c->nome.'</td>
+                        <th>'.$c->endereco.'</th>
+                        <td>'.$c->telefone.'</td>
+                        <td>'.$c->email.'</td>
+                        <td>'.$c->genero.'</td>
+                        <td>'.$c->especialidade.'</td>
+                        <td>'.$c->crm.'</td>
+                    </tr>
+                    ';
+                    echo $medico;
+                }
+            }
+            
+        }
+
+    }
+
+    public function procurarLaboratorios($nome){
+
+        libxml_use_internal_errors(true);
+        $xml_laboratorios = simplexml_load_file("../dados/laboratorios.xml");    
+        if ($xml_laboratorios === false) {
+            echo "Erro no XML laboratorios: ";
+            foreach (libxml_get_errors() as $error) {
+                echo "<br>", $error->message;
+            }
+        }else{
+
+            foreach ($xml_laboratorios->children() as $c) {
+                if (stripos($c->nome, $nome) !== false) {
+                    $lab = 
+                    '<tr>
+                        <td>'.$c->nome.'</td>
+                        <th>'.$c->endereco.'</th>
+                        <td>'.$c->telefone.'</td>
+                        <td>'.$c->email.'</td>
+                        <td>'.$c->tipos_exame.'</td>
+                        <td>'.$c->cnpj.'</td>
+                    </tr>
+                    ';
+                    echo $lab;
+                }
+            }
+            
+        }
+
+    }    
 
 }
 ?>

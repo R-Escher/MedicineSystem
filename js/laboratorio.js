@@ -23,6 +23,9 @@ $("#lab_procurarExame").click(function(f) {
             $exames = response;
             if ($exames != false){
                 $("#mostraExames").html($exames);
+            }else{
+                alert("Não foram encontrados nomes contendo esses caracteres!");
+                $("#inputPesquisa").val('');
             }
         },
         error: function () {
