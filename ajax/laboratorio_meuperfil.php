@@ -4,13 +4,13 @@
     include "../model/laboratorio.php";
     
     if(isset($_POST['inputCnpj'])){
-        $nome = $_POST['inputName'];
-        $endereco = $_POST['inputAddress'];
-        $telefone = $_POST['inputTel'];
-        $email = $_POST['inputEmail'];
-        $cnpj = $_POST['inputCnpj'];
-        $senha = $_POST['inputPassword'];
-        $exames = $_POST['inputExames'];
+        $nome = $universal->testaEntrada($_POST['inputName']);
+        $endereco = $universal->testaEntrada($_POST['inputAddress']);
+        $telefone = $universal->testaEntrada($_POST['inputTel']);
+        $email = $universal->testaEntrada($_POST['inputEmail']);
+        $cnpj = $universal->testaEntrada($_POST['inputCnpj']);
+        $senha = $universal->testaEntrada($_POST['inputPassword']);
+        $exames = $universal->testaEntrada($_POST['inputExames']);
 
         $lab = new Laboratorio;
         $alteraLaboratorio = $lab->comArgumentos($nome, $endereco, $telefone, $email, $senha, $cnpj, $exames);

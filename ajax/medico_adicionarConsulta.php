@@ -3,12 +3,12 @@
     include "../config/universal.php";
 
     if (isset($_POST['inputCrm'])){
-        $crm = $_POST['inputCrm'];
-        $cpf = $_POST['inputCpf'];
-        $data = $_POST['inputDate'];
-        $receita = $_POST['inputReceita'];
-        $requisicaoExame = $_POST['inputRequisicao'];
-        $observacao = $_POST['inputObervacao'];
+        $crm = $universal->testaEntrada($_POST['inputCrm']);
+        $cpf = $universal->testaEntrada($_POST['inputCpf']);
+        $data = $universal->testaEntrada($_POST['inputDate']);
+        $receita = $universal->testaEntrada($_POST['inputReceita']);
+        $requisicaoExame = $universal->testaEntrada($_POST['inputRequisicao']);
+        $observacao = $universal->testaEntrada($_POST['inputObervacao']);
     
         $universal->cadastraConsulta($crm, $cpf, $data, $receita, $requisicaoExame, $observacao);
     }

@@ -4,7 +4,7 @@
   <?php 
     $lab = new Laboratorio;
     # apagar depois
-    $cnpj = "30574399111111"; 
+    $cnpj = "99843447512355"; 
   ?>
     <body>
 

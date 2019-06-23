@@ -1,27 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <exames>
   <exame>
-    <idExame>0001</idExame>
-    <data>2019-05-18</data>
-    <laboratorio>30574399111111</laboratorio>
-    <paciente>03622589512</paciente>
-    <tipos_exame>Radiografia</tipos_exame>
-    <resultado>Câncer cerebral</resultado>
-  </exame>
-  <exame>
-    <idConsulta>2</idConsulta>
-    <data>2019-06-20</data>
-    <laboratorio>30574399111111</laboratorio>
-    <paciente>45613274344</paciente>
+    <idConsulta>1</idConsulta>
+    <data>2019-06-23</data>
+    <laboratorio>99843447512355</laboratorio>
+    <paciente>34544354389</paciente>
     <tipos_exame>Hemograma</tipos_exame>
-    <resultado>Hiperglicemia</resultado>
-  </exame>
-  <exame>
-    <idConsulta>2</idConsulta>
-    <data>2019-06-21</data>
-    <laboratorio>30574399111111</laboratorio>
-    <paciente>45613274344</paciente>
-    <tipos_exame/>
-    <resultado/>
+    <resultado>Virose</resultado>
   </exame>
 </exames>

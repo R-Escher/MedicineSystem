@@ -4,7 +4,7 @@
   <?php
             $paciente = new Paciente;
             # apagar depois
-            $cpf = "03622589512";
+            $cpf = "34544354389";
   ?>
     <body>
 

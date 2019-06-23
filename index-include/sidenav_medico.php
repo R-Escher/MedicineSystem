@@ -4,7 +4,7 @@
   <?php
     $medico = new Medico;
     # apagar depois
-    $crm = "123456"; 
+    $crm = "343586"; 
   ?>  
     <body>
 

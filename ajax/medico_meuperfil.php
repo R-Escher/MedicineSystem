@@ -4,14 +4,14 @@
     include "../model/medico.php";
     
     if(isset($_POST['inputCrm'])){
-        $nome = $_POST['inputName'];
-        $endereco = $_POST['inputAddress'];
-        $telefone = $_POST['inputTel'];
-        $email = $_POST['inputEmail'];
-        $genero = $_POST['inputGender'];
-        $crm = $_POST['inputCrm'];
-        $senha = $_POST['inputPassword'];
-        $especialidade = $_POST['inputEspecialidade'];
+        $nome = $universal->testaEntrada($_POST['inputName']);
+        $endereco = $universal->testaEntrada($_POST['inputAddress']);
+        $telefone = $universal->testaEntrada($_POST['inputTel']);
+        $email = $universal->testaEntrada($_POST['inputEmail']);
+        $genero = $universal->testaEntrada($_POST['inputGender']);
+        $crm = $universal->testaEntrada($_POST['inputCrm']);
+        $senha = $universal->testaEntrada($_POST['inputPassword']);
+        $especialidade = $universal->testaEntrada($_POST['inputEspecialidade']);
 
         $medico = new Medico;
         $alteraMedico = $medico->comArgumentos($nome, $endereco, $telefone, $email, $senha, $crm, $especialidade, $genero);

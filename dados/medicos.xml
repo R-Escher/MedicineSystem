@@ -1,23 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <medicos>
   <medico>
-    <crm>123456</crm>
-    <nome>Rafael</nome>
-    <endereco>santa cruz</endereco>
-    <telefone>8634-3221</telefone>
-    <email>rafael...</email>
-    <senha>ee64bf6ca753c4fb217bfaa082274151</senha>
-    <especialidade>dormir</especialidade>
-    <genero>Masculino</genero>
-  </medico>
-  <medico>
-    <crm>123457</crm>
-    <nome>Jaler Zago</nome>
-    <endereco>Avenida Itália</endereco>
-    <telefone>53 9872-3123</telefone>
-    <email>jaler@gmail.com</email>
-    <senha>81dc9bdb52d04dc20036dbd8313ed055</senha>
-    <especialidade>virar monstro</especialidade>
+    <crm>343586</crm>
+    <nome>Rafael Escher</nome>
+    <endereco>Rua General Osório</endereco>
+    <telefone>(54) 99564-3435</telefone>
+    <email>rafaelescher@gmail.com</email>
+    <senha>9135d8523ad3da99d8a4eb83afac13d1</senha>
+    <especialidade>Psiquiatria</especialidade>
     <genero>Masculino</genero>
   </medico>
 </medicos>

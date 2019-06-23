@@ -1,16 +1,20 @@
 <?php
     session_start();
     include "../config/universal.php";
+    include "../model/paciente.php";
 
     if (isset($_POST['inputCpfPaciente'])){
-        $nome = $_POST['inputNomePaciente'];
-        $endereco = $_POST['inputEnderecoPaciente'];
-        $telefone = $_POST['inputTelefonePaciente'];
-        $email = $_POST['inputEmailPaciente'];
-        $genero = $_POST['inputGenderPaciente'];
-        $idade = $_POST['inputAgePaciente'];
-        $cpf = $_POST['inputCpfPaciente'];
-        $senha = $_POST['inputPasswordPaciente'];
+        $nome = $universal->testaEntrada($_POST['inputNomePaciente']);
+        $endereco = $universal->testaEntrada($_POST['inputEnderecoPaciente']);
+        $telefone = $universal->testaEntrada($_POST['inputTelefonePaciente']);
+        $email = $universal->testaEntrada($_POST['inputEmailPaciente']);
+        $genero = $universal->testaEntrada($_POST['inputGenderPaciente']);
+        $idade = $universal->testaEntrada($_POST['inputAgePaciente']);
+        $cpf = $universal->testaEntrada($_POST['inputCpfPaciente']);
+        $senha = $universal->testaEntrada($_POST['inputPasswordPaciente']);
+
+        #tratamento de entradas
+        $cpf = preg_replace("/[^0-9]/", "", $cpf);        
 
         $paciente = new Paciente;
         $paciente = $paciente->comArgumentos($nome, $endereco, $telefone, $email, $senha, $cpf, $idade, $genero);

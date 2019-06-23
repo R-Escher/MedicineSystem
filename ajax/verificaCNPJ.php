@@ -1,7 +1,7 @@
 <?php
     include '../model/laboratorio.php';
     $laboratorio = new Laboratorio;
-    $response = $_POST['cnpj'];
+    $response = $universal->testaEntrada($_POST['cnpj']);
 
 	// Elimina possivel mascara
 	$response = preg_replace("/[^0-9]/", "", $response);

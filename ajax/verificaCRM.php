@@ -1,7 +1,7 @@
 <?php
     include '../model/medico.php';
     $medico = new Medico;
-    $response = $_POST['crm'];
+    $response = $universal->testaEntrada($_POST['crm']);
 
 	// Elimina possivel mascara
 	$response = preg_replace("/[^0-9]/", "", $response);

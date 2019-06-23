@@ -36,8 +36,8 @@ class universal{
                 if ($c->paciente == $chavePrimaria) {
                     $consulta = 
                     '<tr>
-                        <td>'.$c->data.'</td>
-                        <th>'.$medico->getNome().'</th>
+                        <th>'.$c->data.'</th>
+                        <td>'.$medico->getNome().'</td>
                         <td>'.$medico->getTelefone().'</td>
                         <td>'.$c->requisicao.'</td>
                         <td>'.$c->receita.'</td>
@@ -307,8 +307,8 @@ class universal{
                 if ($c->paciente == $chavePrimaria) {
                     $exame = 
                     '<tr>
-                        <td>'.$c->data.'</td>
-                        <th>'.$lab->getNome().'</th>
+                        <th>'.$c->data.'</th>
+                        <td>'.$lab->getNome().'</td>
                         <td>'.$lab->getTelefone().'</td>
                         <td>'.$c->tipos_exame.'</td>
                         <td>'.$c->resultado.'</td>
@@ -433,8 +433,8 @@ class universal{
                 //$paciente = $paciente->buscapaciente($c->paciente);
                 $paciente = 
                 '<tr>
-                    <td>'.$c->nome.'</td>
-                    <th>'.$c->endereco.'</th>
+                    <th>'.$c->nome.'</th>
+                    <td>'.$c->endereco.'</td>
                     <td>'.$c->telefone.'</td>
                     <td>'.$c->email.'</td>
                     <td>'.$c->genero.'</td>
@@ -462,8 +462,8 @@ class universal{
                 //$paciente = $paciente->buscapaciente($c->paciente);
                 $medico = 
                 '<tr>
-                    <td>'.$c->nome.'</td>
-                    <th>'.$c->endereco.'</th>
+                    <th>'.$c->nome.'</th>
+                    <td>'.$c->endereco.'</td>
                     <td>'.$c->telefone.'</td>
                     <td>'.$c->email.'</td>
                     <td>'.$c->genero.'</td>
@@ -491,8 +491,8 @@ class universal{
                 //$paciente = $paciente->buscapaciente($c->paciente);
                 $lab = 
                 '<tr>
-                    <td>'.$c->nome.'</td>
-                    <th>'.$c->endereco.'</th>
+                    <th>'.$c->nome.'</th>
+                    <td>'.$c->endereco.'</td>
                     <td>'.$c->telefone.'</td>
                     <td>'.$c->email.'</td>
                     <td>'.$c->tipos_exame.'</td>
@@ -519,8 +519,8 @@ class universal{
                 if (stripos($c->nome, $nome) !== false) {
                     $paciente = 
                     '<tr>
-                        <td>'.$c->nome.'</td>
-                        <th>'.$c->endereco.'</th>
+                        <th>'.$c->nome.'</th>
+                        <td>'.$c->endereco.'</td>
                         <td>'.$c->telefone.'</td>
                         <td>'.$c->email.'</td>
                         <td>'.$c->genero.'</td>
@@ -551,8 +551,8 @@ class universal{
                 if (stripos($c->nome, $nome) !== false) {
                     $medico = 
                     '<tr>
-                        <td>'.$c->nome.'</td>
-                        <th>'.$c->endereco.'</th>
+                        <th>'.$c->nome.'</th>
+                        <td>'.$c->endereco.'</td>
                         <td>'.$c->telefone.'</td>
                         <td>'.$c->email.'</td>
                         <td>'.$c->genero.'</td>
@@ -583,8 +583,8 @@ class universal{
                 if (stripos($c->nome, $nome) !== false) {
                     $lab = 
                     '<tr>
-                        <td>'.$c->nome.'</td>
-                        <th>'.$c->endereco.'</th>
+                        <th>'.$c->nome.'</th>
+                        <td>'.$c->endereco.'</td>
                         <td>'.$c->telefone.'</td>
                         <td>'.$c->email.'</td>
                         <td>'.$c->tipos_exame.'</td>
@@ -599,5 +599,14 @@ class universal{
 
     }    
 
+    //
+    // GERAL
+    //
+    public function testaEntrada($var){
+        /* remove barras invertidas e caracteres especiais do input */
+        $var = stripslashes($var);
+        $var = htmlspecialchars($var);
+        return $var;
+    }
 }
 ?>

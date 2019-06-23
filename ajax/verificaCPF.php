@@ -1,8 +1,8 @@
 <?php
     include '../model/paciente.php';
     $paciente = new Paciente;
-    $response = $_POST['cpf'];
-    $pessoa = $_POST['pessoa'];
+    $response = $universal->testaEntrada($_POST['cpf']);
+    $pessoa = $universal->testaEntrada($_POST['pessoa']);
 
 	// Elimina possivel mascara
 	$response = preg_replace("/[^0-9]/", "", $response);

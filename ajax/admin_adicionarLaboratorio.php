@@ -1,15 +1,19 @@
 <?php
     session_start();
     include "../config/universal.php";
+    include "../model/laboratorio.php";
 
     if (isset($_POST['inputCnpjLaboratorio'])){
-        $nome = $_POST['inputNomeLaboratorio'];
-        $endereco = $_POST['inputEnderecoLaboratorio'];
-        $telefone = $_POST['inputTelefoneLaboratorio'];
-        $email = $_POST['inputEmailLaboratorio'];
-        $cnpj = $_POST['inputCnpjLaboratorio'];
-        $tiposExames = $_POST['inputTiposExames'];
-        $senha = $_POST['inputPasswordLaboratorio'];
+        $nome = $universal->testaEntrada($_POST['inputNomeLaboratorio']);
+        $endereco = $universal->testaEntrada($_POST['inputEnderecoLaboratorio']);
+        $telefone = $universal->testaEntrada($_POST['inputTelefoneLaboratorio']);
+        $email = $universal->testaEntrada($_POST['inputEmailLaboratorio']);
+        $cnpj = $universal->testaEntrada($_POST['inputCnpjLaboratorio']);
+        $tiposExames = $universal->testaEntrada($_POST['inputTiposExames']);
+        $senha = $universal->testaEntrada($_POST['inputPasswordLaboratorio']);
+
+        #tratamento de entradas
+        $cnpj = preg_replace("/[^0-9]/", "", $cnpj);
 
         $lab = new Laboratorio;
         $lab = $lab->comArgumentos($nome, $endereco, $telefone, $email, $senha, $cnpj, $tiposExames);

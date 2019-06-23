@@ -1,23 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pacientes>
   <paciente>
-    <cpf>45613274344</cpf>
-    <nome>André Rodrigues</nome>
-    <endereco>Rua Marechal Rondon</endereco>
-    <telefone>(55) 3521-4435</telefone>
-    <email>r_andre@gmail.com</email>
-    <senha>1234</senha>
-    <idade>22</idade>
-    <genero>Masculino</genero>
-  </paciente>
-  <paciente>
-    <cpf>03622589512</cpf>
+    <cpf>34544354389</cpf>
     <nome>Mario Antonio</nome>
-    <endereco>Rua General Osório</endereco>
-    <telefone>(53) 3532-9876</telefone>
+    <endereco>Avenida Itália</endereco>
+    <telefone>(55) 94563-3345</telefone>
     <email>marioantonio@gmail.com</email>
-    <senha>81dc9bdb52d04dc20036dbd8313ed055</senha>
-    <idade>23</idade>
+    <senha>de2f15d014d40b93578d255e6221fd60</senha>
+    <idade>25</idade>
     <genero>Masculino</genero>
   </paciente>
 </pacientes>

@@ -4,14 +4,14 @@
     include "../model/paciente.php";
 
     if(isset($_POST['inputCpf'])){
-        $nome = $_POST['inputName'];
-        $endereco = $_POST['inputAddress'];
-        $telefone = $_POST['inputTel'];
-        $email = $_POST['inputEmail'];
-        $idade = $_POST['inputAge'];
-        $genero = $_POST['inputGender'];
-        $cpf = $_POST['inputCpf'];
-        $senha = $_POST['inputPassword'];
+        $nome = $universal->testaEntrada($_POST['inputName']);
+        $endereco = $universal->testaEntrada($_POST['inputAddress']);
+        $telefone = $universal->testaEntrada($_POST['inputTel']);
+        $email = $universal->testaEntrada($_POST['inputEmail']);
+        $idade = $universal->testaEntrada($_POST['inputAge']);
+        $genero = $universal->testaEntrada($_POST['inputGender']);
+        $cpf = $universal->testaEntrada($_POST['inputCpf']);
+        $senha = $universal->testaEntrada($_POST['inputPassword']);
 
     
         $paciente = new Paciente;
