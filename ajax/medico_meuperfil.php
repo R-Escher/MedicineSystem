@@ -1,8 +1,7 @@
 <?php 
-    session_start();
     include "../config/universal.php";
     include "../model/medico.php";
-    
+
     if(isset($_POST['inputCrm'])){
         $nome = $universal->testaEntrada($_POST['inputName']);
         $endereco = $universal->testaEntrada($_POST['inputAddress']);
@@ -15,7 +14,7 @@
 
         $medico = new Medico;
         $alteraMedico = $medico->comArgumentos($nome, $endereco, $telefone, $email, $senha, $crm, $especialidade, $genero);
-        $alteraMedico->alterarXML();   
+        $alteraMedico->alterarXML();
 
     }
 

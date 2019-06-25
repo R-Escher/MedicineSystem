@@ -59,8 +59,9 @@ class Paciente extends Base {
 		# CASO O PACIENTE JÁ EXISTA, DELETAR PARA ALTERAR
 		$this->deletarPaciente();
 
+		$raiz = $_SERVER['DOCUMENT_ROOT'];
 		libxml_use_internal_errors(true);
-		$xml_pacientes = simplexml_load_file("../dados/pacientes.xml");
+		$xml_pacientes = simplexml_load_file($raiz.'/MedicineSystem/dados/pacientes.xml');
 
 		$paciente = $xml_pacientes->addChild("paciente");
 		$paciente->addChild("cpf", $salvar_paciente->getCPF());
@@ -77,7 +78,7 @@ class Paciente extends Base {
 		$dom->formatOutput = true;
 		$dom->loadXML($xml_pacientes->asXML());
 
-		$file = fopen("../dados/pacientes.xml", "w");
+		$file = fopen($raiz.'/MedicineSystem/dados/pacientes.xml', "w");
 		fwrite($file, $dom->saveXML());
 		fclose($file);
 	}
@@ -85,15 +86,17 @@ class Paciente extends Base {
 	public function deletarPaciente(){
 
 		$validar_exclusao = false;
+
+		$raiz = $_SERVER['DOCUMENT_ROOT'];
 		libxml_use_internal_errors(true);
-		$xml_pacientes = simplexml_load_file("../dados/pacientes.xml");
+		$xml_pacientes = simplexml_load_file($raiz.'/MedicineSystem/dados/pacientes.xml');
 		$formatado = dom_import_simplexml($xml_pacientes);
 		foreach ($xml_pacientes->children() as $paciente) {
 			if ($paciente->cpf == (string) $this->getCPF()) {
 				$dom=dom_import_simplexml($paciente);
 				$formatado->removeChild($dom);
 				$export = simplexml_import_dom($formatado);
-				$export->saveXML("../dados/pacientes.xml");
+				$export->saveXML($raiz.'/MedicineSystem/dados/pacientes.xml');
 				$this->__destruct();
 				$validar_exclusao = true;
 			}
@@ -102,8 +105,9 @@ class Paciente extends Base {
 	}
 
 	public static function listaPacientes() {
+		$raiz = $_SERVER['DOCUMENT_ROOT'];
 		libxml_use_internal_errors(true);
-		$xml_pacientes = simplexml_load_file("../dados/pacientes.xml");
+		$xml_pacientes = simplexml_load_file($raiz.'/MedicineSystem/dados/pacientes.xml');
 
 		if ($xml_pacientes === false) {
 			echo "Erro no XML Pacientes: ";
@@ -135,8 +139,9 @@ class Paciente extends Base {
 		# transforma para string pois recebe tipo object
 		$cpf_entrada = strval($cpf_entrada);
 
+		$raiz = $_SERVER['DOCUMENT_ROOT'];
 		libxml_use_internal_errors(true);
-		$xml_pacientes = simplexml_load_file("dados/pacientes.xml");
+		$xml_pacientes = simplexml_load_file($raiz.'/MedicineSystem/dados/pacientes.xml');
 
 		# Ocorre um problema que o destino do arquivo depende
 		# de onde está quem chama a função. Ela é chamada tanto
@@ -146,7 +151,7 @@ class Paciente extends Base {
 			foreach (libxml_get_errors() as $error) {
 				#echo "<br>", $error->message;
 			}
-			$xml_pacientes = simplexml_load_file("../dados/pacientes.xml");
+			$xml_pacientes = simplexml_load_file($raiz.'/MedicineSystem/dados/pacientes.xml');
 		}
 		if ($xml_pacientes === false) {
 			#echo "Erro no XML Pacientes: ";
@@ -160,7 +165,7 @@ class Paciente extends Base {
 			foreach ($xml_pacientes->children() as $p) {
 
 				if ($p->cpf == $cpf_entrada) {
-					$paciente->setNome($p->nome); 
+					$paciente->setNome($p->nome);
 					$paciente->setEndereco($p->endereco);
 					$paciente->setTelefone($p->telefone);
 					$paciente->setEmail($p->email);

@@ -2,7 +2,7 @@
 <html lang="pt-BR">
   <?php include_once 'head.php'; ?>
 
-  <?php $admin = "nomedoadmin" ?>
+  <?php $admin = $_SESSION['administrador'] ?>
 
     <body>
 
@@ -15,7 +15,7 @@
                 <a href="#" class="list-group-item list-group-item-action bg-dark" id="pacientescadastrados-toggle" style="color: #c2c3c5">Pacientes Cadastrados</a>
                 <a href="#" class="list-group-item list-group-item-action bg-dark" id="medicoscadastrados-toggle" style="color: #c2c3c5">Médicos Cadastrados</a>
                 <a href="#" class="list-group-item list-group-item-action bg-dark" id="laboratorioscadastrados-toggle" style="color: #c2c3c5">Laboratórios Cadastrados</a>
-                <a href="#" class="list-group-item list-group-item-action bg-dark" id="sair-toggle" style="color: #c2c3c5">Sair</a>
+                <a href="config/logout.php" class="list-group-item list-group-item-action bg-dark" id="sair-toggle" style="color: #c2c3c5">Sair</a>
                 </div>
             </div>
             <!-- /#sidebar-wrapper -->

@@ -1,4 +1,7 @@
-<?php include 'index-include/sidenav_admin.php'; ?>
+<?php
+include 'index-include/sidenav_admin.php';
+require_once 'config/segurancaAdmin.php';
+?>
 <!-- Tags em aberto: <html>, <body>, <div class="d-flex" id="wrapper">, <div id="page-content-wrapper"> -->
 
 
@@ -17,7 +20,7 @@
 
                     <form id="form_adicionarPaciente" method="post" action="ajax/admin_adicionarPaciente.php">
                         <!-- input para enviar crm do médico a cadastrar a consulta -->
-                        
+
                         <div class="form-row">
                             <div class="form-group col-md">
                             <label for="inputNomePaciente">Nome do Paciente</label>
@@ -35,13 +38,13 @@
                             <label for="inputTelefonePaciente">Telefone</label>
                             <input type="tel" class="form-control" name="inputTelefonePaciente" id="inputTelefonePaciente" placeholder="" value="" required>
                             </div>
-                        </div>   
+                        </div>
                         <div class="form-row">
                             <div class="form-group col-md">
                             <label for="inputEmailPaciente">E-Mail</label>
                             <input type="email" class="form-control" name="inputEmailPaciente" id="inputEmailPaciente" placeholder="" value="" required>
                             </div>
-                        </div>         
+                        </div>
                         <div class="form-row">
                           <div class="form-group col-md">
                             <label for="inputGenderPaciente">Gênero</label>
@@ -51,13 +54,13 @@
                                 <option name="inputGenderPaciente" value="Outro">Outro</option>
                             </select>
                           </div>
-                        </div>       
+                        </div>
                         <div class="form-row">
-                          <div class="form-group col-md">                        
+                          <div class="form-group col-md">
                             <label for="inputAgePaciente">Idade</label>
                             <input type="number" class="form-control" name="inputAgePaciente" id="inputAgePaciente" value="" placeholder="" required>
                           </div>
-                        </div>                                                                                                       
+                        </div>
                         <div class="form-row">
                             <div class="form-group col-md">
                             <label for="inputCpfPaciente">CPF do Paciente</label>
@@ -66,18 +69,18 @@
                             </div>
                         </div>
                         <div class="form-row">
-                          <div class="form-group col-md">                        
+                          <div class="form-group col-md">
                             <label for="inputPasswordPaciente">Senha</label>
                             <input type="password" class="form-control" name="inputPasswordPaciente" id="inputPasswordPaciente" value="" placeholder="" required>
                           </div>
-                        </div>                         
-                                                                                                                                                             
+                        </div>
+
 
                         <div class="col-12 text-center"><button type="submit" id="admin_adicionarPaciente" name="admin_adicionarPaciente" class="btn btn-dark">Salvar</button></div>
-                    </form>                
-                
-                
-                
+                    </form>
+
+
+
                 </div>
             </div>
         </div>
@@ -103,7 +106,7 @@
             </tr>
         </thead>
         <tbody id="mostraPacientes">
-        <?php 
+        <?php
             # função que vai retornar rows em formato html contendo as CONSULTAS realizadas pelo medico atual (depende do crm)
             $universal->mostrarPacientes();
         ?>
@@ -125,7 +128,7 @@
 
                     <form id="form_adicionarMedico" method="post" action="ajax/admin_adicionarMedico.php">
                         <!-- input para enviar crm do médico a cadastrar a consulta -->
-                        
+
                         <div class="form-row">
                             <div class="form-group col-md">
                             <label for="inputNomeMedico">Nome do Médico</label>
@@ -143,13 +146,13 @@
                             <label for="inputTelefoneMedico">Telefone</label>
                             <input type="tel" class="form-control" name="inputTelefoneMedico" id="inputTelefoneMedico" placeholder="" value="" required>
                             </div>
-                        </div>   
+                        </div>
                         <div class="form-row">
                             <div class="form-group col-md">
                             <label for="inputEmailMedico">E-Mail</label>
                             <input type="email" class="form-control" name="inputEmailMedico" id="inputEmailMedico" placeholder="" value="" required>
                             </div>
-                        </div>         
+                        </div>
                         <div class="form-row">
                           <div class="form-group col-md">
                             <label for="inputGenderMedico">Gênero</label>
@@ -159,7 +162,7 @@
                                 <option name="inputGenderMedico" value="Outro">Outro</option>
                             </select>
                           </div>
-                        </div>                                                                                                            
+                        </div>
                         <div class="form-row">
                             <div class="form-group col-md">
                             <label for="inputCrmMedico">CRM do Médico</label>
@@ -172,17 +175,17 @@
                             <label for="inputEspecialidade">Especialidade</label>
                             <input type="text" class="form-control" name="inputEspecialidade" id="inputEspecialidade" placeholder="" value="" required>
                             </div>
-                        </div>                        
+                        </div>
                         <div class="form-row">
-                          <div class="form-group col-md">                        
+                          <div class="form-group col-md">
                             <label for="inputPasswordMedico">Senha</label>
                             <input type="password" class="form-control" name="inputPasswordMedico" id="inputPasswordMedico" value="" placeholder="" required>
                           </div>
-                        </div>                         
-                                                                                                                                                             
+                        </div>
+
 
                         <div class="col-12 text-center"><button type="submit" id="admin_adicionarMedico" name="admin_adicionarMedico" class="btn btn-dark">Salvar</button></div>
-                    </form>                
+                    </form>
 
                 </div>
             </div>
@@ -209,7 +212,7 @@
             </tr>
         </thead>
         <tbody id="mostraMedicos">
-        <?php 
+        <?php
             # função que vai retornar rows em formato html contendo as CONSULTAS realizadas pelo medico atual (depende do crm)
             $universal->mostrarMedicos();
         ?>
@@ -230,7 +233,7 @@
 
                     <form id="form_adicionarLaboratorio" method="post" action="ajax/admin_adicionarLaboratorio.php">
                         <!-- input para enviar crm do médico a cadastrar a consulta -->
-                        
+
                         <div class="form-row">
                             <div class="form-group col-md">
                             <label for="inputNomeLaboratorio">Nome do Laboratório</label>
@@ -248,13 +251,13 @@
                             <label for="inputTelefoneLaboratorio">Telefone</label>
                             <input type="tel" class="form-control" name="inputTelefoneLaboratorio" id="inputTelefoneLaboratorio" placeholder="" value="" required>
                             </div>
-                        </div>   
+                        </div>
                         <div class="form-row">
                             <div class="form-group col-md">
                             <label for="inputEmailLaboratorio">E-Mail</label>
                             <input type="email" class="form-control" name="inputEmailLaboratorio" id="inputEmailLaboratorio" placeholder="" value="" required>
                             </div>
-                        </div>                                                                                                                    
+                        </div>
                         <div class="form-row">
                             <div class="form-group col-md">
                             <label for="inputCnpjLaboratorio">CNPJ do Laboratório</label>
@@ -267,17 +270,17 @@
                             <label for="inputTiposExames">Tipos de Exame</label>
                             <input type="text" class="form-control" name="inputTiposExames" id="inputTiposExames" placeholder="" value="" required>
                             </div>
-                        </div>                        
+                        </div>
                         <div class="form-row">
-                          <div class="form-group col-md">                        
+                          <div class="form-group col-md">
                             <label for="inputPasswordLaboratorio">Senha</label>
                             <input type="password" class="form-control" name="inputPasswordLaboratorio" id="inputPasswordLaboratorio" value="" placeholder="" required>
                           </div>
-                        </div>                         
-                                                                                                                                                             
+                        </div>
+
 
                         <div class="col-12 text-center"><button type="submit" id="admin_adicionarLaboratorio" name="admin_adicionarLaboratorio" class="btn btn-dark">Salvar</button></div>
-                    </form>                
+                    </form>
 
                 </div>
             </div>
@@ -303,7 +306,7 @@
             </tr>
         </thead>
         <tbody id="mostraLaboratorios">
-        <?php 
+        <?php
             # função que vai retornar rows em formato html contendo as CONSULTAS realizadas pelo medico atual (depende do crm)
             $universal->mostrarLaboratorios();
         ?>
@@ -318,9 +321,9 @@
 </div> <!-- / id="page-content-wrapper" | todo o conteúdo deve ficar aqui dentro -->
 </div> <!-- / class="d-flex" id="wrapper" -->
   <!-- Javascript/Jquery functions for Bootstrap internal use -->
-  <?php include 'js/scripts_include.html'; ?> 
+  <?php include 'js/scripts_include.html'; ?>
   <!-- chama arquivo de funções js -->
-  <script src="js/admin.js"></script>      
-  <script src="js/sidebar.js"></script>  
+  <script src="js/admin.js"></script>
+  <script src="js/sidebar.js"></script>
 
         </body>

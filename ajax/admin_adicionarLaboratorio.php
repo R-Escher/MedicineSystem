@@ -1,5 +1,4 @@
 <?php
-    session_start();
     include "../config/universal.php";
     include "../model/laboratorio.php";
 
@@ -20,5 +19,5 @@
         #$universal->cadastraLaboratorio($nome, $endereco, $telefone, $email, $cnpj, $tiposExames, $senha);
     }
     echo "<script>window.location.href='../admin.php';</script>";
-    
+
 ?>

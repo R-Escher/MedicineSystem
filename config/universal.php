@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 
 $universal = new universal;
@@ -22,8 +22,9 @@ class universal{
         # ChavePrimária vai o CPF ou CRM, dependendo de quem pede a função.
         # Pessoa determina se é para buscar consulta baseado no MEDICO ou PACIENTE (CRM/CPF)
         #
+        $raiz = $_SERVER['DOCUMENT_ROOT'];
         libxml_use_internal_errors(true);
-        $xml_consultas = simplexml_load_file("dados/consultas.xml");    
+        $xml_consultas = simplexml_load_file($raiz.'/MedicineSystem/dados/consultas.xml');
         if ($xml_consultas === false) {
             echo "Erro no XML Consultas: ";
             foreach (libxml_get_errors() as $error) {
@@ -34,7 +35,7 @@ class universal{
             foreach ($xml_consultas->children() as $c) {
                 $medico = $medico->buscaMedico($c->medico);
                 if ($c->paciente == $chavePrimaria) {
-                    $consulta = 
+                    $consulta =
                     '<tr>
                         <th>'.$c->data.'</th>
                         <td>'.$medico->getNome().'</td>
@@ -42,7 +43,7 @@ class universal{
                         <td>'.$c->requisicao.'</td>
                         <td>'.$c->receita.'</td>
                     </tr>
-                        
+
                     ';
                     echo $consulta;
                 }
@@ -52,8 +53,8 @@ class universal{
             foreach ($xml_consultas->children() as $c) {
                 $paciente = $paciente->buscapaciente($c->paciente);
                 if ($c->medico == $chavePrimaria) {
-                    
-                    $consulta = 
+
+                    $consulta =
                     '<tr>
                         <th>'.$paciente->getNome().'</th>
                         <td>'.$c->data.'</td>
@@ -63,21 +64,21 @@ class universal{
                         <td>'.$c->requisicao.'</td>
                         <td>'.$c->observacoes.'</td>
                     </tr>
-                        
+
                     ';
                     echo $consulta;
                 }
-            } 
-            
+            }
+
         }
     }
 
     public function procurarConsultas($nome, $crm){
         # Função de pesquisar consulta dado um nome do paciente. Utilizada na search box do medico.php e no admin.php
         # NOME e CRM para procurar consulta que contém os dois, ou só nome caso seja o admin.
-
+        $raiz = $_SERVER['DOCUMENT_ROOT'];
         libxml_use_internal_errors(true);
-        $xml_consultas = simplexml_load_file("../dados/consultas.xml");    
+        $xml_consultas = simplexml_load_file($raiz.'/MedicineSystem/dados/consultas.xml');
         if ($xml_consultas === false) {
             echo "Erro no XML Consultas: ";
             foreach (libxml_get_errors() as $error) {
@@ -89,8 +90,8 @@ class universal{
             foreach ($xml_consultas->children() as $c) {
                 $paciente = $paciente->buscapaciente($c->paciente);
                 if (($c->medico == $crm) && (stripos($paciente->getNome(), $nome) !== false)) {
-                    
-                    $consulta = 
+
+                    $consulta =
                     '<tr>
                         <th>'.$paciente->getNome().'</th>
                         <td>'.$c->data.'</td>
@@ -100,20 +101,21 @@ class universal{
                         <td>'.$c->requisicao.'</td>
                         <td>'.$c->observacoes.'</td>
                     </tr>
-                        
+
                     ';
                     echo $consulta;
                 }
             }
-            
+
         }
 
     }
 
     public function cadastraConsulta($crm, $cpf, $data, $receita, $requisicaoExame, $observacao){
 
+        $raiz = $_SERVER['DOCUMENT_ROOT'];
         libxml_use_internal_errors(true);
-        $xml_consultas = simplexml_load_file("../dados/consultas.xml");    
+        $xml_consultas = simplexml_load_file($raiz.'/MedicineSystem/dados/consultas.xml');
         if ($xml_consultas === false) {
             echo "Erro no XML Consultas: ";
             foreach (libxml_get_errors() as $error) {
@@ -125,7 +127,7 @@ class universal{
             foreach ($xml_consultas->children() as $c){
                 if ((int)($c->idConsulta) > $maiorID){
                     $maiorID =(int)($c->idConsulta);
-                } 
+                }
             }
 
             $consulta = $xml_consultas->addChild("consulta");
@@ -140,32 +142,33 @@ class universal{
             $dom = new DOMDocument("1.0");
             $dom->preserveWhiteSpace = false;
             $dom->formatOutput = true;
-            $dom->loadXML($xml_consultas->asXML());          
-            
-            $file = fopen("../dados/consultas.xml", "w");
+            $dom->loadXML($xml_consultas->asXML());
+
+            $file = fopen($raiz.'/MedicineSystem/dados/consultas.xml', "w");
             fwrite($file, $dom->saveXML());
-            fclose($file);              
-        }        
+            fclose($file);
+        }
     }
 
     public function contaConsultas($chave, $pessoa){
-        date_default_timezone_set('America/Sao_Paulo'); 
+        date_default_timezone_set('America/Sao_Paulo');
         $date = date('Y-m-d');
         $mes = date('m');
-        
+
         $consultasTotal = 0;
         $consultasMes = 0;
         $consultasHoje = 0;
 
+        $raiz = $_SERVER['DOCUMENT_ROOT'];
         libxml_use_internal_errors(true);
-        $xml_consultas = simplexml_load_file("dados/consultas.xml");
+        $xml_consultas = simplexml_load_file($raiz.'/MedicineSystem/dados/consultas.xml');
         if ($xml_consultas === false) {
             echo "Erro no XML Consultas: ";
             foreach (libxml_get_errors() as $error) {
                 echo "<br>", $error->message;
             }
         }else{
-            
+
             if($pessoa=="medico"){
 
                 foreach ($xml_consultas->children() as $c) {
@@ -173,7 +176,7 @@ class universal{
                     if (($c->medico == $chave) && ($c->data == $date)) {
                         $consultasHoje += 1;
                     }
-                    
+
                     #consultasMES
                     $dataConsulta = date_create($c->data);
                     $dataConsulta = date_format($dataConsulta, "m");
@@ -194,7 +197,7 @@ class universal{
                     if (($c->paciente == $chave) && ($c->data == $date)) {
                         $consultasHoje += 1;
                     }
-                    
+
                     #consultasMES
                     $dataConsulta = date_create($c->data);
                     $dataConsulta = date_format($dataConsulta, "m");
@@ -208,27 +211,28 @@ class universal{
                         $consultasTotal += 1;
                     }
 
-                }                
+                }
             }
-            
-        }        
-        
-        
+
+        }
+
+
         $consultas = array($consultasTotal, $consultasMes, $consultasHoje);
         return $consultas;
     }
 
     public function contaExames($chave, $pessoa){
-        date_default_timezone_set('America/Sao_Paulo'); 
+        date_default_timezone_set('America/Sao_Paulo');
         $date = date('Y-m-d');
         $mes = date('m');
-        
+
         $examesTotal = 0;
         $examesMes = 0;
         $examesHoje = 0;
 
+        $raiz = $_SERVER['DOCUMENT_ROOT'];
         libxml_use_internal_errors(true);
-        $xml_exames = simplexml_load_file("dados/exames.xml");
+        $xml_exames = simplexml_load_file($raiz.'/MedicineSystem/dados/exames.xml');
         if ($xml_exames === false) {
             echo "Erro no XML Exames: ";
             foreach (libxml_get_errors() as $error) {
@@ -242,7 +246,7 @@ class universal{
                     if (($c->laboratorio == $chave) && ($c->data == $date)) {
                         $examesHoje += 1;
                     }
-                    
+
                     #examesMES
                     $dataExame = date_create($c->data);
                     $dataExame = date_format($dataExame, "m");
@@ -264,7 +268,7 @@ class universal{
                     if (($c->paciente == $chave) && ($c->data == $date)) {
                         $examesHoje += 1;
                     }
-                    
+
                     #examesMES
                     $dataExame = date_create($c->data);
                     $dataExame = date_format($dataExame, "m");
@@ -278,23 +282,24 @@ class universal{
                         $examesTotal += 1;
                     }
 
-                }                
+                }
 
             }
-            
-        }        
-        
-        
+
+        }
+
+
         $exames = array($examesTotal, $examesMes, $examesHoje);
         return $exames;
-    }    
+    }
 
     public function mostrarExames($chavePrimaria, $pessoa){
         # ChavePrimária vai o CPF ou CNPJ, dependendo de quem pede a função.
         # Pessoa determina se é para buscar exame baseado no LAB ou PACIENTE (CNPJ/CPF)
         #
+        $raiz = $_SERVER['DOCUMENT_ROOT'];
         libxml_use_internal_errors(true);
-        $xml_exames = simplexml_load_file("dados/exames.xml");    
+        $xml_exames = simplexml_load_file($raiz.'/MedicineSystem/dados/exames.xml');
         if ($xml_exames === false) {
             echo "Erro no XML Exames: ";
             foreach (libxml_get_errors() as $error) {
@@ -305,7 +310,7 @@ class universal{
             foreach ($xml_exames->children() as $c) {
                 $lab = $lab->buscaLaboratorio($c->laboratorio);
                 if ($c->paciente == $chavePrimaria) {
-                    $exame = 
+                    $exame =
                     '<tr>
                         <th>'.$c->data.'</th>
                         <td>'.$lab->getNome().'</td>
@@ -313,7 +318,7 @@ class universal{
                         <td>'.$c->tipos_exame.'</td>
                         <td>'.$c->resultado.'</td>
                     </tr>
-                        
+
                     ';
                     echo $exame;
                 }
@@ -323,8 +328,8 @@ class universal{
             foreach ($xml_exames->children() as $c) {
                 $paciente = $paciente->buscapaciente($c->paciente);
                 if ($c->laboratorio == $chavePrimaria) {
-                    
-                    $exame = 
+
+                    $exame =
                     '<tr>
                         <th>'.$paciente->getNome().'</th>
                         <td>'.$c->data.'</td>
@@ -333,21 +338,22 @@ class universal{
                         <td>'.$c->tipos_exame.'</td>
                         <td>'.$c->resultado.'</td>
                     </tr>
-                        
+
                     ';
                     echo $exame;
                 }
-            } 
-            
+            }
+
         }
-    }    
+    }
 
     public function procurarExames($nome, $cnpj){
         # Função de pesquisar consulta dado um nome do paciente. Utilizada na search box do medico.php e no admin.php
         # NOME e CNPJ para procurar consulta que contém os dois, ou só nome caso seja o admin.
 
+        $raiz = $_SERVER['DOCUMENT_ROOT'];
         libxml_use_internal_errors(true);
-        $xml_exames = simplexml_load_file("../dados/exames.xml");    
+        $xml_exames = simplexml_load_file($raiz.'/MedicineSystem/dados/exames.xml');
         if ($xml_exames === false) {
             echo "Erro no XML Exames: ";
             foreach (libxml_get_errors() as $error) {
@@ -359,7 +365,7 @@ class universal{
             foreach ($xml_exames->children() as $c) {
                 $paciente = $paciente->buscapaciente($c->paciente);
                 if (($c->laboratorio == $cnpj) && (stripos($paciente->getNome(), $nome) !== false)) {
-                    $exame = 
+                    $exame =
                     '<tr>
                         <th>'.$paciente->getNome().'</th>
                         <td>'.$c->data.'</td>
@@ -368,20 +374,21 @@ class universal{
                         <td>'.$c->tipos_exame.'</td>
                         <td>'.$c->resultado.'</td>
                     </tr>
-                        
+
                     ';
                     echo $exame;
                 }
             }
-            
+
         }
 
     }
 
     public function cadastraExame($data, $cnpj, $cpf, $exames, $resultado){
 
+        $raiz = $_SERVER['DOCUMENT_ROOT'];
         libxml_use_internal_errors(true);
-        $xml_exames = simplexml_load_file("../dados/exames.xml");    
+        $xml_exames = simplexml_load_file($raiz.'/MedicineSystem/dados/exames.xml');
         if ($xml_exames === false) {
             echo "Erro no XML Exames: ";
             foreach (libxml_get_errors() as $error) {
@@ -393,7 +400,7 @@ class universal{
             foreach ($xml_exames->children() as $c){
                 if ((int)($c->idExame) > $maiorID){
                     $maiorID =(int)($c->idExame);
-                } 
+                }
             }
 
             $exame = $xml_exames->addChild("exame");
@@ -407,12 +414,12 @@ class universal{
             $dom = new DOMDocument("1.0");
             $dom->preserveWhiteSpace = false;
             $dom->formatOutput = true;
-            $dom->loadXML($xml_exames->asXML());          
-            
-            $file = fopen("../dados/exames.xml", "w");
+            $dom->loadXML($xml_exames->asXML());
+
+            $file = fopen($raiz.'/MedicineSystem/dados/exames.xml', "w");
             fwrite($file, $dom->saveXML());
-            fclose($file);              
-        }        
+            fclose($file);
+        }
     }
 
     //
@@ -420,8 +427,9 @@ class universal{
     //
     public function mostrarPacientes(){
 
+        $raiz = $_SERVER['DOCUMENT_ROOT'];
         libxml_use_internal_errors(true);
-        $xml_pacientes = simplexml_load_file("dados/pacientes.xml");    
+        $xml_pacientes = simplexml_load_file($raiz.'/MedicineSystem/dados/pacientes.xml');
         if ($xml_pacientes === false) {
             echo "Erro no XML Pacientes: ";
             foreach (libxml_get_errors() as $error) {
@@ -431,7 +439,7 @@ class universal{
             //$paciente = new Paciente; # para buscar nome do lab baseado em seu CNPJ
             foreach ($xml_pacientes->children() as $c) {
                 //$paciente = $paciente->buscapaciente($c->paciente);
-                $paciente = 
+                $paciente =
                 '<tr>
                     <th>'.$c->nome.'</th>
                     <td>'.$c->endereco.'</td>
@@ -445,12 +453,13 @@ class universal{
                 echo $paciente;
             }
         }
-    }    
+    }
 
     public function mostrarMedicos(){
 
+        $raiz = $_SERVER['DOCUMENT_ROOT'];
         libxml_use_internal_errors(true);
-        $xml_medicos = simplexml_load_file("dados/medicos.xml");    
+        $xml_medicos = simplexml_load_file($raiz.'/MedicineSystem/dados/medicos.xml');
         if ($xml_medicos === false) {
             echo "Erro no XML medicos: ";
             foreach (libxml_get_errors() as $error) {
@@ -460,7 +469,7 @@ class universal{
             //$paciente = new Paciente; # para buscar nome do lab baseado em seu CNPJ
             foreach ($xml_medicos->children() as $c) {
                 //$paciente = $paciente->buscapaciente($c->paciente);
-                $medico = 
+                $medico =
                 '<tr>
                     <th>'.$c->nome.'</th>
                     <td>'.$c->endereco.'</td>
@@ -478,8 +487,9 @@ class universal{
 
     public function mostrarLaboratorios(){
 
+        $raiz = $_SERVER['DOCUMENT_ROOT'];
         libxml_use_internal_errors(true);
-        $xml_lab = simplexml_load_file("dados/laboratorios.xml");    
+        $xml_lab = simplexml_load_file($raiz.'/MedicineSystem/dados/laboratorios.xml');
         if ($xml_lab === false) {
             echo "Erro no XML laboratorios: ";
             foreach (libxml_get_errors() as $error) {
@@ -489,7 +499,7 @@ class universal{
             //$paciente = new Paciente; # para buscar nome do lab baseado em seu CNPJ
             foreach ($xml_lab->children() as $c) {
                 //$paciente = $paciente->buscapaciente($c->paciente);
-                $lab = 
+                $lab =
                 '<tr>
                     <th>'.$c->nome.'</th>
                     <td>'.$c->endereco.'</td>
@@ -506,8 +516,9 @@ class universal{
 
     public function procurarPacientes($nome){
 
+        $raiz = $_SERVER['DOCUMENT_ROOT'];
         libxml_use_internal_errors(true);
-        $xml_pacientes = simplexml_load_file("../dados/pacientes.xml");    
+        $xml_pacientes = simplexml_load_file($raiz.'/MedicineSystem/dados/pacientes.xml');
         if ($xml_pacientes === false) {
             echo "Erro no XML Pacientes: ";
             foreach (libxml_get_errors() as $error) {
@@ -517,7 +528,7 @@ class universal{
 
             foreach ($xml_pacientes->children() as $c) {
                 if (stripos($c->nome, $nome) !== false) {
-                    $paciente = 
+                    $paciente =
                     '<tr>
                         <th>'.$c->nome.'</th>
                         <td>'.$c->endereco.'</td>
@@ -531,15 +542,16 @@ class universal{
                     echo $paciente;
                 }
             }
-            
+
         }
 
     }
 
     public function procurarMedicos($nome){
 
+        $raiz = $_SERVER['DOCUMENT_ROOT'];
         libxml_use_internal_errors(true);
-        $xml_medicos = simplexml_load_file("../dados/medicos.xml");    
+        $xml_medicos = simplexml_load_file($raiz.'/MedicineSystem/dados/medicos.xml');
         if ($xml_medicos === false) {
             echo "Erro no XML medicos: ";
             foreach (libxml_get_errors() as $error) {
@@ -549,7 +561,7 @@ class universal{
 
             foreach ($xml_medicos->children() as $c) {
                 if (stripos($c->nome, $nome) !== false) {
-                    $medico = 
+                    $medico =
                     '<tr>
                         <th>'.$c->nome.'</th>
                         <td>'.$c->endereco.'</td>
@@ -563,15 +575,16 @@ class universal{
                     echo $medico;
                 }
             }
-            
+
         }
 
     }
 
     public function procurarLaboratorios($nome){
 
+        $raiz = $_SERVER['DOCUMENT_ROOT'];
         libxml_use_internal_errors(true);
-        $xml_laboratorios = simplexml_load_file("../dados/laboratorios.xml");    
+        $xml_laboratorios = simplexml_load_file($raiz.'/MedicineSystem/dados/laboratorios.xml');
         if ($xml_laboratorios === false) {
             echo "Erro no XML laboratorios: ";
             foreach (libxml_get_errors() as $error) {
@@ -581,7 +594,7 @@ class universal{
 
             foreach ($xml_laboratorios->children() as $c) {
                 if (stripos($c->nome, $nome) !== false) {
-                    $lab = 
+                    $lab =
                     '<tr>
                         <th>'.$c->nome.'</th>
                         <td>'.$c->endereco.'</td>
@@ -594,10 +607,10 @@ class universal{
                     echo $lab;
                 }
             }
-            
+
         }
 
-    }    
+    }
 
     //
     // GERAL

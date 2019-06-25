@@ -1,5 +1,4 @@
 <?php
-    session_start();
     include "../config/universal.php";
     include "../model/paciente.php";
 
@@ -14,12 +13,12 @@
         $senha = $universal->testaEntrada($_POST['inputPasswordPaciente']);
 
         #tratamento de entradas
-        $cpf = preg_replace("/[^0-9]/", "", $cpf);        
+        $cpf = preg_replace("/[^0-9]/", "", $cpf);
 
         $paciente = new Paciente;
         $paciente = $paciente->comArgumentos($nome, $endereco, $telefone, $email, $senha, $cpf, $idade, $genero);
         #$universal->cadastraPaciente($nome, $endereco, $telefone, $email, $genero, $idade, $cpf, $senha);
     }
     echo "<script>window.location.href='../admin.php';</script>";
-    
+
 ?>

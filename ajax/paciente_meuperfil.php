@@ -1,5 +1,4 @@
 <?php 
-    session_start();
     include "../config/universal.php";
     include "../model/paciente.php";
 
@@ -13,11 +12,11 @@
         $cpf = $universal->testaEntrada($_POST['inputCpf']);
         $senha = $universal->testaEntrada($_POST['inputPassword']);
 
-    
+
         $paciente = new Paciente;
         $alterapaciente = $paciente->comArgumentos($nome, $endereco, $telefone, $email, $senha, $cpf, $idade, $genero);
-        $alterapaciente->alterarXML(); 
+        $alterapaciente->alterarXML();
     }
-    
+
     echo "<script>window.location.href='../paciente.php';</script>";
 ?>

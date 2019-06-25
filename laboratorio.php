@@ -1,4 +1,7 @@
-<?php include 'index-include/sidenav_laboratorio.php'; ?>
+<?php
+include 'index-include/sidenav_laboratorio.php';
+require_once 'config/segurancaLaboratorio.php';
+?>
 <!-- Tags em aberto: <html>, <body>, <div class="d-flex" id="wrapper">, <div id="page-content-wrapper"> -->
 
 <div class="container-fluid" style="padding: 30px 20px;">
@@ -27,25 +30,25 @@
                             <label for="inputDate">Data do Exame</label>
                             <input type="date" min="2000-01-01" max="<?php date_default_timezone_set('America/Sao_Paulo'); echo date('Y-m-d'); ?>" class="form-control" name="inputDate" id="inputDate" placeholder="" required>
                             </div>
-                        </div>  
+                        </div>
                         <div class="form-row">
                             <div class="form-group col-md">
                             <label for="inputExames">Exames</label>
                             <input type="text" class="form-control" name="inputExames" id="inputExames" placeholder="">
                             </div>
-                        </div>           
+                        </div>
                         <div class="form-row">
                             <div class="form-group col-md">
                             <label for="inputResultado">Resultado</label>
                             <input type="text" class="form-control" name="inputResultado" id="inputResultado" placeholder="">
                             </div>
-                        </div>                                                                                                                                                            
+                        </div>
 
                         <div class="col-12 text-center"><button type="submit" id="lab_adicionarExame" name="lab_adicionarExame" class="btn btn-dark" disabled>Salvar</button></div>
-                    </form>                
-                
-                
-                
+                    </form>
+
+
+
                 </div>
             </div>
         </div>
@@ -70,7 +73,7 @@
             </tr>
         </thead>
         <tbody id="mostraExames">
-        <?php 
+        <?php
 
             # função que vai retornar rows em formato html contendo os EXAMES realizadas pelo lab atual (depende do cnpj)
             $universal->mostrarExames($cnpj, "laboratorio");
@@ -80,7 +83,7 @@
         </tbody>
         </table>
     </div>
-</div>    
+</div>
 
 <div id="meuperfil">
 
@@ -88,9 +91,9 @@
     <?php $lab = $lab->buscaLaboratorio($cnpj);?>
 
     <form id="form_meuperfil" method="post" action="ajax/laboratorio_meuperfil.php">
-    
+
         <!-- este é para enviar o cnpj do lab, necessário para edição do mesmo-->
-        <input type="text" class="form-control d-none" name="inputCnpj" id="inputCnpj" value="<?php echo $cnpj ?>"> 
+        <input type="text" class="form-control d-none" name="inputCnpj" id="inputCnpj" value="<?php echo $cnpj ?>">
 
         <div class="form-row">
             <div class="form-group col-md-6">
@@ -111,23 +114,23 @@
             <label for="inputEmail">E-mail</label>
             <input type="email" class="form-control" name="inputEmail" id="inputEmail" value="<?php echo $lab->getEmail()?>" required>
             </div>
-        </div>     
+        </div>
         <div class="form-row">
             <div class="form-group col-md">
             <label for="inputExames">Tipos de Exames</label>
             <textarea rows = "4" cols = "60" class="form-control" name="inputExames" id="inputExames" required><?php echo $lab->getTipos_exames()?></textarea>
             </div>
-        </div>         
+        </div>
         <div class="form-row">
             <div class="form-group col-md-6">
             <label for="showCnpj">CNPJ</label>
             <input type="text" class="form-control" name="showCnpj" id="showCnpj" value="<?php echo $cnpj ?>" disabled>
-            </div>        
+            </div>
             <div class="form-group col-md-6">
             <label for="inputPassword">Senha</label>
             <input type="password" class="form-control" name="inputPassword" id="inputPassword" value="" required>
             </div>
-        </div>                     
+        </div>
 
         <div class="col-12 text-center">
     <input type="submit" value="Alterar Dados" name="laboratorio_meuperfil"  class="btn btn-dark col-4">
@@ -152,8 +155,8 @@
   <!-- Javascript/Jquery functions for Bootstrap internal use -->
   <?php include 'js/scripts_include.html'; ?>
   <!-- chama arquivo de funções js -->
-  <script src="js/laboratorio.js"></script>      
-  <script src="js/sidebar.js"></script>  
+  <script src="js/laboratorio.js"></script>
+  <script src="js/sidebar.js"></script>
 
 </body>
 </html>

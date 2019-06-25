@@ -1,4 +1,7 @@
-<?php include 'index-include/sidenav_medico.php'; ?>
+<?php
+include 'index-include/sidenav_medico.php';
+require_once 'config/segurancaMedico.php';
+?>
 <!-- Tags em aberto: <html>, <body>, <div class="d-flex" id="wrapper">, <div id="page-content-wrapper"> -->
 
 
@@ -28,31 +31,31 @@
                             <label for="inputDate">Data da Consulta</label>
                             <input type="date" min="2000-01-01" max="<?php date_default_timezone_set('America/Sao_Paulo'); echo date('Y-m-d'); ?>" class="form-control" name="inputDate" id="inputDate" placeholder="" required>
                             </div>
-                        </div>  
+                        </div>
                         <div class="form-row">
                             <div class="form-group col-md">
                             <label for="inputReceita">Receita</label>
                             <input type="text" class="form-control" name="inputReceita" id="inputReceita" placeholder="">
                             </div>
-                        </div> 
+                        </div>
                         <div class="form-row">
                             <div class="form-group col-md">
                             <label for="inputRequisicao">Requisição de Exames</label>
                             <input type="text" class="form-control" name="inputRequisicao" id="inputRequisicao" placeholder="">
                             </div>
-                        </div> 
+                        </div>
                         <div class="form-row">
                             <div class="form-group col-md">
                             <label for="inputObervacao">Observação</label>
                             <input type="text" class="form-control" name="inputObervacao" id="inputObervacao" placeholder="">
                             </div>
-                        </div>                                                                                                                                             
+                        </div>
 
                         <div class="col-12 text-center"><button type="submit" id="medico_adicionarConsulta" name="medico_adicionarConsulta" class="btn btn-dark" disabled>Salvar</button></div>
-                    </form>                
-                
-                
-                
+                    </form>
+
+
+
                 </div>
             </div>
         </div>
@@ -78,7 +81,7 @@
             </tr>
         </thead>
         <tbody id="mostraConsultas">
-        <?php 
+        <?php
             # função que vai retornar rows em formato html contendo as CONSULTAS realizadas pelo medico atual (depende do crm)
             $universal->mostrarConsultas($crm, "medico");
         ?>
@@ -86,7 +89,7 @@
         </tbody>
         </table>
     </div>
-</div>    
+</div>
 
 <div id="meuperfil">
 
@@ -94,7 +97,7 @@
     <?php $medico = $medico->buscaMedico($crm);?>
 
     <form id="form_meuperfil" method="post" action="ajax/medico_meuperfil.php">
-    
+
         <div class="form-row">
             <div class="form-group col-md-6">
             <label for="inputName">Nome</label>
@@ -114,7 +117,7 @@
             <label for="inputEmail">E-mail</label>
             <input type="email" class="form-control" name="inputEmail" id="inputEmail" value="<?php echo $medico->getEmail()?>" required>
             </div>
-        </div>     
+        </div>
         <div class="form-row">
             <div class="form-group col-md-6">
             <label for="inputGender">Gênero</label>
@@ -128,18 +131,18 @@
             <label for="showCrm">CRM</label>
             <input type="text" class="form-control" name="showCrm" id="showCrm" value="<?php echo $crm ?>" disabled>
             <!-- este é para enviar o crm do medico, necessário para edição do mesmo--><input type="text" class="form-control d-none" name="inputCrm" id="inputCrm" value="<?php echo $crm ?>">
-            </div>            
-        </div> 
+            </div>
+        </div>
         <div class="form-row">
         <div class="form-group col-md-6">
             <label for="inputEspecialidade">Especialidade</label>
             <input type="text" class="form-control" name="inputEspecialidade" id="inputEspecialidade" value="<?php echo $medico->getEspecialidade(); ?>" required>
-            </div>        
+            </div>
             <div class="form-group col-md-6">
             <label for="inputPassword">Senha</label>
             <input type="password" class="form-control" name="inputPassword" id="inputPassword" value="" required>
             </div>
-        </div>                     
+        </div>
 
         <div class="col-12 text-center">
     <input type="submit" value="Alterar Dados" name="medico_meuperfil"  class="btn btn-dark col-4"><!--<button type="submit" id="medico_meuperfil_submit" class="btn btn-dark col-4">Alterar Dados</button>-->
@@ -163,9 +166,9 @@
 </div> <!-- / class="d-flex" id="wrapper" -->
 
   <!-- Javascript/Jquery functions for Bootstrap internal use -->
-  <?php include 'js/scripts_include.html'; ?> 
+  <?php include 'js/scripts_include.html'; ?>
   <!-- chama arquivo de funções js -->
-  <script src="js/medico.js"></script>      
-  <script src="js/sidebar.js"></script>  
+  <script src="js/medico.js"></script>
+  <script src="js/sidebar.js"></script>
 
         </body>

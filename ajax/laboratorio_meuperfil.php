@@ -1,8 +1,7 @@
 <?php 
-    session_start();
     include "../config/universal.php";
     include "../model/laboratorio.php";
-    
+
     if(isset($_POST['inputCnpj'])){
         $nome = $universal->testaEntrada($_POST['inputName']);
         $endereco = $universal->testaEntrada($_POST['inputAddress']);
@@ -14,7 +13,7 @@
 
         $lab = new Laboratorio;
         $alteraLaboratorio = $lab->comArgumentos($nome, $endereco, $telefone, $email, $senha, $cnpj, $exames);
-        $alteraLaboratorio->alterarXML();   
+        $alteraLaboratorio->alterarXML();
 
     }
 

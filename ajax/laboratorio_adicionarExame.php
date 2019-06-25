@@ -1,5 +1,4 @@
 <?php
-    session_start();
     include "../config/universal.php";
 
     if (isset($_POST['inputCnpj'])){
@@ -12,5 +11,5 @@
         $universal->cadastraExame($data, $cnpj, $cpf, $exames, $resultado);
     }
     echo "<script>window.location.href='../laboratorio.php';</script>";
-    
+
 ?>

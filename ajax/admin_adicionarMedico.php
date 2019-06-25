@@ -1,5 +1,4 @@
 <?php
-    session_start();
     include "../config/universal.php";
     include "../model/medico.php";
 
@@ -21,5 +20,5 @@
         #$universal->cadastraMedico($nome, $endereco, $telefone, $email, $genero, $crm, $especialidade, $senha);
     }
     echo "<script>window.location.href='../admin.php';</script>";
-    
+
 ?>

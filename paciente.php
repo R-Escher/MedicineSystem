@@ -1,4 +1,7 @@
-<?php include 'index-include/sidenav_paciente.php'; ?>
+<?php
+include 'index-include/sidenav_paciente.php';
+require_once 'config/segurancaPaciente.php';
+?>
 <!-- Tags em aberto: <html>, <body>, <div class="d-flex" id="wrapper">, <div id="page-content-wrapper"> -->
 
 <div class="container-fluid" style="padding: 30px 20px;">
@@ -17,11 +20,11 @@
             </tr>
         </thead>
         <tbody>
-        <?php 
+        <?php
             # função que vai retornar rows em formato html contendo as CONSULTAS realizadas pelo medico atual (depende do cpf)
             $universal->mostrarConsultas($cpf, "paciente");
         ?>
-        
+
         </tbody>
         </table>
     </div>
@@ -41,11 +44,11 @@
             </tr>
         </thead>
         <tbody>
-        <?php 
+        <?php
             # função que vai retornar rows em formato html contendo as CONSULTAS realizadas pelo medico atual (depende do cpf)
             $universal->mostrarExames($cpf, "paciente");
         ?>
-        
+
         </tbody>
         </table>
     </div>
@@ -80,12 +83,12 @@
             <label for="inputEmail">E-mail</label>
             <input type="email" class="form-control" name="inputEmail" id="inputEmail" value="<?php echo $paciente->getEmail()?>" required>
             </div>
-        </div>     
+        </div>
         <div class="form-row">
             <div class="form-group col-md">
                 <label for="inputAge">Idade</label>
                 <input type="number" class="form-control" name="inputAge" id="inputAge" value="<?php echo $paciente->getIdade()?>" placeholder="" required>
-            </div>          
+            </div>
             <div class="form-group col-md-6">
                 <label for="inputGender">Gênero</label>
                 <select name="inputGender" id="inputGender" class="form-control" required>
@@ -94,17 +97,17 @@
                     <option name="inputGender" value="Outro" <?php if($paciente->getGenero()=='Outro'){ echo 'selected'; } ?> >Outro</option>
                 </select>
             </div>
-        </div> 
+        </div>
         <div class="form-row">
         <div class="form-group col-md-6">
             <label for="showCpf">CPF</label>
             <input type="text" class="form-control" name="showCpf" id="showCpf" value="<?php echo $cpf ?>" disabled>
-        </div>        
+        </div>
         <div class="form-group col-md-6">
             <label for="inputPassword">Senha</label>
             <input type="password" class="form-control" name="inputPassword" id="inputPassword" value="" required>
         </div>
-        </div>                     
+        </div>
 
         <div class="col-12 text-center">
     <input type="submit" value="Alterar Dados" name="paciente_meuperfil"  class="btn btn-dark col-4"><!--<button type="submit" id="paciente_meuperfil_submit" class="btn btn-dark col-4">Alterar Dados</button>-->
@@ -129,7 +132,7 @@
   <!-- Javascript/Jquery functions for Bootstrap internal use -->
   <?php include 'js/scripts_include.html'; ?>
   <!-- chama arquivo de funções js -->
-  <script src="js/paciente.js"></script>      
-  <script src="js/sidebar.js"></script>  
+  <script src="js/paciente.js"></script>
+  <script src="js/sidebar.js"></script>
 
         </body>

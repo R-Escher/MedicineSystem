@@ -14,11 +14,11 @@
       <!-- load login box fonts -->
       <link href="css/login.css" rel="stylesheet">
       <!-- load models -->
-      <?php include 'model/admin.php' ?>
-      <?php include 'model/laboratorio.php' ?>
-      <?php include 'model/medico.php' ?>
-      <?php include 'model/paciente.php' ?>
+      <?php include_once 'model/administrador.php' ?>
+      <?php include_once 'model/laboratorio.php' ?>
+      <?php include_once 'model/medico.php' ?>
+      <?php include_once 'model/paciente.php' ?>
       <!-- load univesal - arquivo contendo funções diversas para trabalhar com XML -->
-      <?php include 'config/universal.php' ?>
+      <?php include_once 'config/universal.php' ?>
   </head>
 </html>
