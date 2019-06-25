@@ -17,10 +17,11 @@ $paciente = new Paciente();
 $listaPacientes = $paciente->listaPacientes();
 
 
-if (!isset($_SESSION)){
-  $cache_expire = session_cache_expire(60);
+if (session_status() == PHP_SESSION_NONE){
+  $cache_expire = session_cache_expire(120);
   session_start();
 }
+
 
 if(isset($_SESSION['usuario'])){
   echo "<script>window.location.href='../index.php';</script>";
@@ -35,7 +36,7 @@ if(isset($_SESSION['usuario'])){
               if ($adm->getLogin()==$trimusuario && $adm->getSenha()==md5($trimsenha)) {
                   $_SESSION['usuario'] = $adm->getLogin();
                   $_SESSION['senha'] = $adm->getSenha();
-                  $_SESSION['administrador'] = true;
+                  setcookie('administrador', 'verdade', time()+ 120,'/');
                   echo "<script>window.location.href='../admin.php';</script>";
                   break;
               }
@@ -46,7 +47,7 @@ if(isset($_SESSION['usuario'])){
               if ($med->getCRM()==$_POST['usuario'] && $med->getSenha()==md5($_POST['senha'])) {
                   $_SESSION['usuario'] = $med->getCRM();
                   $_SESSION['senha'] = $med->getSenha();
-                  $_SESSION['medico'] = true;
+                  setcookie('medico', 'verdade', time()+ 120,'/');
                   echo "<script>window.location.href='../medico.php';</script>";
                   break;
               }
@@ -57,7 +58,7 @@ if(isset($_SESSION['usuario'])){
               if ($lab->getCNPJ()==$_POST['usuario'] && $lab->getSenha()==md5($_POST['senha'])) {
                   $_SESSION['usuario'] = $lab->getCNPJ();
                   $_SESSION['senha'] = $lab->getSenha();
-                  $_SESSION['laboratorio'] = true;
+                  setcookie('laboratorio', 'verdade', time()+ 120,'/');
                   echo "<script>window.location.href='../laboratorio.php';</script>";
                   break;
               }
@@ -69,7 +70,7 @@ if(isset($_SESSION['usuario'])){
               if ($pac->getCPF()==$_POST['usuario'] && $pac->getSenha()==md5($_POST['senha'])) {
                   $_SESSION['usuario'] = $pac->getCPF();
                   $_SESSION['senha'] = $pac->getSenha();
-                  $_SESSION['laboratorio'] = true;
+                  setcookie('paciente', 'verdade', time()+ 120,'/');
                   echo "<script>window.location.href='../paciente.php';</script>";
                   break;
               }
