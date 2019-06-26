@@ -452,40 +452,42 @@ class universal{
                     <td>'.$c->cpf.'</td>
                     <td> 
                     
-                    <a class="nav-link dropdown-toggle" style="color: #c2c3c5; font-size: 12px; padding: 0;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    '. 'Consultas' .'
-                    </a>                    
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                        <label class="dropdown-item">Total de Consultas:
-                        '. $numeroConsultas[0] .'
-                        </label>
-                        <div class="dropdown-divider"></div>
-                        <label class="dropdown-item">Consultas este mês:
-                        '. $numeroConsultas[1] .'
-                        </label>
-                        <div class="dropdown-divider"></div>
-                        <label class="dropdown-item">Consultas hoje:
-                        '. $numeroConsultas[2] .'
-                        </label>
-                    </div>
-                    
-                    <a class="nav-link dropdown-toggle" style="color: #c2c3c5; font-size: 12px; padding: 0;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    '. 'Exames' .'
-                    </a>                    
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                        <label class="dropdown-item">Total de Exames:
-                        '. $numeroExames[0] .'
-                        </label>
-                        <div class="dropdown-divider"></div>
-                        <label class="dropdown-item">Exames este mês:
-                        '. $numeroExames[1] .'
-                        </label>
-                        <div class="dropdown-divider"></div>
-                        <label class="dropdown-item">Exames hoje:
-                        '. $numeroExames[2] .'
-                        </label>
-                    </div>
-
+                    <li class="nav-item" style="list-style: none;">
+                        <a class="nav-link dropdown-toggle" style="color: #c2c3c5; font-size: 12px; padding: 0;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        '. 'Consultas' .'
+                        </a>                    
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <label class="dropdown-item">Total de Consultas:
+                            '. $numeroConsultas[0] .'
+                            </label>
+                            <div class="dropdown-divider"></div>
+                            <label class="dropdown-item">Consultas este mês:
+                            '. $numeroConsultas[1] .'
+                            </label>
+                            <div class="dropdown-divider"></div>
+                            <label class="dropdown-item">Consultas hoje:
+                            '. $numeroConsultas[2] .'
+                            </label>
+                        </div>
+                    </li>
+                    <li class="nav-item" style="list-style: none;">
+                        <a class="nav-link dropdown-toggle" style="color: #c2c3c5; font-size: 12px; padding: 0;" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        '. 'Exames' .'
+                        </a>                    
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown2">
+                            <label class="dropdown-item">Total de Exames:
+                            '. $numeroExames[0] .'
+                            </label>
+                            <div class="dropdown-divider"></div>
+                            <label class="dropdown-item">Exames este mês:
+                            '. $numeroExames[1] .'
+                            </label>
+                            <div class="dropdown-divider"></div>
+                            <label class="dropdown-item">Exames hoje:
+                            '. $numeroExames[2] .'
+                            </label>
+                        </div>
+                        </li>
                     '.'
                                       
                     
