@@ -1,8 +1,10 @@
 <?php
-    include '../config/universal.php';
-    include '../model/paciente.php';
-    $universal = new universal;
-    $paciente = new Paciente;
+    $raiz = $_SERVER['DOCUMENT_ROOT'];
+    include_once $raiz.'/MedicineSystem/model/paciente.php';
+    include_once $raiz.'/MedicineSystem/config/universal.php';
+    
+    $universal = new universal();
+    $paciente = new Paciente();
     $nome = $universal->testaEntrada($_POST['nome']);
 
     if (isset($_POST['crm'])){
@@ -18,6 +20,6 @@
     }else{
         echo false;
     }
-    
+
 
 ?>

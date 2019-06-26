@@ -1,6 +1,7 @@
 <?php
-    include "../config/universal.php";
-    include "../model/paciente.php";
+    $raiz = $_SERVER['DOCUMENT_ROOT'];
+    include_once $raiz.'/MedicineSystem/model/paciente.php';
+    include_once $raiz.'/MedicineSystem/config/universal.php';
 
     if (isset($_POST['inputCpfPaciente'])){
         $nome = $universal->testaEntrada($_POST['inputNomePaciente']);

@@ -1,6 +1,9 @@
 <?php
-    include '../model/paciente.php';
-    $paciente = new Paciente;
+    $raiz = $_SERVER['DOCUMENT_ROOT'];
+    include_once $raiz.'/MedicineSystem/model/paciente.php';
+    include_once $raiz.'/MedicineSystem/config/universal.php';
+
+    $paciente = new Paciente();
     $response = $universal->testaEntrada($_POST['cpf']);
     $pessoa = $universal->testaEntrada($_POST['pessoa']);
 
@@ -8,7 +11,7 @@
 	$response = preg_replace("/[^0-9]/", "", $response);
 
 
-	// Verifica se o numero de digitos informados é igual a 11 
+	// Verifica se o numero de digitos informados é igual a 11
 	if (strlen($response) != 11) {
         if ($pessoa=="admin"){
             echo true; #retorna errado
@@ -16,7 +19,6 @@
             echo false;
         }
     }
-
     $paciente = $paciente->buscapaciente($response);
 
     if ($paciente->getCPF() == $response){

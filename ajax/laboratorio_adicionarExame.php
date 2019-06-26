@@ -1,5 +1,6 @@
 <?php
-    include "../config/universal.php";
+    $raiz = $_SERVER['DOCUMENT_ROOT'];
+    include_once $raiz.'/MedicineSystem/config/universal.php';
 
     if (isset($_POST['inputCnpj'])){
         $cnpj = $universal->testaEntrada($_POST['inputCnpj']);
