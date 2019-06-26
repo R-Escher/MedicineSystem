@@ -38,7 +38,6 @@
                                 $medico = $medico->buscaMedico($crm, "medico");
                                 echo "Dr. ".$medico->getNome();
                             ?>
-                            </label>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                             <?php $numeroConsultas = $universal->contaConsultas($crm, "medico"); ?>

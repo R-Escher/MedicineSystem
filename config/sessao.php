@@ -17,7 +17,7 @@ $listaPacientes = $paciente->listaPacientes();
 
 
 if (session_status() == PHP_SESSION_NONE){
-  $cache_expire = session_cache_expire(120);
+  $cache_expire = session_cache_expire(300);
   session_start();
 }
 
@@ -35,12 +35,12 @@ if(isset($_SESSION['usuario'])){
               if ($adm->getLogin()==$trimusuario && $adm->getSenha()==md5($trimsenha)) {
                   $_SESSION['usuario'] = $adm->getLogin();
                   $_SESSION['senha'] = $adm->getSenha();
-                  setcookie('administrador', 'verdade', time()+ 120,'/');
+                  setcookie('administrador', 'verdade', time()+ 300,'/');
                   echo "<script>window.location.href='../admin.php';</script>";
                   break;
               }
           }
-          setcookie('invalido', 'verdade', time()+ 120,'/');
+          setcookie('invalido', 'verdade', time()+ 300,'/');
           echo "<script>window.location.href='../index.php';</script>";
           break;
       case 'medico':
@@ -48,13 +48,13 @@ if(isset($_SESSION['usuario'])){
               if ($med->getCRM()==$_POST['usuario'] && $med->getSenha()==md5($_POST['senha'])) {
                   $_SESSION['usuario'] = $med->getCRM();
                   $_SESSION['senha'] = $med->getSenha();
-                  setcookie('medico', 'verdade', time()+ 120,'/');
-                  setcookie('medico_crm', $med->getCRM(), time()+ 120,'/');
+                  setcookie('medico', 'verdade', time()+ 300,'/');
+                  setcookie('medico_crm', $med->getCRM(), time()+ 300,'/');
                   echo "<script>window.location.href='../medico.php';</script>";
                   break;
               }
           }
-          setcookie('invalido', 'verdade', time()+ 120,'/');
+          setcookie('invalido', 'verdade', time()+ 300,'/');
           echo "<script>window.location.href='../index.php';</script>";
           break;
       case 'laboratorio':
@@ -62,13 +62,13 @@ if(isset($_SESSION['usuario'])){
               if ($lab->getCNPJ()==$_POST['usuario'] && $lab->getSenha()==md5($_POST['senha'])) {
                   $_SESSION['usuario'] = $lab->getCNPJ();
                   $_SESSION['senha'] = $lab->getSenha();
-                  setcookie('laboratorio', 'verdade', time()+ 120,'/');
-                  setcookie('laboratorio_cnpj', $lab->getCNPJ(), time()+ 120,'/');
+                  setcookie('laboratorio', 'verdade', time()+ 300,'/');
+                  setcookie('laboratorio_cnpj', $lab->getCNPJ(), time()+ 300,'/');
                   echo "<script>window.location.href='../laboratorio.php';</script>";
                   break;
               }
           }
-          setcookie('invalido', 'verdade', time()+ 120,'/');
+          setcookie('invalido', 'verdade', time()+ 300,'/');
           echo "<script>window.location.href='../index.php';</script>";
           break;
       case 'paciente':
@@ -76,13 +76,13 @@ if(isset($_SESSION['usuario'])){
               if ($pac->getCPF()==$_POST['usuario'] && $pac->getSenha()==md5($_POST['senha'])) {
                   $_SESSION['usuario'] = $pac->getCPF();
                   $_SESSION['senha'] = $pac->getSenha();
-                  setcookie('paciente', 'verdade', time()+ 120,'/');
-                  setcookie('paciente_cpf', $pac->getCPF(), time()+ 120,'/');
+                  setcookie('paciente', 'verdade', time()+ 300,'/');
+                  setcookie('paciente_cpf', $pac->getCPF(), time()+ 300,'/');
                   echo "<script>window.location.href='../paciente.php';</script>";
                   break;
               }
           }
-          setcookie('invalido', 'verdade', time()+ 120,'/');
+          setcookie('invalido', 'verdade', time()+ 300,'/');
           echo "<script>window.location.href='../index.php';</script>";
           break;
     }

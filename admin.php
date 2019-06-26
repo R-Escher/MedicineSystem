@@ -103,6 +103,7 @@ require_once 'config/segurancaAdmin.php';
             <th scope="col">GÊNERO</th>
             <th scope="col">IDADE</th>
             <th scope="col">CPF</th>
+            <th scope="col" style="color: #c2c3c5;">TOTAL</th>
             </tr>
         </thead>
         <tbody id="mostraPacientes">
@@ -209,6 +210,7 @@ require_once 'config/segurancaAdmin.php';
             <th scope="col">GÊNERO</th>
             <th scope="col">ESPECIALIDADE</th>
             <th scope="col">CRM</th>
+            <th scope="col" style="color: #c2c3c5;">TOTAL</th>
             </tr>
         </thead>
         <tbody id="mostraMedicos">
@@ -303,6 +305,7 @@ require_once 'config/segurancaAdmin.php';
             <th scope="col">E-MAIL</th>
             <th scope="col">TIPOS DE EXAME</th>
             <th scope="col">CNPJ</th>
+            <th scope="col" style="color: #c2c3c5;">TOTAL</th>
             </tr>
         </thead>
         <tbody id="mostraLaboratorios">
