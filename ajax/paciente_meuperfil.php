@@ -1,4 +1,5 @@
 <?php 
+    session_start();
     include "../config/universal.php";
     include "../model/paciente.php";
 
