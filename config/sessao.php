@@ -63,7 +63,7 @@ if(isset($_SESSION['usuario'])){
                   $_SESSION['usuario'] = $lab->getCNPJ();
                   $_SESSION['senha'] = $lab->getSenha();
                   setcookie('laboratorio', 'verdade', time()+ 120,'/');
-                  setcookie('laboratorio_cnpj', $laboratorio->getCNPJ(), time()+ 120,'/');
+                  setcookie('laboratorio_cnpj', $lab->getCNPJ(), time()+ 120,'/');
                   echo "<script>window.location.href='../laboratorio.php';</script>";
                   break;
               }

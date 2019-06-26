@@ -4,7 +4,7 @@ include 'index-include/sidenav_medico.php';
 require_once 'config/segurancaMedico.php';
 ?>
 <!-- Tags em aberto: <html>, <body>, <div class="d-flex" id="wrapper">, <div id="page-content-wrapper"> -->
-
+<!-- $crm JÁ SETADO EM SIDENAV -->
 
 <div class="container-fluid" style="padding: 30px 20px;">
 
@@ -18,7 +18,7 @@ require_once 'config/segurancaMedico.php';
                 <div class="modal-content p-3">
                     <form id="form_adicionarConsulta" method="post" action="ajax/medico_adicionarConsulta.php">
                         <!-- input para enviar crm do médico a cadastrar a consulta -->
-                        <input type="text" class="form-control d-none" name="inputCrm" id="inputCrm" value="<?php echo $_COOKIE['medico_crm'] ?>">
+                        <input type="text" class="form-control d-none" name="inputCrm" id="inputCrm" value="<?php echo $crm ?>">
 
                         <div class="form-row">
                             <div class="form-group col-md">
@@ -84,7 +84,7 @@ require_once 'config/segurancaMedico.php';
         <tbody id="mostraConsultas">
         <?php
             # função que vai retornar rows em formato html contendo as CONSULTAS realizadas pelo medico atual (depende do crm)
-            $universal->mostrarConsultas($_COOKIE['medico_crm'], "medico");
+            $universal->mostrarConsultas($crm, "medico");
         ?>
 
         </tbody>
@@ -95,7 +95,7 @@ require_once 'config/segurancaMedico.php';
 <div id="meuperfil">
 
     <!-- Usa funcao buscaMedico para disponibilizar os dados do medico nos campos input -->
-    <?php $medico = $medico->buscaMedico($_COOKIE['medico_crm']);?>
+    <?php $medico = $medico->buscaMedico($crm);?>
 
     <form id="form_meuperfil" method="post" action="ajax/medico_meuperfil.php">
 
@@ -130,8 +130,8 @@ require_once 'config/segurancaMedico.php';
             </div>
             <div class="form-group col-md-6">
             <label for="showCrm">CRM</label>
-            <input type="text" class="form-control" name="showCrm" id="showCrm" value="<?php echo $_COOKIE['medico_crm'] ?>" disabled>
-            <!-- este é para enviar o crm do medico, necessário para edição do mesmo--><input type="text" class="form-control d-none" name="inputCrm" id="inputCrm" value="<?php echo $_COOKIE['medico_crm'] ?>">
+            <input type="text" class="form-control" name="showCrm" id="showCrm" value="<?php echo $crm ?>" disabled>
+            <!-- este é para enviar o crm do medico, necessário para edição do mesmo--><input type="text" class="form-control d-none" name="inputCrm" id="inputCrm" value="<?php echo $crm ?>">
             </div>
         </div>
         <div class="form-row">

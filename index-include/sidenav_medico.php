@@ -4,7 +4,7 @@
   <?php
     $medico = new Medico;
     # apagar depois
-    $crm = "343586";
+    $crm = $_COOKIE['medico_crm'];
   ?>
     <body>
 

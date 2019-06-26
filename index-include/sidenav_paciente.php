@@ -2,9 +2,9 @@
 <html lang="pt-BR">
   <?php include_once 'head.php'; ?>
   <?php
-            $paciente = new Paciente;
-            # apagar depois
-            $cpf = "34544354389";
+    $paciente = new Paciente;
+    # apagar depois
+    $cpf = $_COOKIE['paciente_cpf'];
   ?>
     <body>
 

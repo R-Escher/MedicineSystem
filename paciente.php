@@ -23,7 +23,7 @@ require_once 'config/segurancaPaciente.php';
         <tbody>
         <?php
             # função que vai retornar rows em formato html contendo as CONSULTAS realizadas pelo medico atual (depende do cpf)
-            $universal->mostrarConsultas($_COOKIE['paciente_cpf'], "paciente");
+            $universal->mostrarConsultas($cpf, "paciente");
         ?>
 
         </tbody>
@@ -47,7 +47,7 @@ require_once 'config/segurancaPaciente.php';
         <tbody>
         <?php
             # função que vai retornar rows em formato html contendo as CONSULTAS realizadas pelo medico atual (depende do cpf)
-            $universal->mostrarExames($_COOKIE['paciente_cpf'], "paciente");
+            $universal->mostrarExames($cpf, "paciente");
         ?>
 
         </tbody>
@@ -58,13 +58,13 @@ require_once 'config/segurancaPaciente.php';
 <div id="meuperfil">
 
     <!-- Usa funcao buscaPaciente para disponibilizar os dados do paciente nos campos input -->
-    <?php $paciente = $paciente->buscapaciente($_COOKIE['paciente_cpf']);?>
+    <?php $paciente = $paciente->buscapaciente($cpf);?>
 
     <form id="form_meuperfil" method="post" action="ajax/paciente_meuperfil.php">
 
         <div class="form-row">
             <!-- input para enviar cpf do paciente a alterar dados pessoais -->
-            <input type="text" class="form-control d-none" name="inputCpf" id="inputCpf" value="<?php echo $_COOKIE['paciente_cpf'] ?>">
+            <input type="text" class="form-control d-none" name="inputCpf" id="inputCpf" value="<?php echo $cpf ?>">
 
             <div class="form-group col-md-6">
             <label for="inputName">Nome</label>
@@ -102,7 +102,7 @@ require_once 'config/segurancaPaciente.php';
         <div class="form-row">
         <div class="form-group col-md-6">
             <label for="showCpf">CPF</label>
-            <input type="text" class="form-control" name="showCpf" id="showCpf" value="<?php echo $_COOKIE['paciente_cpf'] ?>" disabled>
+            <input type="text" class="form-control" name="showCpf" id="showCpf" value="<?php echo $cpf ?>" disabled>
         </div>
         <div class="form-group col-md-6">
             <label for="inputPassword">Senha</label>

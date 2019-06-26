@@ -4,7 +4,7 @@
   <?php
     $lab = new Laboratorio;
     # apagar depois
-    $cnpj = "99843447512355";
+    $cnpj = $_COOKIE['laboratorio_cnpj'];
   ?>
     <body>
 
