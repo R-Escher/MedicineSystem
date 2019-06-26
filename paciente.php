@@ -1,4 +1,5 @@
 <?php
+error_reporting(E_ERROR | E_PARSE);
 include 'index-include/sidenav_paciente.php';
 require_once 'config/segurancaPaciente.php';
 ?>
@@ -22,7 +23,7 @@ require_once 'config/segurancaPaciente.php';
         <tbody>
         <?php
             # função que vai retornar rows em formato html contendo as CONSULTAS realizadas pelo medico atual (depende do cpf)
-            $universal->mostrarConsultas($cpf, "paciente");
+            $universal->mostrarConsultas($_COOKIE['paciente_cpf'], "paciente");
         ?>
 
         </tbody>
@@ -46,7 +47,7 @@ require_once 'config/segurancaPaciente.php';
         <tbody>
         <?php
             # função que vai retornar rows em formato html contendo as CONSULTAS realizadas pelo medico atual (depende do cpf)
-            $universal->mostrarExames($cpf, "paciente");
+            $universal->mostrarExames($_COOKIE['paciente_cpf'], "paciente");
         ?>
 
         </tbody>
@@ -57,13 +58,13 @@ require_once 'config/segurancaPaciente.php';
 <div id="meuperfil">
 
     <!-- Usa funcao buscaPaciente para disponibilizar os dados do paciente nos campos input -->
-    <?php $paciente = $paciente->buscapaciente($cpf);?>
+    <?php $paciente = $paciente->buscapaciente($_COOKIE['paciente_cpf']);?>
 
     <form id="form_meuperfil" method="post" action="ajax/paciente_meuperfil.php">
 
         <div class="form-row">
             <!-- input para enviar cpf do paciente a alterar dados pessoais -->
-            <input type="text" class="form-control d-none" name="inputCpf" id="inputCpf" value="<?php echo $cpf ?>">
+            <input type="text" class="form-control d-none" name="inputCpf" id="inputCpf" value="<?php echo $_COOKIE['paciente_cpf'] ?>">
 
             <div class="form-group col-md-6">
             <label for="inputName">Nome</label>
@@ -101,7 +102,7 @@ require_once 'config/segurancaPaciente.php';
         <div class="form-row">
         <div class="form-group col-md-6">
             <label for="showCpf">CPF</label>
-            <input type="text" class="form-control" name="showCpf" id="showCpf" value="<?php echo $cpf ?>" disabled>
+            <input type="text" class="form-control" name="showCpf" id="showCpf" value="<?php echo $_COOKIE['paciente_cpf'] ?>" disabled>
         </div>
         <div class="form-group col-md-6">
             <label for="inputPassword">Senha</label>

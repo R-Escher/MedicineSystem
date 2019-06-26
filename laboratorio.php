@@ -1,4 +1,5 @@
 <?php
+error_reporting(E_ERROR | E_PARSE);
 include 'index-include/sidenav_laboratorio.php';
 require_once 'config/segurancaLaboratorio.php';
 ?>
@@ -16,7 +17,7 @@ require_once 'config/segurancaLaboratorio.php';
                 <div class="modal-content p-3">
                     <form id="form_adicionarExame" method="post" action="ajax/laboratorio_adicionarExame.php">
                         <!-- input para enviar cnpj do Lab a cadastrar a exame -->
-                        <input type="text" class="form-control d-none" name="inputCnpj" id="inputCnpj" value="<?php echo $cnpj ?>">
+                        <input type="text" class="form-control d-none" name="inputCnpj" id="inputCnpj" value="<?php echo $_COOKIE['laboratorio_cnpj'] ?>">
 
                         <div class="form-row">
                             <div class="form-group col-md">
@@ -76,7 +77,7 @@ require_once 'config/segurancaLaboratorio.php';
         <?php
 
             # função que vai retornar rows em formato html contendo os EXAMES realizadas pelo lab atual (depende do cnpj)
-            $universal->mostrarExames($cnpj, "laboratorio");
+            $universal->mostrarExames($_COOKIE['laboratorio_cnpj'], "laboratorio");
 
         ?>
 
@@ -88,12 +89,12 @@ require_once 'config/segurancaLaboratorio.php';
 <div id="meuperfil">
 
     <!-- Usa funcao buscaLab para disponibilizar os dados do lab nos campos input -->
-    <?php $lab = $lab->buscaLaboratorio($cnpj);?>
+    <?php $lab = $lab->buscaLaboratorio($_COOKIE['laboratorio_cnpj']);?>
 
     <form id="form_meuperfil" method="post" action="ajax/laboratorio_meuperfil.php">
 
         <!-- este é para enviar o cnpj do lab, necessário para edição do mesmo-->
-        <input type="text" class="form-control d-none" name="inputCnpj" id="inputCnpj" value="<?php echo $cnpj ?>">
+        <input type="text" class="form-control d-none" name="inputCnpj" id="inputCnpj" value="<?php echo $_COOKIE['laboratorio_cnpj'] ?>">
 
         <div class="form-row">
             <div class="form-group col-md-6">
@@ -124,7 +125,7 @@ require_once 'config/segurancaLaboratorio.php';
         <div class="form-row">
             <div class="form-group col-md-6">
             <label for="showCnpj">CNPJ</label>
-            <input type="text" class="form-control" name="showCnpj" id="showCnpj" value="<?php echo $cnpj ?>" disabled>
+            <input type="text" class="form-control" name="showCnpj" id="showCnpj" value="<?php echo $_COOKIE['laboratorio_cnpj'] ?>" disabled>
             </div>
             <div class="form-group col-md-6">
             <label for="inputPassword">Senha</label>

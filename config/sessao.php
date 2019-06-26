@@ -1,5 +1,4 @@
 <?php
-ini_set('display_errors', 1);
 $raiz = $_SERVER['DOCUMENT_ROOT'];
 include_once $raiz.'/MedicineSystem/model/administrador.php';
 include_once $raiz.'/MedicineSystem/model/laboratorio.php';
@@ -41,6 +40,8 @@ if(isset($_SESSION['usuario'])){
                   break;
               }
           }
+          setcookie('invalido', 'verdade', time()+ 120,'/');
+          echo "<script>window.location.href='../index.php';</script>";
           break;
       case 'medico':
           foreach ($listaMedicos as $med) {
@@ -48,10 +49,13 @@ if(isset($_SESSION['usuario'])){
                   $_SESSION['usuario'] = $med->getCRM();
                   $_SESSION['senha'] = $med->getSenha();
                   setcookie('medico', 'verdade', time()+ 120,'/');
+                  setcookie('medico_crm', $med->getCRM(), time()+ 120,'/');
                   echo "<script>window.location.href='../medico.php';</script>";
                   break;
               }
           }
+          setcookie('invalido', 'verdade', time()+ 120,'/');
+          echo "<script>window.location.href='../index.php';</script>";
           break;
       case 'laboratorio':
           foreach ($listaLaboratorios as $lab) {
@@ -59,11 +63,13 @@ if(isset($_SESSION['usuario'])){
                   $_SESSION['usuario'] = $lab->getCNPJ();
                   $_SESSION['senha'] = $lab->getSenha();
                   setcookie('laboratorio', 'verdade', time()+ 120,'/');
+                  setcookie('laboratorio_cnpj', $laboratorio->getCNPJ(), time()+ 120,'/');
                   echo "<script>window.location.href='../laboratorio.php';</script>";
                   break;
               }
           }
-
+          setcookie('invalido', 'verdade', time()+ 120,'/');
+          echo "<script>window.location.href='../index.php';</script>";
           break;
       case 'paciente':
           foreach ($listaPacientes as $pac) {
@@ -71,10 +77,13 @@ if(isset($_SESSION['usuario'])){
                   $_SESSION['usuario'] = $pac->getCPF();
                   $_SESSION['senha'] = $pac->getSenha();
                   setcookie('paciente', 'verdade', time()+ 120,'/');
+                  setcookie('paciente_cpf', $pac->getCPF(), time()+ 120,'/');
                   echo "<script>window.location.href='../paciente.php';</script>";
                   break;
               }
           }
+          setcookie('invalido', 'verdade', time()+ 120,'/');
+          echo "<script>window.location.href='../index.php';</script>";
           break;
     }
   } else {

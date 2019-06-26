@@ -2,7 +2,6 @@
 <html lang="pt-BR">
   <?php include_once 'head.php'; ?>
 
-  <?php $admin = $_SESSION['administrador'] ?>
 
     <body>
 
@@ -33,10 +32,6 @@
 
                     <div class="collapse navbar-collapse pl-3" id="navbarSupportedContent">
                         <img src="archive/medicineSystem.png"title="Medicine System"/>
-                        <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-                            <label style="color: #c2c3c5; font-size: 18px;">
-                            <?php echo $admin; ?>
-                            </label>
-                        </ul>
+      
                     </div>
                 </nav>

@@ -1,10 +1,21 @@
 <?php
+error_reporting(E_ERROR | E_PARSE);
 include 'index-include/sidenav.php';
 require_once 'config/segurancaIndex.php';
 ?>
 <!-- Tags em aberto: <html>, <body>, <div class="d-flex" id="wrapper">, <div id="page-content-wrapper"> -->
 
 <div class="container">
+  <?php
+  if (isset($_COOKIE)) {
+    if ($_COOKIE['invalido'] == 'verdade') {
+      echo '<div class="row"><div class="col-sm-9 col-md-7 col-lg-5 mx-auto">';
+      echo '<br><div class="alert alert-danger" style="height:80%" role="alert">';
+      echo '<h4 align="center" style="padding-top: 15px;">Usuário Inválido - Tente Novamente</h4>';
+      echo '</div></div></div>';
+    }
+  }
+  ?>
 
   <!-- LOGIN PACIENTE -->
   <div class="row" id="paciente-login">
