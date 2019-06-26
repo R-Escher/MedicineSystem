@@ -473,15 +473,15 @@ class universal{
                     '. 'Exames' .'
                     </a>                    
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                        <label class="dropdown-item">Total de Consultas:
+                        <label class="dropdown-item">Total de Exames:
                         '. $numeroExames[0] .'
                         </label>
                         <div class="dropdown-divider"></div>
-                        <label class="dropdown-item">Consultas este mês:
+                        <label class="dropdown-item">Exames este mês:
                         '. $numeroExames[1] .'
                         </label>
                         <div class="dropdown-divider"></div>
-                        <label class="dropdown-item">Consultas hoje:
+                        <label class="dropdown-item">Exames hoje:
                         '. $numeroExames[2] .'
                         </label>
                     </div>
