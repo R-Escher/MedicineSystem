@@ -1,13 +1,6 @@
 <?php
-    include '../config/universal.php';
-    #include '../model/paciente.php';
-    #include '../model/medico.php';
-    #include '../model/laboratorio.php';
-    $universal = new universal;
-    #$paciente = new Paciente;
-    #$medico = new Medico;
-    #$laboratorio = new Laboratorio;
-    #$nome = $_POST['nome'];
+    $raiz = $_SERVER['DOCUMENT_ROOT'];
+    include_once $raiz.'/MedicineSystem/config/universal.php';
 
     if (isset($_POST['nomePaciente'])){
         $nome =$universal->testaEntrada($_POST['nomePaciente']);
@@ -25,6 +18,6 @@
     }else{
         echo false;
     }
-    
+
 
 ?>

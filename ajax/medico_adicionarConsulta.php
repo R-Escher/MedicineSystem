@@ -1,6 +1,6 @@
 <?php
-    session_start();
-    include "../config/universal.php";
+    $raiz = $_SERVER['DOCUMENT_ROOT'];
+    include_once $raiz.'/MedicineSystem/config/universal.php';
 
     if (isset($_POST['inputCrm'])){
         $crm = $universal->testaEntrada($_POST['inputCrm']);
