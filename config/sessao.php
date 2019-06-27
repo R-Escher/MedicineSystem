@@ -18,7 +18,7 @@ $listaPacientes = $paciente->listaPacientes();
 
 
 if (session_status() == PHP_SESSION_NONE){
-  $cache_expire = session_cache_expire(300);
+  $cache_expire = session_cache_expire(3000);
   session_start();
 }
 
@@ -29,7 +29,7 @@ if(isset($_SESSION['usuario'])){
 
   // Elimina possivel mascara
   $trimusuario = preg_replace("/[^0-9a-zA-Z]/", "", $_POST['usuario']);
-  $trimsenha = preg_replace("/[^0-9]/", "", $_POST['senha']);
+  $trimsenha = preg_replace("/[^0-9a-zA-Z]/", "", $_POST['senha']);
 
   $trimusuario = trim($universal->testaEntrada($trimusuario));
   $trimsenha = trim($universal->testaEntrada($trimsenha));

@@ -2,11 +2,29 @@
 <consultas>
   <consulta>
     <idConsulta>1</idConsulta>
-    <data>2019-06-23</data>
-    <medico>343586</medico>
-    <paciente>34544354389</paciente>
-    <receita>Dipirona 250mg</receita>
-    <observacoes>Possível virose</observacoes>
-    <requisicao>Hemograma</requisicao>
+    <data>2018-05-25</data>
+    <medico>123321</medico>
+    <paciente>12345678910</paciente>
+    <receita>Paracetamol 250mg 3 vezes ao dia</receita>
+    <observacoes>Excesso de vitamina C</observacoes>
+    <requisicao>Exame de sangue</requisicao>
+  </consulta>
+  <consulta>
+    <idConsulta>2</idConsulta>
+    <data>2019-01-07</data>
+    <medico>123321</medico>
+    <paciente>12345678910</paciente>
+    <receita>Isoproteinoina 100mg 2 vezes ao dia</receita>
+    <observacoes>Excesso de vitamina C confirmado</observacoes>
+    <requisicao/>
+  </consulta>
+  <consulta>
+    <idConsulta>3</idConsulta>
+    <data>2019-06-26</data>
+    <medico>123321</medico>
+    <paciente>12345678911</paciente>
+    <receita>Beber muita água e descansar</receita>
+    <observacoes>Não tem nada</observacoes>
+    <requisicao/>
   </consulta>
 </consultas>

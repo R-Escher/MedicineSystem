@@ -404,7 +404,7 @@ class universal{
             }
 
             $exame = $xml_exames->addChild("exame");
-            $exame->addChild("idConsulta", $maiorID+1);
+            $exame->addChild("idExame", $maiorID+1);
             $exame->addChild("data", $data);
             $exame->addChild("laboratorio", $cnpj);
             $exame->addChild("paciente", $cpf);

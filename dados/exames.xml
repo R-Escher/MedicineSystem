@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <exames>
   <exame>
-    <idConsulta>1</idConsulta>
-    <data>2019-06-23</data>
-    <laboratorio>99843447512355</laboratorio>
-    <paciente>34544354389</paciente>
-    <tipos_exame>Hemograma</tipos_exame>
-    <resultado>Virose</resultado>
+    <idExame>1</idExame>
+    <data>2018-05-27</data>
+    <laboratorio>78923467332278</laboratorio>
+    <paciente>12345678910</paciente>
+    <tipos_exame>Enzimas; substâncias eletrolíticas; substâncias não eletrolíticas</tipos_exame>
+    <resultado>substâncias eletrolíticas alterado</resultado>
+  </exame>
+  <exame>
+    <idExame>2</idExame>
+    <data>2019-06-26</data>
+    <laboratorio>78923467332278</laboratorio>
+    <paciente>12345678911</paciente>
+    <tipos_exame>Enzimas</tipos_exame>
+    <resultado>normal</resultado>
   </exame>
 </exames>

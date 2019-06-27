@@ -1,12 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <laboratorios>
   <laboratorio>
-    <cnpj>99843447512355</cnpj>
+    <cnpj>01827899936777</cnpj>
+    <nome>Atlantico</nome>
+    <endereco> Rua Quinze de Novembro</endereco>
+    <telefone>5339078233</telefone>
+    <email>atl@hotmail.com</email>
+    <senha>ad2910b36aa0c2b02f34f054b82db8b4</senha>
+    <tipos_exame>exame de sangue; exame de urina; exame de fezes</tipos_exame>
+  </laboratorio>
+  <laboratorio>
+    <cnpj>78923467332278</cnpj>
     <nome>Dois Pinheiros</nome>
-    <endereco>Avenida das Tarumãs</endereco>
-    <telefone>(55) 3532-4454</telefone>
-    <email>labdoispinheiros@gmail.com</email>
-    <senha>81dc9bdb52d04dc20036dbd8313ed055</senha>
-    <tipos_exame>Hemograma, Colesterol LDL e HDL.</tipos_exame>
+    <endereco>Av.Itália</endereco>
+    <telefone>5339018866</telefone>
+    <email>labDoisPinheiros@gmail.com</email>
+    <senha>6074c6aa3488f3c2dddff2a7ca821aab</senha>
+    <tipos_exame>exame de sangue; exame de urina </tipos_exame>
   </laboratorio>
 </laboratorios>

@@ -1,13 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <medicos>
   <medico>
-    <crm>343586</crm>
-    <nome>Rafael Escher</nome>
-    <endereco>Rua General Osório</endereco>
-    <telefone>(54) 99564-3435</telefone>
-    <email>rafaelescher@gmail.com</email>
-    <senha>81dc9bdb52d04dc20036dbd8313ed055</senha>
-    <especialidade>Psiquiatria</especialidade>
+    <crm>766009</crm>
+    <nome>Roger Thil</nome>
+    <endereco>Av. Beira Mar</endereco>
+    <telefone>5339019948</telefone>
+    <email>dr.Roger@gmail.com</email>
+    <senha>124add73a31691670f65c0c6c33b12d6</senha>
+    <especialidade>Dermatologia</especialidade>
     <genero>Masculino</genero>
+  </medico>
+  <medico>
+    <crm>123321</crm>
+    <nome>Maristela Aguiar</nome>
+    <endereco>Av. Floripa</endereco>
+    <telefone>5339021150</telefone>
+    <email>mariDr@hotmail.com</email>
+    <senha>0ef86bc9445b3294feb427d41227ff26</senha>
+    <especialidade>Cardiologia; Pediatra; Dentista</especialidade>
+    <genero>Outro</genero>
   </medico>
 </medicos>

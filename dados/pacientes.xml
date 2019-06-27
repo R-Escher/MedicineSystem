@@ -1,13 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pacientes>
   <paciente>
-    <cpf>34544354389</cpf>
-    <nome>Mario Antonio</nome>
-    <endereco>Avenida Itália</endereco>
-    <telefone>(55) 94563-3345</telefone>
-    <email>marioantonio@gmail.com</email>
-    <senha>81dc9bdb52d04dc20036dbd8313ed055</senha>
-    <idade>25</idade>
+    <cpf>12345678910</cpf>
+    <nome>Luis Monteiro</nome>
+    <endereco>Rua Perdida</endereco>
+    <telefone>53991005545</telefone>
+    <email>luis@gmail.com</email>
+    <senha>d93591bdf7860e1e4ee2fca799911215</senha>
+    <idade>26</idade>
     <genero>Masculino</genero>
+  </paciente>
+  <paciente>
+    <cpf>12345678911</cpf>
+    <nome>Marina Silva Loreiro</nome>
+    <endereco>Rua das Águas Claras</endereco>
+    <telefone>53999933222</telefone>
+    <email>marinaSilva2014@gmail.com</email>
+    <senha>81dc9bdb52d04dc20036dbd8313ed055</senha>
+    <idade>18</idade>
+    <genero>Feminino</genero>
   </paciente>
 </pacientes>
