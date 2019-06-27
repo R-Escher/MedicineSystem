@@ -616,6 +616,8 @@ class universal{
 
             foreach ($xml_pacientes->children() as $c) {
                 if (stripos($c->nome, $nome) !== false) {
+                    $numeroConsultas = $this->contaConsultas(strval($c->cpf),"paciente");
+                    $numeroExames = $this->contaExames(strval($c->cpf),"paciente");                    
                     $paciente =
                     '<tr>
                         <th>'.$c->nome.'</th>
@@ -625,6 +627,48 @@ class universal{
                         <td>'.$c->genero.'</td>
                         <td>'.$c->idade.'</td>
                         <td>'.$c->cpf.'</td>
+
+                        <td> 
+                    
+                        <li class="nav-item" style="list-style: none;">
+                            <a class="nav-link dropdown-toggle" style="color: #c2c3c5; font-size: 12px; padding: 0;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            '. 'Consultas' .'
+                            </a>                    
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <label class="dropdown-item">Total de Consultas:
+                                '. $numeroConsultas[0] .'
+                                </label>
+                                <div class="dropdown-divider"></div>
+                                <label class="dropdown-item">Consultas este mês:
+                                '. $numeroConsultas[1] .'
+                                </label>
+                                <div class="dropdown-divider"></div>
+                                <label class="dropdown-item">Consultas hoje:
+                                '. $numeroConsultas[2] .'
+                                </label>
+                            </div>
+                        </li>
+                        <li class="nav-item" style="list-style: none;">
+                            <a class="nav-link dropdown-toggle" style="color: #c2c3c5; font-size: 12px; padding: 0;" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            '. 'Exames' .'
+                            </a>                    
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown2">
+                                <label class="dropdown-item">Total de Exames:
+                                '. $numeroExames[0] .'
+                                </label>
+                                <div class="dropdown-divider"></div>
+                                <label class="dropdown-item">Exames este mês:
+                                '. $numeroExames[1] .'
+                                </label>
+                                <div class="dropdown-divider"></div>
+                                <label class="dropdown-item">Exames hoje:
+                                '. $numeroExames[2] .'
+                                </label>
+                            </div>
+                            </li>
+                        '.'
+                        </td>                        
+
                     </tr>
                     ';
                     echo $paciente;
@@ -649,6 +693,7 @@ class universal{
 
             foreach ($xml_medicos->children() as $c) {
                 if (stripos($c->nome, $nome) !== false) {
+                    $numeroConsultas = $this->contaConsultas(strval($c->crm),"medico");
                     $medico =
                     '<tr>
                         <th>'.$c->nome.'</th>
@@ -658,6 +703,26 @@ class universal{
                         <td>'.$c->genero.'</td>
                         <td>'.$c->especialidade.'</td>
                         <td>'.$c->crm.'</td>
+
+                        <td>
+                        <a class="nav-link dropdown-toggle" style="color: #c2c3c5; font-size: 12px; padding: 0;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        '. 'Consultas' .'
+                        </a>                    
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <label class="dropdown-item">Total de Consultas:
+                            '. $numeroConsultas[0] .'
+                            </label>
+                            <div class="dropdown-divider"></div>
+                            <label class="dropdown-item">Consultas este mês:
+                            '. $numeroConsultas[1] .'
+                            </label>
+                            <div class="dropdown-divider"></div>
+                            <label class="dropdown-item">Consultas hoje:
+                            '. $numeroConsultas[2] .'
+                            </label>
+                        </div>
+                        '.'
+                        </td>                         
                     </tr>
                     ';
                     echo $medico;
@@ -682,6 +747,7 @@ class universal{
 
             foreach ($xml_laboratorios->children() as $c) {
                 if (stripos($c->nome, $nome) !== false) {
+                    $numeroExames = $this->contaExames(strval($c->cnpj),"laboratorio");                    
                     $lab =
                     '<tr>
                         <th>'.$c->nome.'</th>
@@ -690,6 +756,26 @@ class universal{
                         <td>'.$c->email.'</td>
                         <td>'.$c->tipos_exame.'</td>
                         <td>'.$c->cnpj.'</td>
+
+                        <td>
+                        <a class="nav-link dropdown-toggle" style="color: #c2c3c5; font-size: 12px; padding: 0;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        '. 'Exames' .'
+                        </a>                    
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <label class="dropdown-item">Total de Exames:
+                            '. $numeroExames[0] .'
+                            </label>
+                            <div class="dropdown-divider"></div>
+                            <label class="dropdown-item">Exames este mês:
+                            '. $numeroExames[1] .'
+                            </label>
+                            <div class="dropdown-divider"></div>
+                            <label class="dropdown-item">Exames hoje:
+                            '. $numeroExames[2] .'
+                            </label>
+                        </div>
+                        '.'
+                        </td>                         
                     </tr>
                     ';
                     echo $lab;
