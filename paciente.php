@@ -22,7 +22,7 @@ require_once 'config/segurancaPaciente.php';
         </thead>
         <tbody>
         <?php
-            # função que vai retornar rows em formato html contendo as CONSULTAS realizadas pelo medico atual (depende do cpf)
+            # função que vai retornar rows em formato html contendo as CONSULTAS realizadas pelo paciente atual (depende do cpf)
             $universal->mostrarConsultas($cpf, "paciente");
         ?>
 

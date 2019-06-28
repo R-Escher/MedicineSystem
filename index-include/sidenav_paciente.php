@@ -1,9 +1,8 @@
 <!doctype html>
 <html lang="pt-BR">
-  <?php include_once 'head.php'; ?>
-  <?php
+  <?php 
+    include_once 'head.php';
     $paciente = new Paciente;
-    # apagar depois
     $cpf = $_COOKIE['paciente_cpf'];
   ?>
     <body>
@@ -28,10 +27,6 @@
                 <!-- navbar superior -->
                 <nav class="navbar navbar-expand-lg navbar-light border-bottom" style="background-color: #1a1d20; color: #eaebeb; padding: 7.2px 16px; ">
                     <button class="btn btn-dark" id="menu-toggle" style="padding: 3px 9px; "><i class="fas fa-bars fa-2x"></i></button>
-
-                     <!--<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>-->
 
                     <div class="collapse navbar-collapse pl-3" id="navbarSupportedContent">
                         <img src="archive/medicineSystem.png" title="Medicine System"/>

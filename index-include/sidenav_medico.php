@@ -1,9 +1,8 @@
 <!doctype html>
 <html lang="pt-BR">
-  <?php include_once 'head.php'; ?>
-  <?php
+  <?php 
+    include_once 'head.php';
     $medico = new Medico;
-    # apagar depois
     $crm = $_COOKIE['medico_crm'];
   ?>
     <body>
