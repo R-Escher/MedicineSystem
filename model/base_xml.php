@@ -47,7 +47,6 @@ abstract class Base {
 		return $this->senha;
 	}
 
-    //abstract protected function alterarXML();
-    abstract protected function alterarDB();
+	abstract protected function alterarXML();
 }
 ?>

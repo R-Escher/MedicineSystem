@@ -45,26 +45,33 @@ class Laboratorio extends Base {
 	}
 
 	public function alterarXML(){
-        ###
-        # FUNÇÃO UTILIZADA PARA CRIAR 
-        # UM LABORATORIO NO SQL
-        ###
-        
-        # VERIFICA SE JÁ EXISTE NO DATABASE
-        $query = $DB->prepare("SELECT cnpj FROM laboratorios WHERE cnpj = ?");
-        $query->bindParam(1, $this->getCNPJ());
-        $query->execute();
 
-        $row = $query->fetch(PDO::FETCH_OBJ);
+		$salvar_laboratorio = $this;
+		# CASO O LABORATORIO JÁ EXISTA, DELETAR PARA ALTERAR
+		$this->deletarLaboratorio();
 
-        if ($row==null){ # LAB NÃO CADASTRADO
-            $query = $DB->prepare("INSERT INTO laboratorios (cnpj, nome, endereco, telefone, email, senha, tipos_exame) VALUES (:cnpj, :nome, :endereco, :telefone, :email, :senha, :tipos_exame)");
-            $query->execute(array(":cnpj" => $this->getCNPJ(), ":nome" => $this->getNome(), ":endereco" => $this->getEndereco(), ":telefone" => $this->getTelefone(), ":email" => $this->getEmail(), ":senha" => $this->getSenha(), ":tipos_exame" => $this->getTipos_exames));
+		$raiz = $_SERVER['DOCUMENT_ROOT'];
+		libxml_use_internal_errors(true);
+		$xml_laboratorios = simplexml_load_file($raiz.'/MedicineSystem/dados/laboratorios.xml');
 
-        } else {         # LAB CADASTRADO
-            $query = $DB->prepare("UPDATE laboratorios SET cnpj = :cnpj, nome = :nome, endereco = :endereco, telefone = :telefone, email = :email, senha = :senha, tipos_exame = :tipos_exames WHERE cnpj = :cnpj");
-            $query->execute(array(":cnpj" => $this->getCNPJ(), ":nome" => $this->getNome(), ":endereco" => $this->getEndereco(), ":telefone" => $this->getTelefone(), ":email" => $this->getEmail(), ":senha" => $this->getSenha(), ":tipos_exame" => $this->getTipos_exames));
-        }        
+		$laboratorio = $xml_laboratorios->addChild("laboratorio");
+		$laboratorio->addChild("cnpj", $salvar_laboratorio->getCNPJ());
+		$laboratorio->addChild("nome", $salvar_laboratorio->getNome());
+		$laboratorio->addChild("endereco", $salvar_laboratorio->getEndereco());
+		$laboratorio->addChild("telefone", $salvar_laboratorio->getTelefone());
+		$laboratorio->addChild("email", $salvar_laboratorio->getEmail());
+		$laboratorio->addChild("senha", $salvar_laboratorio->getSenha());
+		//$laboratorio->addChild("tipos_exame", implode(';',$salvar_laboratorio->getTipos_exames()));
+		$laboratorio->addChild("tipos_exame", $salvar_laboratorio->getTipos_exames());
+
+		$dom = new DOMDocument("1.0");
+		$dom->preserveWhiteSpace = false;
+		$dom->formatOutput = true;
+		$dom->loadXML($xml_laboratorios->asXML());
+
+		$file = fopen($raiz.'/MedicineSystem/dados/laboratorios.xml', "w");
+		fwrite($file, $dom->saveXML());
+		fclose($file);
 	}
 
 	public function deletarLaboratorio(){

@@ -111,7 +111,7 @@ require_once 'config/segurancaPaciente.php';
         </div>
 
         <div class="col-12 text-center">
-    <input type="submit" value="Alterar Dados" name="paciente_meuperfil"  class="btn btn-dark col-4"><!--<button type="submit" id="paciente_meuperfil_submit" class="btn btn-dark col-4">Alterar Dados</button>-->
+    <input type="submit" value="Alterar Dados" name="paciente_meuperfil"  class="btn btn-dark col-4">
         </div>
     </form>
 </div>
