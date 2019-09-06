@@ -44,7 +44,7 @@ class Laboratorio extends Base {
 		return $this->tipos_exames;
 	}
 
-	public function alterarXML(){
+	public function alterarDB(){
 		###
 		# FUNÇÃO UTILIZADA PARA CRIAR 
 		# UM LABORATORIO NO SQL
