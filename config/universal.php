@@ -31,20 +31,18 @@ class universal{
             $query->execute();
             $rows = $query->fetchAll(PDO::FETCH_OBJ);
 
-            for ($rows as $c){
-                if ($c->paciente == $chavePrimaria){
-                    $medico = $medico->buscaMedico($c->medico);
-                    $consulta = 
-                    '<tr>
-                        <th>'.$c->data.'</th>
-                        <td>'.$medico->getNome().'</td>
-                        <td>'.$medico->getTelefone().'</td>
-                        <td>'.$c->requisicao.'</td>
-                        <td>'.$c->receita.'</td>
-                    </tr>
-                    ';     
-                    echo $consulta;               
-                }
+            foreach ($rows as $c){
+                $medico = $medico->buscaMedico($c->medico);
+                $consulta = 
+                '<tr>
+                    <th>'.$c->data.'</th>
+                    <td>'.$medico->getNome().'</td>
+                    <td>'.$medico->getTelefone().'</td>
+                    <td>'.$c->requisicao.'</td>
+                    <td>'.$c->receita.'</td>
+                </tr>
+                ';     
+                echo $consulta;               
             }
 
         }elseif ($pessoa == "medico"){
@@ -55,23 +53,20 @@ class universal{
             $query->execute();
             $rows = $query->fetchAll(PDO::FETCH_OBJ);
 
-            for ($rows as $c){
-                if ($c->medico == $chavePrimaria){
-                    $paciente = $paciente->buscaPaciente($c->paciente);
-                    $consulta =
-                    '<tr>
-                        <th>'.$paciente->getNome().'</th>
-                        <td>'.$c->data.'</td>
-                        <td>'.$paciente->getTelefone().'</td>
-                        <td>'.$paciente->getEmail().'</td>
-                        <td>'.$c->receita.'</td>
-                        <td>'.$c->requisicao.'</td>
-                        <td>'.$c->observacoes.'</td>
-                    </tr>
-
-                    ';
-                    echo $consulta;              
-                }
+            foreach ($rows as $c){
+                $paciente = $paciente->buscaPaciente($c->paciente);
+                $consulta =
+                '<tr>
+                    <th>'.$paciente->getNome().'</th>
+                    <td>'.$c->data.'</td>
+                    <td>'.$paciente->getTelefone().'</td>
+                    <td>'.$paciente->getEmail().'</td>
+                    <td>'.$c->receita.'</td>
+                    <td>'.$c->requisicao.'</td>
+                    <td>'.$c->observacoes.'</td>
+                </tr>
+                ';
+                echo $consulta;              
             }
         }
     }
@@ -79,146 +74,91 @@ class universal{
     public function procurarConsultas($nome, $crm){
         # Função de pesquisar consulta dado um nome do paciente. Utilizada na search box do medico.php e no admin.php
         # NOME e CRM para procurar consulta que contém os dois, ou só nome caso seja o admin.
-        $raiz = $_SERVER['DOCUMENT_ROOT'];
-        libxml_use_internal_errors(true);
-        $xml_consultas = simplexml_load_file($raiz.'/MedicineSystem/dados/consultas.xml');
-        if ($xml_consultas === false) {
-            echo "Erro no XML Consultas: ";
-            foreach (libxml_get_errors() as $error) {
-                echo "<br>", $error->message;
+
+        $query = $DB->prepare("SELECT * FROM consultas WHERE medico = ?");
+        $query->bindParam(1, $chavePrimaria);
+        $query->execute();
+        $rows = $query->fetchAll(PDO::FETCH_OBJ);
+
+        $paciente = new Paciente; # para buscar NOME baseado no cpf
+        foreach ($rows as $c){
+            $paciente = $paciente->buscapaciente($c->paciente);
+            if (stripos($paciente->getNome(), $nome) !== false) { # SE NOME DIGITADO ESTÁ EM CONSULTA
+
+                $consulta =
+                '<tr>
+                    <th>'.$paciente->getNome().'</th>
+                    <td>'.$c->data.'</td>
+                    <td>'.$paciente->getTelefone().'</td>
+                    <td>'.$paciente->getEmail().'</td>
+                    <td>'.$c->receita.'</td>
+                    <td>'.$c->requisicao.'</td>
+                    <td>'.$c->observacoes.'</td>
+                </tr>
+
+                ';
+                echo $consulta;
             }
-        }else{
-
-            $paciente = new Paciente; # para buscar NOME baseado no cpf
-            foreach ($xml_consultas->children() as $c) {
-                $paciente = $paciente->buscapaciente($c->paciente);
-                if (($c->medico == $crm) && (stripos($paciente->getNome(), $nome) !== false)) {
-
-                    $consulta =
-                    '<tr>
-                        <th>'.$paciente->getNome().'</th>
-                        <td>'.$c->data.'</td>
-                        <td>'.$paciente->getTelefone().'</td>
-                        <td>'.$paciente->getEmail().'</td>
-                        <td>'.$c->receita.'</td>
-                        <td>'.$c->requisicao.'</td>
-                        <td>'.$c->observacoes.'</td>
-                    </tr>
-
-                    ';
-                    echo $consulta;
-                }
-            }
-
         }
-
     }
+
 
     public function cadastraConsulta($crm, $cpf, $data, $receita, $requisicaoExame, $observacao){
-
-        $raiz = $_SERVER['DOCUMENT_ROOT'];
-        libxml_use_internal_errors(true);
-        $xml_consultas = simplexml_load_file($raiz.'/MedicineSystem/dados/consultas.xml');
-        if ($xml_consultas === false) {
-            echo "Erro no XML Consultas: ";
-            foreach (libxml_get_errors() as $error) {
-                echo "<br>", $error->message;
-            }
-        }else{
-            # Descobrir último (maior) ID utilizado.
-            $maiorID = 0;
-            foreach ($xml_consultas->children() as $c){
-                if ((int)($c->idConsulta) > $maiorID){
-                    $maiorID =(int)($c->idConsulta);
-                }
-            }
-
-            $consulta = $xml_consultas->addChild("consulta");
-            $consulta->addChild("idConsulta", $maiorID+1);
-            $consulta->addChild("data", $data);
-            $consulta->addChild("medico", $crm);
-            $consulta->addChild("paciente", $cpf);
-            $consulta->addChild("receita", $receita);
-            $consulta->addChild("observacoes", $observacao);
-            $consulta->addChild("requisicao", $requisicaoExame);
-
-            $dom = new DOMDocument("1.0");
-            $dom->preserveWhiteSpace = false;
-            $dom->formatOutput = true;
-            $dom->loadXML($xml_consultas->asXML());
-
-            $file = fopen($raiz.'/MedicineSystem/dados/consultas.xml', "w");
-            fwrite($file, $dom->saveXML());
-            fclose($file);
-        }
+        $query = $DB->prepare("INSERT INTO consultas (data, medico, paciente, receita, observacoes, requisicao) VALUES (:data, :medico, :paciente, :receita, :observacoes, :requisicao)");
+        $query->execute(array(":data" => $data, ":medico" => $crm, ":paciente" => $cpf, ":receita" => $receita, ":observacoes" => $observacao, ":requisicao" => $requisicaoExame));
     }
+
 
     public function contaConsultas($chave, $pessoa){
         date_default_timezone_set('America/Sao_Paulo');
         $date = date('Y-m-d');
         $mes = date('m');
+        $ano = date('y');
 
         $consultasTotal = 0;
         $consultasMes = 0;
         $consultasHoje = 0;
 
-        $raiz = $_SERVER['DOCUMENT_ROOT'];
-        libxml_use_internal_errors(true);
-        $xml_consultas = simplexml_load_file($raiz.'/MedicineSystem/dados/consultas.xml');
-        if ($xml_consultas === false) {
-            echo "Erro no XML Consultas: ";
-            foreach (libxml_get_errors() as $error) {
-                echo "<br>", $error->message;
-            }
-        }else{
+        if($pessoa=="medico"){
 
-            if($pessoa=="medico"){
+            $query = $DB->prepare("SELECT COUNT(*) as cont FROM consultas WHERE medico = :medico AND data >= :data");
 
-                foreach ($xml_consultas->children() as $c) {
-                    #consultasHOJE
-                    if (($c->medico == $chave) && ($c->data == $date)) {
-                        $consultasHoje += 1;
-                    }
+            #consultasHOJE
+            $query->execute(array(":medico" => $chave, ":data" => $date));
+            $row = $query->fetch(PDO::FETCH_OBJ);
+            $consultasHoje = $row->cont;
 
-                    #consultasMES
-                    $dataConsulta = date_create($c->data);
-                    $dataConsulta = date_format($dataConsulta, "m");
+            #consultasMES
+            $dataAnoMes = $ano . '-' . $mes . '-' . '00';
+            $query->execute(array(":medico" => $chave, ":data" => $dataAnoMes));
+            $row = $query->fetch(PDO::FETCH_OBJ);
+            $consultasMes = $row->cont;
 
-                    if (($c->medico == $chave) && ($mes == $dataConsulta)){
-                        $consultasMes += 1;
-                    }
+            #consultasTOTAL
+            $query->execute(array(":medico" => $chave, ":data" => '00'));
+            $row = $query->fetch(PDO::FETCH_OBJ);
+            $consultasTotal = $row->cont;
 
-                    #consultasTOTAL
-                    if ($c->medico == $chave){
-                        $consultasTotal += 1;
-                    }
+        }elseif($pessoa=="paciente"){
 
-                }
-            }elseif($pessoa=="paciente"){
-                foreach ($xml_consultas->children() as $c) {
-                    #consultasHOJE
-                    if (($c->paciente == $chave) && ($c->data == $date)) {
-                        $consultasHoje += 1;
-                    }
+            $query = $DB->prepare("SELECT COUNT(*) as cont FROM consultas WHERE paciente = :paciente AND data >= :data");
 
-                    #consultasMES
-                    $dataConsulta = date_create($c->data);
-                    $dataConsulta = date_format($dataConsulta, "m");
+            #consultasHOJE
+            $query->execute(array(":paciente" => $chave, ":data" => $date));
+            $row = $query->fetch(PDO::FETCH_OBJ);
+            $consultasHoje = $row->cont;
 
-                    if (($c->paciente == $chave) && ($mes == $dataConsulta)){
-                        $consultasMes += 1;
-                    }
+            #consultasMES
+            $dataAnoMes = $ano . '-' . $mes . '-' . '00';
+            $query->execute(array(":paciente" => $chave, ":data" => $dataAnoMes));
+            $row = $query->fetch(PDO::FETCH_OBJ);
+            $consultasMes = $row->cont;
 
-                    #consultasTOTAL
-                    if ($c->paciente == $chave){
-                        $consultasTotal += 1;
-                    }
-
-                }
-            }
-
+            #consultasTOTAL
+            $query->execute(array(":paciente" => $chave, ":data" => '00'));
+            $row = $query->fetch(PDO::FETCH_OBJ);
+            $consultasTotal = $row->cont;
         }
-
 
         $consultas = array($consultasTotal, $consultasMes, $consultasHoje);
         return $consultas;
