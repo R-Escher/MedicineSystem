@@ -159,6 +159,5 @@ class Paciente extends Base {
 
 		return $paciente;
 	}
-	}
 }
 ?>

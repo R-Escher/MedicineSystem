@@ -18,6 +18,7 @@ class universal{
 
     }
 
+
     public function mostrarConsultas($chavePrimaria, $pessoa){
         # ChavePrimária vai o CPF ou CRM, dependendo de quem pede a função.
         # Pessoa determina se é para buscar consulta baseado no MEDICO ou PACIENTE (CRM/CPF)
@@ -70,6 +71,7 @@ class universal{
             }
         }
     }
+
 
     public function procurarConsultas($nome, $crm){
         # Função de pesquisar consulta dado um nome do paciente. Utilizada na search box do medico.php e no admin.php
@@ -164,282 +166,222 @@ class universal{
         return $consultas;
     }
 
+
     public function contaExames($chave, $pessoa){
         date_default_timezone_set('America/Sao_Paulo');
         $date = date('Y-m-d');
         $mes = date('m');
+        $ano = date('y');
 
         $examesTotal = 0;
         $examesMes = 0;
         $examesHoje = 0;
 
-        $raiz = $_SERVER['DOCUMENT_ROOT'];
-        libxml_use_internal_errors(true);
-        $xml_exames = simplexml_load_file($raiz.'/MedicineSystem/dados/exames.xml');
-        if ($xml_exames === false) {
-            echo "Erro no XML Exames: ";
-            foreach (libxml_get_errors() as $error) {
-                echo "<br>", $error->message;
-            }
-        }else{
-            if($pessoa=="laboratorio"){
+        if($pessoa=="laboratorio"){
 
-                foreach ($xml_exames->children() as $c) {
-                    #examesHOJE
-                    if (($c->laboratorio == $chave) && ($c->data == $date)) {
-                        $examesHoje += 1;
-                    }
+            $query = $DB->prepare("SELECT COUNT(*) as cont FROM exames WHERE laboratorio = :laboratorio AND data >= :data");
 
-                    #examesMES
-                    $dataExame = date_create($c->data);
-                    $dataExame = date_format($dataExame, "m");
+            #examesHoje
+            $query->execute(array(":laboratorio" => $chave, ":data" => $date));
+            $row = $query->fetch(PDO::FETCH_OBJ);
+            $examesHoje = $row->cont;
 
-                    if (($c->laboratorio == $chave) && ($mes == $dataExame)){
-                        $examesMes += 1;
-                    }
+            #examesMes                $dataAnoMes = $ano . '-' . $mes . '-' . '00';
+            $query->execute(array(":laboratorio" => $chave, ":data" => $dataAnoMes));
+            $row = $query->fetch(PDO::FETCH_OBJ);
+            $examesMes = $row->cont;
 
-                    #examesTOTAL
-                    if ($c->laboratorio == $chave){
-                        $examesTotal += 1;
-                    }
+            #examesTotal
+            $query->execute(array(":laboratorio" => $chave, ":data" => '00'));
+            $row = $query->fetch(PDO::FETCH_OBJ);
+            $examesTotal = $row->cont;                
 
-                }
-            }elseif($pessoa=="paciente"){
+        }elseif($pessoa=="paciente"){
 
-                foreach ($xml_exames->children() as $c) {
-                    #examesHOJE
-                    if (($c->paciente == $chave) && ($c->data == $date)) {
-                        $examesHoje += 1;
-                    }
+            $query = $DB->prepare("SELECT COUNT(*) as cont FROM exames WHERE paciente = :paciente AND data >= :data");
 
-                    #examesMES
-                    $dataExame = date_create($c->data);
-                    $dataExame = date_format($dataExame, "m");
+            #examesHOJE
+            $query->execute(array(":paciente" => $chave, ":data" => $date));
+            $row = $query->fetch(PDO::FETCH_OBJ);
+            $examesHoje = $row->cont;
 
-                    if (($c->paciente == $chave) && ($mes == $dataExame)){
-                        $examesMes += 1;
-                    }
+            #examesMES
+            $dataAnoMes = $ano . '-' . $mes . '-' . '00';
+            $query->execute(array(":paciente" => $chave, ":data" => $dataAnoMes));
+            $row = $query->fetch(PDO::FETCH_OBJ);
+            $examesMes = $row->cont;
 
-                    #examesTOTAL
-                    if ($c->paciente == $chave){
-                        $examesTotal += 1;
-                    }
-
-                }
-
-            }
+            #examesTOTAL
+            $query->execute(array(":paciente" => $chave, ":data" => '00'));
+            $row = $query->fetch(PDO::FETCH_OBJ);
+            $examesTotal = $row->cont;
 
         }
-
 
         $exames = array($examesTotal, $examesMes, $examesHoje);
         return $exames;
     }
 
+
     public function mostrarExames($chavePrimaria, $pessoa){
         # ChavePrimária vai o CPF ou CNPJ, dependendo de quem pede a função.
         # Pessoa determina se é para buscar exame baseado no LAB ou PACIENTE (CNPJ/CPF)
         #
-        $raiz = $_SERVER['DOCUMENT_ROOT'];
-        libxml_use_internal_errors(true);
-        $xml_exames = simplexml_load_file($raiz.'/MedicineSystem/dados/exames.xml');
-        if ($xml_exames === false) {
-            echo "Erro no XML Exames: ";
-            foreach (libxml_get_errors() as $error) {
-                echo "<br>", $error->message;
-            }
-        }elseif ($pessoa == "paciente"){
-            $lab = new Laboratorio; # para buscar nome do lab baseado em seu CNPJ
-            foreach ($xml_exames->children() as $c) {
-                $lab = $lab->buscaLaboratorio($c->laboratorio);
-                if ($c->paciente == $chavePrimaria) {
-                    $exame =
-                    '<tr>
-                        <th>'.$c->data.'</th>
-                        <td>'.$lab->getNome().'</td>
-                        <td>'.$lab->getTelefone().'</td>
-                        <td>'.$c->tipos_exame.'</td>
-                        <td>'.$c->resultado.'</td>
-                    </tr>
 
-                    ';
-                    echo $exame;
-                }
-            }
+        if ($pessoa == "paciente"){
+            $lab = new Laboratorio; # para buscar nome do lab baseado em seu CNPJ
+
+            $query = $DB->prepare("SELECT * FROM exames WHERE paciente = ?");
+            $query->bindParam(1, $chavePrimaria);
+            $query->execute();
+            $rows = $query->fetchAll(PDO::FETCH_OBJ);
+
+            foreach ($rows as $e){
+                $lab = $lab->buscaLaboratorio($e->lab);
+                $exame =
+                '<tr>
+                    <th>'.$c->data.'</th>
+                    <td>'.$lab->getNome().'</td>
+                    <td>'.$lab->getTelefone().'</td>
+                    <td>'.$c->tipos_exame.'</td>
+                    <td>'.$c->resultado.'</td>
+                </tr>
+
+                ';
+                echo $exame;               
+            }            
+
         }elseif ($pessoa == "laboratorio"){
             $paciente = new Paciente; # para pegar nome do paciente baseado em seu CPF
-            foreach ($xml_exames->children() as $c) {
-                $paciente = $paciente->buscapaciente($c->paciente);
-                if ($c->laboratorio == $chavePrimaria) {
 
-                    $exame =
-                    '<tr>
-                        <th>'.$paciente->getNome().'</th>
-                        <td>'.$c->data.'</td>
-                        <td>'.$paciente->getTelefone().'</td>
-                        <td>'.$paciente->getEmail().'</td>
-                        <td>'.$c->tipos_exame.'</td>
-                        <td>'.$c->resultado.'</td>
-                    </tr>
+            $query = $DB->prepare("SELECT * FROM exames WHERE laboratorio = ?");
+            $query->bindParam(1, $chavePrimaria);
+            $query->execute();
+            $rows = $query->fetchAll(PDO::FETCH_OBJ);     
+            
+            foreach ($rows as $e){
+                $paciente = $paciente->buscaPaciente($e->paciente);
+                $exame =
+                '<tr>
+                    <th>'.$paciente->getNome().'</th>
+                    <td>'.$e->data.'</td>
+                    <td>'.$paciente->getTelefone().'</td>
+                    <td>'.$paciente->getEmail().'</td>
+                    <td>'.$e->tipos_exame.'</td>
+                    <td>'.$e->resultado.'</td>
+                </tr>
 
-                    ';
-                    echo $exame;
-                }
-            }
-
+                ';
+                echo $exame;                
+            }            
         }
     }
+
 
     public function procurarExames($nome, $cnpj){
-        # Função de pesquisar consulta dado um nome do paciente. Utilizada na search box do medico.php e no admin.php
+        # Função de pesquisar consulta dado um nome do paciente. Utilizada na search box do laboratorio.php e no admin.php
         # NOME e CNPJ para procurar consulta que contém os dois, ou só nome caso seja o admin.
 
-        $raiz = $_SERVER['DOCUMENT_ROOT'];
-        libxml_use_internal_errors(true);
-        $xml_exames = simplexml_load_file($raiz.'/MedicineSystem/dados/exames.xml');
-        if ($xml_exames === false) {
-            echo "Erro no XML Exames: ";
-            foreach (libxml_get_errors() as $error) {
-                echo "<br>", $error->message;
-            }
-        }else{
+        $query = $DB->prepare("SELECT * FROM exames WHERE laboratorio = ?");
+        $query->bindParam(1, $chavePrimaria);
+        $query->execute();
+        $rows = $query->fetchAll(PDO::FETCH_OBJ);
 
-            $paciente = new Paciente; # para buscar NOME baseado no cpf
-            foreach ($xml_exames->children() as $c) {
-                $paciente = $paciente->buscapaciente($c->paciente);
-                if (($c->laboratorio == $cnpj) && (stripos($paciente->getNome(), $nome) !== false)) {
-                    $exame =
-                    '<tr>
-                        <th>'.$paciente->getNome().'</th>
-                        <td>'.$c->data.'</td>
-                        <td>'.$paciente->getTelefone().'</td>
-                        <td>'.$paciente->getEmail().'</td>
-                        <td>'.$c->tipos_exame.'</td>
-                        <td>'.$c->resultado.'</td>
-                    </tr>
+        $paciente = new Paciente; # para buscar NOME baseado no cpf
+        foreach ($rows as $e){
+            $paciente = $paciente->buscapaciente($e->paciente);
+            if (stripos($paciente->getNome(), $nome) !== false) { # SE NOME DIGITADO ESTÁ EM EXAME
+                $exame =
+                '<tr>
+                    <th>'.$paciente->getNome().'</th>
+                    <td>'.$e->data.'</td>
+                    <td>'.$paciente->getTelefone().'</td>
+                    <td>'.$paciente->getEmail().'</td>
+                    <td>'.$e->tipos_exame.'</td>
+                    <td>'.$e->resultado.'</td>
+                </tr>
 
-                    ';
-                    echo $exame;
-                }
-            }
-
+                ';
+                echo $exame;      
+            }      
         }
-
     }
+
 
     public function cadastraExame($data, $cnpj, $cpf, $exames, $resultado){
-
-        $raiz = $_SERVER['DOCUMENT_ROOT'];
-        libxml_use_internal_errors(true);
-        $xml_exames = simplexml_load_file($raiz.'/MedicineSystem/dados/exames.xml');
-        if ($xml_exames === false) {
-            echo "Erro no XML Exames: ";
-            foreach (libxml_get_errors() as $error) {
-                echo "<br>", $error->message;
-            }
-        }else{
-            # Descobrir último (maior) ID utilizado.
-            $maiorID = 0;
-            foreach ($xml_exames->children() as $c){
-                if ((int)($c->idExame) > $maiorID){
-                    $maiorID =(int)($c->idExame);
-                }
-            }
-
-            $exame = $xml_exames->addChild("exame");
-            $exame->addChild("idExame", $maiorID+1);
-            $exame->addChild("data", $data);
-            $exame->addChild("laboratorio", $cnpj);
-            $exame->addChild("paciente", $cpf);
-            $exame->addChild("tipos_exame", $exames);
-            $exame->addChild("resultado", $resultado);
-
-            $dom = new DOMDocument("1.0");
-            $dom->preserveWhiteSpace = false;
-            $dom->formatOutput = true;
-            $dom->loadXML($xml_exames->asXML());
-
-            $file = fopen($raiz.'/MedicineSystem/dados/exames.xml', "w");
-            fwrite($file, $dom->saveXML());
-            fclose($file);
-        }
+        $query = $DB->prepare("INSERT INTO exames (data, laboratorio, paciente, tipos_exames, resultado) VALUES (:data, :laboratorio, :paciente, :tipos_exames, :resultado)");
+        $query->execute(array(":data" => $data, ":laboratorio" => $cnpj, ":paciente" => $cpf, ":tipos_exames" => $exames, ":resultado" => $resultado));
     }
+
 
     //
     // FUNÇÕES EXCLUSIVAS DO ADMIN.PHP
     //
     public function mostrarPacientes(){
 
-        $raiz = $_SERVER['DOCUMENT_ROOT'];
-        libxml_use_internal_errors(true);
-        $xml_pacientes = simplexml_load_file($raiz.'/MedicineSystem/dados/pacientes.xml');
-        if ($xml_pacientes === false) {
-            echo "Erro no XML Pacientes: ";
-            foreach (libxml_get_errors() as $error) {
-                echo "<br>", $error->message;
-            }
-        }else{
-            //$paciente = new Paciente; # para buscar nome do lab baseado em seu CNPJ
-            foreach ($xml_pacientes->children() as $c) {
-                //$paciente = $paciente->buscapaciente($c->paciente);
-                $numeroConsultas = $this->contaConsultas(strval($c->cpf),"paciente");
-                $numeroExames = $this->contaExames(strval($c->cpf),"paciente");
-                $paciente =
-                '<tr>
-                    <th>'.$c->nome.'</th>
-                    <td>'.$c->endereco.'</td>
-                    <td>'.$c->telefone.'</td>
-                    <td>'.$c->email.'</td>
-                    <td>'.$c->genero.'</td>
-                    <td>'.$c->idade.'</td>
-                    <td>'.$c->cpf.'</td>
-                    <td> 
-                    
-                    <li class="nav-item" style="list-style: none;">
-                        <a class="nav-link dropdown-toggle" style="color: #c2c3c5; font-size: 12px; padding: 0;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        '. 'Consultas' .'
-                        </a>                    
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <label class="dropdown-item">Total de Consultas:
-                            '. $numeroConsultas[0] .'
-                            </label>
-                            <div class="dropdown-divider"></div>
-                            <label class="dropdown-item">Consultas este mês:
-                            '. $numeroConsultas[1] .'
-                            </label>
-                            <div class="dropdown-divider"></div>
-                            <label class="dropdown-item">Consultas hoje:
-                            '. $numeroConsultas[2] .'
-                            </label>
-                        </div>
-                    </li>
-                    <li class="nav-item" style="list-style: none;">
-                        <a class="nav-link dropdown-toggle" style="color: #c2c3c5; font-size: 12px; padding: 0;" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        '. 'Exames' .'
-                        </a>                    
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown2">
-                            <label class="dropdown-item">Total de Exames:
-                            '. $numeroExames[0] .'
-                            </label>
-                            <div class="dropdown-divider"></div>
-                            <label class="dropdown-item">Exames este mês:
-                            '. $numeroExames[1] .'
-                            </label>
-                            <div class="dropdown-divider"></div>
-                            <label class="dropdown-item">Exames hoje:
-                            '. $numeroExames[2] .'
-                            </label>
-                        </div>
-                        </li>
-                    '.'
-                                      
-                    
-                    
-                    </td>
-                </tr>';
+        $query = $DB->prepare("SELECT * FROM pacientes");
+        $query->bindParam(1, $chavePrimaria);
+        $query->execute();
+        $rows = $query->fetchAll(PDO::FETCH_OBJ);
 
-                echo $paciente;
-            }
+        foreach ($rows as $p) {
+            $numeroConsultas = $this->contaConsultas(strval($p->cpf),"paciente");
+            $numeroExames = $this->contaExames(strval($p->cpf),"paciente");
+            $paciente =
+            '<tr>
+                <th>'.$p->nome.'</th>
+                <td>'.$p->endereco.'</td>
+                <td>'.$p->telefone.'</td>
+                <td>'.$p->email.'</td>
+                <td>'.$p->genero.'</td>
+                <td>'.$p->idade.'</td>
+                <td>'.$p->cpf.'</td>
+                <td> 
+                
+                <li class="nav-item" style="list-style: none;">
+                    <a class="nav-link dropdown-toggle" style="color: #c2c3c5; font-size: 12px; padding: 0;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    '. 'Consultas' .'
+                    </a>                    
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                        <label class="dropdown-item">Total de Consultas:
+                        '. $numeroConsultas[0] .'
+                        </label>
+                        <div class="dropdown-divider"></div>
+                        <label class="dropdown-item">Consultas este mês:
+                        '. $numeroConsultas[1] .'
+                        </label>
+                        <div class="dropdown-divider"></div>
+                        <label class="dropdown-item">Consultas hoje:
+                        '. $numeroConsultas[2] .'
+                        </label>
+                    </div>
+                </li>
+                <li class="nav-item" style="list-style: none;">
+                    <a class="nav-link dropdown-toggle" style="color: #c2c3c5; font-size: 12px; padding: 0;" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    '. 'Exames' .'
+                    </a>                    
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown2">
+                        <label class="dropdown-item">Total de Exames:
+                        '. $numeroExames[0] .'
+                        </label>
+                        <div class="dropdown-divider"></div>
+                        <label class="dropdown-item">Exames este mês:
+                        '. $numeroExames[1] .'
+                        </label>
+                        <div class="dropdown-divider"></div>
+                        <label class="dropdown-item">Exames hoje:
+                        '. $numeroExames[2] .'
+                        </label>
+                    </div>
+                    </li>
+                '.'
+                                  
+                
+                
+                </td>
+            </tr>';
+
+            echo $paciente;                        
         }
     }
 
