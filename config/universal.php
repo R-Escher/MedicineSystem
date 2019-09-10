@@ -15,7 +15,6 @@ class universal{
         //$this->paciente = new Paciente;
         //$this->medico = new Medico;
         //$this->laboratorio = new Laboratorio;
-
     }
 
 
