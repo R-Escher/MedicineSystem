@@ -1,5 +1,6 @@
 <?php
 
+include_once 'database/database.php';
 
 $universal = new universal;
 
@@ -8,13 +9,14 @@ class universal{
     public $paciente;
     public $medico;
     public $laboratorio;
-    //protected $admin;
+
+    // variaveis estaticas devem ser acessadas com self::$variavel !
+    public static $DB;
+    public static $database;
 
     public function __construct(){
-
-        //$this->paciente = new Paciente;
-        //$this->medico = new Medico;
-        //$this->laboratorio = new Laboratorio;
+        self::$DB = new DB;
+        self::$database = DB::_conectaDB();
     }
 
 
@@ -26,10 +28,8 @@ class universal{
         if ($pessoa == "paciente"){
             $medico = new Medico; # para pegar nome do medico usando seu CRM
 
-            $query = $DB->prepare("SELECT * FROM consultas WHERE paciente = ?");
-            $query->bindParam(1, $chavePrimaria);
-            $query->execute();
-            $rows = $query->fetchAll(PDO::FETCH_OBJ);
+            #$query = $DB->prepare("SELECT * FROM consultas WHERE paciente = ?");
+            $rows = self::$database->selectAllWhere("consultas", "paciente", $chavePrimaria);
 
             foreach ($rows as $c){
                 $medico = $medico->buscaMedico($c->medico);
@@ -48,10 +48,8 @@ class universal{
         }elseif ($pessoa == "medico"){
             $paciente = new Paciente; # para pegar nome do paciente usando seu CPF
 
-            $query = $DB->prepare("SELECT * FROM consultas WHERE medico = ?");
-            $query->bindParam(1, $chavePrimaria);
-            $query->execute();
-            $rows = $query->fetchAll(PDO::FETCH_OBJ);
+            #$query = $DB->prepare("SELECT * FROM consultas WHERE medico = ?");
+            $rows = self::$database->selectAllWhere("consultas", "medico", $chavePrimaria);
 
             foreach ($rows as $c){
                 $paciente = $paciente->buscaPaciente($c->paciente);
@@ -76,10 +74,8 @@ class universal{
         # Função de pesquisar consulta dado um nome do paciente. Utilizada na search box do medico.php e no admin.php
         # NOME e CRM para procurar consulta que contém os dois, ou só nome caso seja o admin.
 
-        $query = $DB->prepare("SELECT * FROM consultas WHERE medico = ?");
-        $query->bindParam(1, $chavePrimaria);
-        $query->execute();
-        $rows = $query->fetchAll(PDO::FETCH_OBJ);
+        #$query = $DB->prepare("SELECT * FROM consultas WHERE medico = ?");
+        $rows = self::$database->selectAllWhere("consultas", "medico", $chavePrimaria);
 
         $paciente = new Paciente; # para buscar NOME baseado no cpf
         foreach ($rows as $c){
@@ -230,10 +226,8 @@ class universal{
         if ($pessoa == "paciente"){
             $lab = new Laboratorio; # para buscar nome do lab baseado em seu CNPJ
 
-            $query = $DB->prepare("SELECT * FROM exames WHERE paciente = ?");
-            $query->bindParam(1, $chavePrimaria);
-            $query->execute();
-            $rows = $query->fetchAll(PDO::FETCH_OBJ);
+            #$query = $DB->prepare("SELECT * FROM exames WHERE paciente = ?");
+            $rows = self::$database->selectAllWhere("exames", "paciente", $chavePrimaria);
 
             foreach ($rows as $e){
                 $lab = $lab->buscaLaboratorio($e->lab);
@@ -253,10 +247,8 @@ class universal{
         }elseif ($pessoa == "laboratorio"){
             $paciente = new Paciente; # para pegar nome do paciente baseado em seu CPF
 
-            $query = $DB->prepare("SELECT * FROM exames WHERE laboratorio = ?");
-            $query->bindParam(1, $chavePrimaria);
-            $query->execute();
-            $rows = $query->fetchAll(PDO::FETCH_OBJ);     
+            #$query = $DB->prepare("SELECT * FROM exames WHERE laboratorio = ?");
+            $rows = self::$database->selectAllWhere("exames", "laboratorio", $chavePrimaria);
             
             foreach ($rows as $e){
                 $paciente = $paciente->buscaPaciente($e->paciente);
@@ -281,10 +273,8 @@ class universal{
         # Função de pesquisar consulta dado um nome do paciente. Utilizada na search box do laboratorio.php e no admin.php
         # NOME e CNPJ para procurar consulta que contém os dois, ou só nome caso seja o admin.
 
-        $query = $DB->prepare("SELECT * FROM exames WHERE laboratorio = ?");
-        $query->bindParam(1, $cnpj);
-        $query->execute();
-        $rows = $query->fetchAll(PDO::FETCH_OBJ);
+        #$query = $DB->prepare("SELECT * FROM exames WHERE laboratorio = ?");
+        $rows = self::$database->selectAllWhere("exames", "laboratorio", $cnpj);
 
         $paciente = new Paciente; # para buscar NOME baseado no cpf
         foreach ($rows as $e){
@@ -318,9 +308,8 @@ class universal{
     //
     public function mostrarPacientes(){
 
-        $query = $DB->prepare("SELECT * FROM pacientes");
-        $query->execute();
-        $rows = $query->fetchAll(PDO::FETCH_OBJ);
+        #$query = $DB->prepare("SELECT * FROM pacientes");
+        $rows = self::$database->selectAll("pacientes");
 
         foreach ($rows as $p) {
             $numeroConsultas = $this->contaConsultas(strval($p->cpf),"paciente");
@@ -383,9 +372,8 @@ class universal{
 
     public function mostrarMedicos(){
 
-        $query = $DB->prepare("SELECT * FROM medicos");
-        $query->execute();
-        $rows = $query->fetchAll(PDO::FETCH_OBJ);
+        #$query = $DB->prepare("SELECT * FROM medicos");
+        $rows = self::$database->selectAll("medicos");
 
         foreach ($rows as $m){
             $numeroConsultas = $this->contaConsultas(strval($m->crm),"medico");
@@ -427,9 +415,8 @@ class universal{
 
     public function mostrarLaboratorios(){
 
-        $query = $DB->prepare("SELECT * FROM laboratorios");
-        $query->execute();
-        $rows = $query->fetchAll(PDO::FETCH_OBJ);        
+        #$query = $DB->prepare("SELECT * FROM laboratorios");
+        $rows = self::$database->selectAll("laboratorios");
 
         foreach ($rows as $l){
             $numeroExames = $this->contaExames(strval($c->cnpj),"laboratorio");
@@ -471,9 +458,8 @@ class universal{
 
     public function procurarPacientes($nome){
 
-        $query = $DB->prepare("SELECT * FROM pacientes");
-        $query->execute();
-        $rows = $query->fetchAll(PDO::FETCH_OBJ);        
+        #$query = $DB->prepare("SELECT * FROM pacientes");
+        $rows = self::$database->selectAll("pacientes");      
 
         foreach ($rows as $p) {
             if (stripos($p->nome, $nome) !== false) {
@@ -540,9 +526,8 @@ class universal{
 
     public function procurarMedicos($nome){
 
-        $query = $DB->prepare("SELECT * FROM medicos");
-        $query->execute();
-        $rows = $query->fetchAll(PDO::FETCH_OBJ);         
+        #$query = $DB->prepare("SELECT * FROM medicos");
+        $rows = self::$database->selectAll("medicos");         
 
         foreach ($rows as $m) {
             if (stripos($m->nome, $nome) !== false) {
@@ -586,9 +571,8 @@ class universal{
 
     public function procurarLaboratorios($nome){
 
-        $query = $DB->prepare("SELECT * FROM laboratorios");
-        $query->execute();
-        $rows = $query->fetchAll(PDO::FETCH_OBJ); 
+        #$query = $DB->prepare("SELECT * FROM laboratorios");
+        $rows = self::$database->selectAll("laboratorios"); 
 
         foreach ($rows as $l) {
             if (stripos($l->nome, $nome) !== false) {
