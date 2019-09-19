@@ -18,7 +18,7 @@ class Paciente extends Base {
 	public function __destruct(){
 	}
 
-    public static function comArgumentos($nome_entrada, $endereco_entrada, $telefone_entrada, $email_entrada, $senha_entrada, $cpf_entrada, $idade_entrada, $genero_entrada) {
+    public function comArgumentos($nome_entrada, $endereco_entrada, $telefone_entrada, $email_entrada, $senha_entrada, $cpf_entrada, $idade_entrada, $genero_entrada) {
 
         $instance = new Self();
 
@@ -109,23 +109,22 @@ class Paciente extends Base {
 		$query = self::$database->prepare("SELECT * FROM pacientes");
 		$query->execute();
 
-		$rows = $query->fetchAll();
+		$rows = $query->fetchAll(PDO::FETCH_OBJ);
 
 		$pacientes_array = array();
 
 		foreach ($rows as $p) {
 			$paciente = new Paciente();
 
-			$paciente->comArgumentos(
-				$p[0], //nome
-				$p[1], //endereco
-				$p[2], //telefone
-				$p[3], //email
-				$p[4], //senha
-				$p[5], //cpf
-                $p[6], //idade
-                $p[7]  //genero
-			);
+			$paciente->setNome($p->nome);
+			$paciente->setEndereco($p->endereco);
+			$paciente->setTelefone($p->telefone);
+			$paciente->setEmail($p->email);
+			$paciente->setSenha($p->senha);
+			$paciente->setCPF($p->cpf);
+			$paciente->setIdade($p->idade);
+			$paciente->setGenero($p->genero);
+
 			$pacientes_array[] = $paciente;
 		}
 
@@ -153,18 +152,16 @@ class Paciente extends Base {
 		$row = $query->fetch(PDO::FETCH_OBJ);
 
 		$paciente = new Paciente();
-		  
-		$paciente->comArgumentos(
-			$row->nome, //nome
-			$row->endereco, //endereco
-			$row->telefone, //telefone
-			$row->email, //email
-			$row->senha, //senha
-			$row->cpf, //cpf
-            $row->idade,  //idade
-            $row->genero  //genero
-		);
 
+		$paciente->setNome($row->nome);
+		$paciente->setEndereco($row->endereco);
+		$paciente->setTelefone($row->telefone);
+		$paciente->setEmail($row->email);
+		$paciente->setSenha($row->senha);
+		$paciente->setCPF($row->cpf);
+		$paciente->setIdade($row->idade);
+		$paciente->setGenero($row->genero);	
+		  
 		return $paciente;
 	}
 }

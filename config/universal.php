@@ -35,7 +35,7 @@ class universal{
                 $medico = $medico->buscaMedico($c->medico);
                 $consulta = 
                 '<tr>
-                    <th>'.$c->data.'</th>
+                    <th>'.date("d/m/Y",strtotime($c->data)).'</th>
                     <td>'.$medico->getNome().'</td>
                     <td>'.$medico->getTelefone().'</td>
                     <td>'.$c->requisicao.'</td>
@@ -56,7 +56,7 @@ class universal{
                 $consulta =
                 '<tr>
                     <th>'.$paciente->getNome().'</th>
-                    <td>'.$c->data.'</td>
+                    <td>'.date("d/m/Y",strtotime($c->data)).'</td>
                     <td>'.$paciente->getTelefone().'</td>
                     <td>'.$paciente->getEmail().'</td>
                     <td>'.$c->receita.'</td>
@@ -75,7 +75,7 @@ class universal{
         # NOME e CRM para procurar consulta que contém os dois, ou só nome caso seja o admin.
 
         #$query = $DB->prepare("SELECT * FROM consultas WHERE medico = ?");
-        $rows = self::$DB->selectAllWhere("consultas", "medico", $chavePrimaria);
+        $rows = self::$DB->selectAllWhere("consultas", "medico", $crm);
 
         $paciente = new Paciente; # para buscar NOME baseado no cpf
         foreach ($rows as $c){
@@ -85,7 +85,7 @@ class universal{
                 $consulta =
                 '<tr>
                     <th>'.$paciente->getNome().'</th>
-                    <td>'.$c->data.'</td>
+                    <td>'.date("d/m/Y",strtotime($c->data)).'</td>
                     <td>'.$paciente->getTelefone().'</td>
                     <td>'.$paciente->getEmail().'</td>
                     <td>'.$c->receita.'</td>
@@ -181,7 +181,8 @@ class universal{
             $row = $query->fetch(PDO::FETCH_OBJ);
             $examesHoje = $row->cont;
 
-            #examesMes                $dataAnoMes = $ano . '-' . $mes . '-' . '00';
+            #examesMes                
+            $dataAnoMes = $ano . '-' . $mes . '-' . '00';
             $query->execute(array(":laboratorio" => $chave, ":data" => $dataAnoMes));
             $row = $query->fetch(PDO::FETCH_OBJ);
             $examesMes = $row->cont;
@@ -230,13 +231,13 @@ class universal{
             $rows = self::$DB->selectAllWhere("exames", "paciente", $chavePrimaria);
 
             foreach ($rows as $e){
-                $lab = $lab->buscaLaboratorio($e->lab);
+                $lab = $lab->buscaLaboratorio($e->laboratorio);
                 $exame =
                 '<tr>
-                    <th>'.$e->data.'</th>
+                    <th>'.date("d/m/Y",strtotime($e->data)).'</th>
                     <td>'.$lab->getNome().'</td>
                     <td>'.$lab->getTelefone().'</td>
-                    <td>'.$e->tipos_exame.'</td>
+                    <td>'.$e->tipos_exames.'</td>
                     <td>'.$e->resultado.'</td>
                 </tr>
 
@@ -255,10 +256,10 @@ class universal{
                 $exame =
                 '<tr>
                     <th>'.$paciente->getNome().'</th>
-                    <td>'.$e->data.'</td>
+                    <td>'.date("d/m/Y",strtotime($e->data)).'</td>
                     <td>'.$paciente->getTelefone().'</td>
                     <td>'.$paciente->getEmail().'</td>
-                    <td>'.$e->tipos_exame.'</td>
+                    <td>'.$e->tipos_exames.'</td>
                     <td>'.$e->resultado.'</td>
                 </tr>
 
@@ -283,10 +284,10 @@ class universal{
                 $exame =
                 '<tr>
                     <th>'.$paciente->getNome().'</th>
-                    <td>'.$e->data.'</td>
+                    <td>'.date("d/m/Y",strtotime($e->data)).'</td>
                     <td>'.$paciente->getTelefone().'</td>
                     <td>'.$paciente->getEmail().'</td>
-                    <td>'.$e->tipos_exame.'</td>
+                    <td>'.$e->tipos_exames.'</td>
                     <td>'.$e->resultado.'</td>
                 </tr>
 
@@ -419,14 +420,14 @@ class universal{
         $rows = self::$DB->selectAll("laboratorios");
 
         foreach ($rows as $l){
-            $numeroExames = $this->contaExames(strval($c->cnpj),"laboratorio");
+            $numeroExames = $this->contaExames(strval($l->cnpj), "laboratorio");
             $lab =
             '<tr>
                 <th>'.$l->nome.'</th>
                 <td>'.$l->endereco.'</td>
                 <td>'.$l->telefone.'</td>
                 <td>'.$l->email.'</td>
-                <td>'.$l->tipos_exame.'</td>
+                <td>'.$l->tipos_exames.'</td>
                 <td>'.$l->cnpj.'</td>
 
                 <td>
@@ -583,7 +584,7 @@ class universal{
                     <td>'.$l->endereco.'</td>
                     <td>'.$l->telefone.'</td>
                     <td>'.$l->email.'</td>
-                    <td>'.$l->tipos_exame.'</td>
+                    <td>'.$l->tipos_exames.'</td>
                     <td>'.$l->cnpj.'</td>
 
                     <td>

@@ -15,8 +15,8 @@
 
 
         $paciente = new Paciente;
-        $alterapaciente = $paciente->comArgumentos($nome, $endereco, $telefone, $email, $senha, $cpf, $idade, $genero);
-        $alterapaciente->alterarXML();
+        $paciente->comArgumentos($nome, $endereco, $telefone, $email, $senha, $cpf, $idade, $genero);
+        #alterapaciente->alterarXML();
     }
 
     echo "<script>window.location.href='../paciente.php';</script>";

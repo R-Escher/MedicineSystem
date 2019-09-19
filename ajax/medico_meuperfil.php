@@ -14,8 +14,8 @@
         $especialidade = $universal->testaEntrada($_POST['inputEspecialidade']);
 
         $medico = new Medico;
-        $alteraMedico = $medico->comArgumentos($nome, $endereco, $telefone, $email, $senha, $crm, $especialidade, $genero);
-        $alteraMedico->alterarXML();
+        $medico->comArgumentos($nome, $endereco, $telefone, $email, $senha, $crm, $especialidade, $genero);
+        #$alteraMedico->alterarXML();
 
     }
 

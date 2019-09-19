@@ -30,7 +30,7 @@
         public function selectAllWhere($from, $where, $what){
             $string = "SELECT * FROM " . $from . " WHERE " . $where . " = :what";
             $query = self::$database->prepare($string);
-            $query->execute(array(":what => $what"));
+            $query->execute(array(":what" => $what));
             $rows = $query->fetchAll(PDO::FETCH_OBJ);
             return $rows;
         }

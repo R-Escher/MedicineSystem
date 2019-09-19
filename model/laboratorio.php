@@ -67,12 +67,12 @@ class Laboratorio extends Base {
 			$query = self::$database->prepare("INSERT INTO laboratorios (cnpj, nome, endereco, telefone, email, senha, tipos_exames) VALUES (:cnpj, :nome, :endereco, :telefone, :email, :senha, :tipos_exames)");
 			#$cnpj = $this->getCNPJ(); $nome = $this->getNome(); $endereco = $this->getEndereco(); $telefone = $this->getTelefone(); $email = $this->getEmail(); $senha = $this->getSenha(); $tipos_exames = $this->getTipos_exames();
 			#$query->execute(array(":cnpj" => $cnpj, ":nome" => $nome, ":endereco" => $endereco, ":telefone" => $telefone, ":email" => $email, ":senha" => $senha, ":tipos_exame" => $tipos_exames) );
-			$query->execute(array(":cnpj" => $this->getCNPJ(), ":nome" => $this->getNome(), ":endereco" => $this->getEndereco(), ":telefone" => $this->getTelefone(), ":email" => $this->getEmail(), ":senha" => $this->getSenha(), ":tipos_exame" => $this->getTipos_exames));
+			$query->execute(array(":cnpj" => $this->getCNPJ(), ":nome" => $this->getNome(), ":endereco" => $this->getEndereco(), ":telefone" => $this->getTelefone(), ":email" => $this->getEmail(), ":senha" => $this->getSenha(), ":tipos_exames" => $this->getTipos_exames()));
 
 
 		} else {         # LAB CADASTRADO
 			$query = self::$database->prepare("UPDATE laboratorios SET cnpj = :cnpj, nome = :nome, endereco = :endereco, telefone = :telefone, email = :email, senha = :senha, tipos_exames = :tipos_exames WHERE cnpj = :cnpj");
-			$query->execute(array(":cnpj" => $this->getCNPJ(), ":nome" => $this->getNome(), ":endereco" => $this->getEndereco(), ":telefone" => $this->getTelefone(), ":email" => $this->getEmail(), ":senha" => $this->getSenha(), ":tipos_exame" => $this->getTipos_exames()));
+			$query->execute(array(":cnpj" => $this->getCNPJ(), ":nome" => $this->getNome(), ":endereco" => $this->getEndereco(), ":telefone" => $this->getTelefone(), ":email" => $this->getEmail(), ":senha" => $this->getSenha(), ":tipos_exames" => $this->getTipos_exames()));
 		}        
   	}
 
@@ -105,22 +105,21 @@ class Laboratorio extends Base {
 		$query = self::$database->prepare("SELECT * FROM laboratorios");
 		$query->execute();
 
-		$rows = $query->fetchAll();
+		$rows = $query->fetchAll(PDO::FETCH_OBJ);
 
 		$laboratorios_array = array();
 
 		foreach ($rows as $l) {
 			$laboratorio = new Laboratorio();
 
-			$laboratorio->comArgumentos(
-				$l[0], //nome
-				$l[1], //endereco
-				$l[2], //telefone
-				$l[3], //email
-				$l[4], //senha
-				$l[5], //cnpj
-				$l[6]  //tipos_exames
-			);
+			$laboratorio->setNome($l->nome);
+			$laboratorio->setEndereco($l->endereco);
+			$laboratorio->setTelefone($l->telefone);
+			$laboratorio->setEmail($l->email);
+			$laboratorio->setSenha($l->senha);
+			$laboratorio->setCNPJ($l->cnpj);
+			$laboratorio->setTipos_exames($l->tipos_exames);
+
 			$laboratorios_array[] = $laboratorio;
 		}
 
@@ -149,15 +148,13 @@ class Laboratorio extends Base {
 
 		$laboratorio = new laboratorio();
 		  
-		$laboratorio->comArgumentos(
-			$row->nome, //nome
-			$row->endereco, //endereco
-			$row->telefone, //telefone
-			$row->email, //email
-			$row->senha, //senha
-			$row->cnpj, //cnpj
-			$row->tipos_exames  //tipos_exames
-		);
+		$laboratorio->setNome($row->nome);
+		$laboratorio->setEndereco($row->endereco);
+		$laboratorio->setTelefone($row->telefone);
+		$laboratorio->setEmail($row->email);
+		$laboratorio->setSenha($row->senha);
+		$laboratorio->setCNPJ($row->cnpj);
+		$laboratorio->setTipos_exames($row->tipos_exames);
 
 		return $laboratorio;
 	

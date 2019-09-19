@@ -112,23 +112,21 @@ class Medico extends Base {
 		$query = self::$database->prepare("SELECT * FROM medicos");
 		$query->execute();
 
-		$rows = $query->fetchAll();
+		$rows = $query->fetchAll(PDO::FETCH_OBJ);
 
 		$medicos_array = array();
 
 		foreach ($rows as $m) {
 			$medico = new Medico();
 
-			$medico->comArgumentos(
-				$m[0], //nome
-				$m[1], //endereco
-				$m[2], //telefone
-				$m[3], //email
-				$m[4], //senha
-				$m[5], //crm
-				$m[6], //especialidade
-				$m[7]  //genero
-			);
+			$medico->setNome($m->nome);
+			$medico->setEndereco($m->endereco);
+			$medico->setTelefone($m->telefone);
+			$medico->setEmail($m->email);
+			$medico->setSenha($m->senha);
+			$medico->setCRM($m->crm);
+			$medico->setGenero($m->genero);
+
 			$medicos_array[] = $medico;
 		}
 
@@ -156,21 +154,18 @@ class Medico extends Base {
 		$row = $query->fetch(PDO::FETCH_OBJ);
 
 		$medico = new Medico();
-		  
-		$medico->comArgumentos(
-			$row->nome, //nome
-			$row->endereco, //endereco
-			$row->telefone, //telefone
-			$row->email, //email
-			$row->senha, //senha
-			$row->crm, //crm
-            $row->especialidade,  //especialidade
-            $row->genero  //genero
-		);
+
+		$medico->setNome($row->nome);
+		$medico->setEndereco($row->endereco);
+		$medico->setTelefone($row->telefone);
+		$medico->setEmail($row->email);
+		$medico->setSenha($row->senha);
+		$medico->setCRM($row->crm);
+		$medico->setEspecialidade($row->especialidade);
+		$medico->setGenero($row->genero);
 
 		return $medico;
 	}
-
 
 }
 ?>

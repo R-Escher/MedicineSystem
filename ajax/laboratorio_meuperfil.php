@@ -13,8 +13,8 @@
         $exames = $universal->testaEntrada($_POST['inputExames']);
 
         $lab = new Laboratorio;
-        $alteraLaboratorio = $lab->comArgumentos($nome, $endereco, $telefone, $email, $senha, $cnpj, $exames);
-        $alteraLaboratorio->alterarXML();
+        $lab->comArgumentos($nome, $endereco, $telefone, $email, $senha, $cnpj, $exames);
+        #$alteraLaboratorio->alterarXML();
 
     }
 
