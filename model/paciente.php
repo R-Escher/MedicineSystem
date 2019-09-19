@@ -1,4 +1,7 @@
 <?php
+
+$raiz = $_SERVER['DOCUMENT_ROOT'];
+include_once $raiz.'/MedicineSystem/config/database/database.php';
 include_once 'base.php';
 
 class Paciente extends Base {
@@ -8,7 +11,10 @@ class Paciente extends Base {
 	private $genero;
 
 	public function __construct(){
+		self::$DB = new DB;
+		self::$database = DB::_conectaDB();
 	}
+	
 	public function __destruct(){
 	}
 
@@ -24,7 +30,7 @@ class Paciente extends Base {
         $instance->setCPF($cpf_entrada);
         $instance->setIdade($idade_entrada);
         $instance->setGenero($genero_entrada);
-        $instance->alterarXML();
+        $instance->alterarDB();
 
         return $instance;
     }
@@ -60,26 +66,28 @@ class Paciente extends Base {
 		###
 		
 		# VERIFICA SE JÁ EXISTE NO DATABASE
-		$query = $DB->prepare("SELECT cpf FROM pacientes WHERE cpf = ?");
-		$query->bindParam(1, $this->getCPF());
+		$query = self::$database->prepare("SELECT cpf FROM pacientes WHERE cpf = ?");
+		$cpf = $this->getCPF();
+		$query->bindParam(1, $cpf);
 		$query->execute();
 
 		$row = $query->fetch(PDO::FETCH_OBJ);
 
 		if ($row==null){ # PACIENTE NÃO CADASTRADO
-			$query = $DB->prepare("INSERT INTO pacientes (cpf, nome, endereco, telefone, email, senha, idade, genero) VALUES (:cpf, :nome, :endereco, :telefone, :email, :senha, :idade, :genero)");
+			$query = self::$database->prepare("INSERT INTO pacientes (cpf, nome, endereco, telefone, email, senha, idade, genero) VALUES (:cpf, :nome, :endereco, :telefone, :email, :senha, :idade, :genero)");
 			$query->execute(array(":cpf" => $this->getCPF(), ":nome" => $this->getNome(), ":endereco" => $this->getEndereco(), ":telefone" => $this->getTelefone(), ":email" => $this->getEmail(), ":senha" => $this->getSenha(), ":idade" => $this->getIdade(), ":genero" => $this->getGenero()));
 
 		} else {         # PACIENTE CADASTRADO
-			$query = $DB->prepare("UPDATE pacientes SET cpf = :cpf, nome = :nome, endereco = :endereco, telefone = :telefone, email = :email, senha = :senha, idade = :idade, genero = :genero WHERE cpf = :cpf");
+			$query = self::$database->prepare("UPDATE pacientes SET cpf = :cpf, nome = :nome, endereco = :endereco, telefone = :telefone, email = :email, senha = :senha, idade = :idade, genero = :genero WHERE cpf = :cpf");
 			$query->execute(array(":cpf" => $this->getCPF(), ":nome" => $this->getNome(), ":endereco" => $this->getEndereco(), ":telefone" => $this->getTelefone(), ":email" => $this->getEmail(), ":senha" => $this->getSenha(), ":idade" => $this->getIdade(), ":genero" => $this->getGenero()));
 		}
 	}
 
 	public function deletarPaciente(){
 
-		$query = $DB->prepare("DELETE FROM pacientes WHERE cpf = ?");
-		$query->bindParam(1, $this->getCPF());
+		$query = self::$database->prepare("DELETE FROM pacientes WHERE cpf = ?");
+		$cpf = $this->getCPF();
+		$query->bindParam(1, $cpf);
 		$success = $query->execute();
 
 		if ($success == true){
@@ -98,7 +106,7 @@ class Paciente extends Base {
 
 		*/
 
-		$query->prepare("SELECT * FROM pacientes");
+		$query = self::$database->prepare("SELECT * FROM pacientes");
 		$query->execute();
 
 		$rows = $query->fetchAll();
@@ -138,7 +146,7 @@ class Paciente extends Base {
 
 		*/		
 
-		$query->prepare("SELECT * FROM pacientes WHERE cpf = ?");
+		$query = self::$database->prepare("SELECT * FROM pacientes WHERE cpf = ?");
 		$query->bindParam(1, $cpf_entrada);
 		$query->execute();
 

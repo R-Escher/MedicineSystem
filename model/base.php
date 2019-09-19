@@ -3,9 +3,12 @@ abstract class Base {
 
 	private $nome;
 	private $endereco;
-  private $telefone;
-  private $email;
-  private $senha;
+  	private $telefone;
+  	private $email;
+	private $senha;
+	  
+	public static $DB;
+	public static $database;
 
 	public function setNome($nome) {
 		$this->nome = $nome;
@@ -31,13 +34,13 @@ abstract class Base {
 		return $this->telefone;
 	}
 
-  public function setEmail($email) {
-    $this->email = $email;
-  }
+	public function setEmail($email) {
+		$this->email = $email;
+	}
 
-  public function getEmail() {
-    return $this->email;
-  }
+	public function getEmail() {
+		return $this->email;
+	}
 
 	public function setSenha($senha) {
 		$this->senha = $senha;
@@ -47,7 +50,7 @@ abstract class Base {
 		return $this->senha;
 	}
 
-    //abstract protected function alterarXML();
+    //abstract protected function alterarDB();
     abstract protected function alterarDB();
 }
 ?>

@@ -1,4 +1,7 @@
 <?php
+
+$raiz = $_SERVER['DOCUMENT_ROOT'];
+include_once $raiz.'/MedicineSystem/config/database/database.php';
 include_once 'base.php';
 
 class Medico extends Base {
@@ -8,7 +11,10 @@ class Medico extends Base {
 	private $genero;
 
 	public function __construct(){
+		self::$DB = new DB;
+		self::$database = DB::_conectaDB();
 	}
+	
 	public function __destruct(){
 	}
 
@@ -24,7 +30,7 @@ class Medico extends Base {
 		$instance->setCRM($crm_entrada);
 		$instance->setEspecialidade($especialidade_entrada);
 		$instance->setGenero($genero_entrada);
-		$instance->alterarXML();
+		$instance->alterarDB();
 
 		return $instance;
 
@@ -61,26 +67,28 @@ class Medico extends Base {
 		###
 		
 		# VERIFICA SE JÁ EXISTE NO DATABASE
-		$query = $DB->prepare("SELECT crm FROM medicos WHERE crm = ?");
-		$query->bindParam(1, $this->getCRM());
+		$query = self::$database->prepare("SELECT crm FROM medicos WHERE crm = ?");
+		$crm = $this->getCRM();
+		$query->bindParam(1, $crm);
 		$query->execute();
 
 		$row = $query->fetch(PDO::FETCH_OBJ);
 
 		if ($row==null){ # MEDICO NÃO CADASTRADO
-			$query = $DB->prepare("INSERT INTO medicos (crm, nome, endereco, telefone, email, senha, especialidade, genero) VALUES (:crm, :nome, :endereco, :telefone, :email, :senha, :especialidade, :genero)");
+			$query = self::$database->prepare("INSERT INTO medicos (crm, nome, endereco, telefone, email, senha, especialidade, genero) VALUES (:crm, :nome, :endereco, :telefone, :email, :senha, :especialidade, :genero)");
 			$query->execute(array(":crm" => $this->getCRM(), ":nome" => $this->getNome(), ":endereco" => $this->getEndereco(), ":telefone" => $this->getTelefone(), ":email" => $this->getEmail(), ":senha" => $this->getSenha(), ":especialidade" => $this->getEspecialidade(), ":genero" => $this->getGenero()));
 
 		} else {         # MEDICO CADASTRADO
-			$query = $DB->prepare("UPDATE medicos SET crm = :crm, nome = :nome, endereco = :endereco, telefone = :telefone, email = :email, senha = :senha, especialidade = :especialidade, genero = :genero WHERE crm = :crm");
+			$query = self::$database->prepare("UPDATE medicos SET crm = :crm, nome = :nome, endereco = :endereco, telefone = :telefone, email = :email, senha = :senha, especialidade = :especialidade, genero = :genero WHERE crm = :crm");
 			$query->execute(array(":crm" => $this->getCRM(), ":nome" => $this->getNome(), ":endereco" => $this->getEndereco(), ":telefone" => $this->getTelefone(), ":email" => $this->getEmail(), ":senha" => $this->getSenha(), ":especialidade" => $this->getEspecialidade(), ":genero" => $this->getGenero()));
 		} 
 
 	}
 
 	public function deletarMedico(){
-		$query = $DB->prepare("DELETE FROM medicos WHERE crm = ?");
-		$query->bindParam(1, $this->getCRM());
+		$query = self::$database->prepare("DELETE FROM medicos WHERE crm = ?");
+		$crm = $this->getCRM();
+		$query->bindParam(1, $crm);
 		$success = $query->execute();
 
 		if ($success == true){
@@ -101,7 +109,7 @@ class Medico extends Base {
 
 		*/
 
-		$query->prepare("SELECT * FROM medicos");
+		$query = self::$database->prepare("SELECT * FROM medicos");
 		$query->execute();
 
 		$rows = $query->fetchAll();
@@ -141,7 +149,7 @@ class Medico extends Base {
 
 		*/		
 
-		$query->prepare("SELECT * FROM medicos WHERE crm = ?");
+		$query = self::$database->prepare("SELECT * FROM medicos WHERE crm = ?");
 		$query->bindParam(1, $crm_entrada);
 		$query->execute();
 

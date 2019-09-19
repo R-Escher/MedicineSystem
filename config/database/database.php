@@ -1,12 +1,12 @@
 <?php
+
     $DB = new DB;
-
     $database = $DB::_conectaDB();
-
     
     class DB{   
         public static $database;
         public static $e;
+        
         public static function _conectaDB(){
             try{
                 //('mysql:host= IP OU LOCALHOST ;dbname= NOME DB ;charset=utf8mb4','USUARIO','SENHA')
@@ -19,22 +19,18 @@
             return self::$database;
         }
 
-        public function select($what, $from, )
-
         public function selectAll($from){
-            $query = self::$database->prepare("SELECT * FROM ?");
-            $query->bindParam(1, $from);
+            $string = "SELECT * FROM ". $from;
+            $query = self::$database->prepare($string);
             $query->execute();
             $rows = $query->fetchAll(PDO::FETCH_OBJ);
             return $rows;
         }
 
         public function selectAllWhere($from, $where, $what){
-            $query = self::$database->prepare("SELECT * FROM ? WHERE ? = ?");
-            $query->bindParam(1, $from);
-            $query->bindParam(1, $where);
-            $query->bindParam(1, $what);
-            $query->execute();
+            $string = "SELECT * FROM " . $from . " WHERE " . $where . " = :what";
+            $query = self::$database->prepare($string);
+            $query->execute(array(":what => $what"));
             $rows = $query->fetchAll(PDO::FETCH_OBJ);
             return $rows;
         }

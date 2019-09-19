@@ -1,4 +1,7 @@
 <?php
+
+$raiz = $_SERVER['DOCUMENT_ROOT'];
+include_once $raiz.'/MedicineSystem/config/database/database.php';
 include_once 'base.php';
 
 class Laboratorio extends Base {
@@ -7,6 +10,8 @@ class Laboratorio extends Base {
 	private $tipos_exames;
 
 	public function __construct(){
+		self::$DB = new DB;
+		self::$database = DB::_conectaDB();
 	}
 
 	public function __destruct(){
@@ -23,7 +28,7 @@ class Laboratorio extends Base {
 		$instance->setSenha(md5($senha_entrada));
 		$instance->setCNPJ($cnpj_entrada);
 		$instance->setTipos_exames($tipos_exames_entrada);
-		$instance->alterarXML();
+		$instance->alterarDB();
 
 		return $instance;
 	}
@@ -51,26 +56,31 @@ class Laboratorio extends Base {
 		###
 		
 		# VERIFICA SE JÁ EXISTE NO DATABASE
-		$query = $DB->prepare("SELECT cnpj FROM laboratorios WHERE cnpj = ?");
-		$query->bindParam(1, $this->getCNPJ());
+		$query = self::$database->prepare("SELECT cnpj FROM laboratorios WHERE cnpj = ?");
+		$cnpj = $this->getCNPJ();
+		$query->bindParam(1, $cnpj);
 		$query->execute();
 
 		$row = $query->fetch(PDO::FETCH_OBJ);
 
 		if ($row==null){ # LAB NÃO CADASTRADO
-			$query = $DB->prepare("INSERT INTO laboratorios (cnpj, nome, endereco, telefone, email, senha, tipos_exame) VALUES (:cnpj, :nome, :endereco, :telefone, :email, :senha, :tipos_exame)");
+			$query = self::$database->prepare("INSERT INTO laboratorios (cnpj, nome, endereco, telefone, email, senha, tipos_exames) VALUES (:cnpj, :nome, :endereco, :telefone, :email, :senha, :tipos_exames)");
+			#$cnpj = $this->getCNPJ(); $nome = $this->getNome(); $endereco = $this->getEndereco(); $telefone = $this->getTelefone(); $email = $this->getEmail(); $senha = $this->getSenha(); $tipos_exames = $this->getTipos_exames();
+			#$query->execute(array(":cnpj" => $cnpj, ":nome" => $nome, ":endereco" => $endereco, ":telefone" => $telefone, ":email" => $email, ":senha" => $senha, ":tipos_exame" => $tipos_exames) );
 			$query->execute(array(":cnpj" => $this->getCNPJ(), ":nome" => $this->getNome(), ":endereco" => $this->getEndereco(), ":telefone" => $this->getTelefone(), ":email" => $this->getEmail(), ":senha" => $this->getSenha(), ":tipos_exame" => $this->getTipos_exames));
 
+
 		} else {         # LAB CADASTRADO
-			$query = $DB->prepare("UPDATE laboratorios SET cnpj = :cnpj, nome = :nome, endereco = :endereco, telefone = :telefone, email = :email, senha = :senha, tipos_exame = :tipos_exames WHERE cnpj = :cnpj");
-			$query->execute(array(":cnpj" => $this->getCNPJ(), ":nome" => $this->getNome(), ":endereco" => $this->getEndereco(), ":telefone" => $this->getTelefone(), ":email" => $this->getEmail(), ":senha" => $this->getSenha(), ":tipos_exame" => $this->getTipos_exames));
+			$query = self::$database->prepare("UPDATE laboratorios SET cnpj = :cnpj, nome = :nome, endereco = :endereco, telefone = :telefone, email = :email, senha = :senha, tipos_exames = :tipos_exames WHERE cnpj = :cnpj");
+			$query->execute(array(":cnpj" => $this->getCNPJ(), ":nome" => $this->getNome(), ":endereco" => $this->getEndereco(), ":telefone" => $this->getTelefone(), ":email" => $this->getEmail(), ":senha" => $this->getSenha(), ":tipos_exame" => $this->getTipos_exames()));
 		}        
   	}
 
 	public function deletarLaboratorio(){
 
-		$query = $DB->prepare("DELETE FROM laboratorios WHERE cnpj = ?");
-		$query->bindParam(1, $this->getCNPJ());
+		$query = self::$database->prepare("DELETE FROM laboratorios WHERE cnpj = ?");
+		$cnpj = $this->getCNPJ();
+		$query->bindParam(1, $cnpj);
 		$success = $query->execute();
 
 		if ($success == true){
@@ -92,7 +102,7 @@ class Laboratorio extends Base {
 
 		*/
 
-		$query->prepare("SELECT * FROM laboratorios");
+		$query = self::$database->prepare("SELECT * FROM laboratorios");
 		$query->execute();
 
 		$rows = $query->fetchAll();
@@ -131,7 +141,7 @@ class Laboratorio extends Base {
 
 		*/		
 
-		$query->prepare("SELECT * FROM laboratorios WHERE cnpj = ?");
+		$query = self::$database->prepare("SELECT * FROM laboratorios WHERE cnpj = ?");
 		$query->bindParam(1, $cnpj_entrada);
 		$query->execute();
 
