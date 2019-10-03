@@ -1,3 +1,7 @@
+/* necessário em versões diferentes/acima do mysql workbench 6.3 | user: admin / pass: '' */
+CREATE USER 'admin'@'localhost' IDENTIFIED WITH mysql_native_password BY '';
+GRANT ALL PRIVILEGES ON . TO 'admin'@'localhost' WITH GRANT OPTION;
+
 CREATE DATABASE msystem_db1
 	CHARACTER SET utf8
 	COLLATE utf8_unicode_ci;

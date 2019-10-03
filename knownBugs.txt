@@ -5,5 +5,3 @@ BUGS CONHECIDOS:
     Daí é redirecionado sempre para index.php em config/sessao.php.
     (talvez o mesmo aconteça com todos)
 
--- Paciente não está logando
-
