@@ -133,11 +133,6 @@ class Laboratorio extends Base {
 		/* 
 		*  RETORNA LABORATORIOS pesquisado
 		*  E SEUS DADOS
-
-
-		TESTAR ESSE METODO ! ################################################################
-
-
 		*/		
 
 		$query = self::$database->prepare("SELECT * FROM laboratorios WHERE cnpj = ?");
@@ -148,16 +143,17 @@ class Laboratorio extends Base {
 
 		$laboratorio = new laboratorio();
 		  
-		$laboratorio->setNome($row->nome);
-		$laboratorio->setEndereco($row->endereco);
-		$laboratorio->setTelefone($row->telefone);
-		$laboratorio->setEmail($row->email);
-		$laboratorio->setSenha($row->senha);
-		$laboratorio->setCNPJ($row->cnpj);
-		$laboratorio->setTipos_exames($row->tipos_exames);
+		if ($row != null){
+			$laboratorio->setNome($row->nome);
+			$laboratorio->setEndereco($row->endereco);
+			$laboratorio->setTelefone($row->telefone);
+			$laboratorio->setEmail($row->email);
+			$laboratorio->setSenha($row->senha);
+			$laboratorio->setCNPJ($row->cnpj);
+			$laboratorio->setTipos_exames($row->tipos_exames);
+		}
 
 		return $laboratorio;
-	
 	}
 }
 ?>

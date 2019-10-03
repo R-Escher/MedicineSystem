@@ -141,10 +141,6 @@ class Medico extends Base {
 		/* 
 		*  RETORNA MEDICOS pesquisado
 		*  E SEUS DADOS
-
-		TESTAR ESSE METODO ! ################################################################
-
-
 		*/		
 
 		$query = self::$database->prepare("SELECT * FROM medicos WHERE crm = ?");
@@ -155,14 +151,16 @@ class Medico extends Base {
 
 		$medico = new Medico();
 
-		$medico->setNome($row->nome);
-		$medico->setEndereco($row->endereco);
-		$medico->setTelefone($row->telefone);
-		$medico->setEmail($row->email);
-		$medico->setSenha($row->senha);
-		$medico->setCRM($row->crm);
-		$medico->setEspecialidade($row->especialidade);
-		$medico->setGenero($row->genero);
+		if ($row != null){
+			$medico->setNome($row->nome);
+			$medico->setEndereco($row->endereco);
+			$medico->setTelefone($row->telefone);
+			$medico->setEmail($row->email);
+			$medico->setSenha($row->senha);
+			$medico->setCRM($row->crm);
+			$medico->setEspecialidade($row->especialidade);
+			$medico->setGenero($row->genero);
+		}
 
 		return $medico;
 	}

@@ -139,10 +139,6 @@ class Paciente extends Base {
 		/* 
 		*  RETORNA PACIENTES pesquisado
 		*  E SEUS DADOS
-
-		TESTAR ESSE METODO ! ################################################################
-
-
 		*/		
 
 		$query = self::$database->prepare("SELECT * FROM pacientes WHERE cpf = ?");
@@ -150,18 +146,20 @@ class Paciente extends Base {
 		$query->execute();
 
 		$row = $query->fetch(PDO::FETCH_OBJ);
-
 		$paciente = new Paciente();
 
-		$paciente->setNome($row->nome);
-		$paciente->setEndereco($row->endereco);
-		$paciente->setTelefone($row->telefone);
-		$paciente->setEmail($row->email);
-		$paciente->setSenha($row->senha);
-		$paciente->setCPF($row->cpf);
-		$paciente->setIdade($row->idade);
-		$paciente->setGenero($row->genero);	
-		  
+		if ($row != null){
+			
+			$paciente->setNome($row->nome);
+			$paciente->setEndereco($row->endereco);
+			$paciente->setTelefone($row->telefone);
+			$paciente->setEmail($row->email);
+			$paciente->setSenha($row->senha);
+			$paciente->setCPF($row->cpf);
+			$paciente->setIdade($row->idade);
+			$paciente->setGenero($row->genero);	
+		}
+
 		return $paciente;
 	}
 }
