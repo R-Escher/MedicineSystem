@@ -1,7 +1,0 @@
-BUGS CONHECIDOS:
-
--- Quando admin é desconectado por timeout, não é possível relogar. 
-    Possivelmente o $_SESSION['usuario'] não é zerado quando é desconectado.
-    Daí é redirecionado sempre para index.php em config/sessao.php.
-    (talvez o mesmo aconteça com todos)
-
